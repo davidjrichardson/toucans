@@ -1,0 +1,21 @@
+{
+  "name": "toucans",
+  "authors": [
+    "David Richardson <david@tankski.co.uk>"
+  ],
+  "description": "",
+  "main": "",
+  "license": "MIT",
+  "homepage": "",
+  "private": true,
+  "ignore": [
+    "**/.*",
+    "node_modules",
+    "bower_components",
+    "test",
+    "tests"
+  ],
+  "devDependencies": {
+    "bulma": "^0.7.2"
+  }
+}
