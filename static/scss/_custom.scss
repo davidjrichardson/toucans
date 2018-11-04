@@ -1,0 +1,58 @@
+.title {
+  font-family: $family-title;
+  text-transform: uppercase;
+
+  color: $butts_text;
+}
+
+.navbar-item {
+  font-family: $family-title;
+  text-transform: uppercase;
+}
+
+.navbar-end .navbar-item {
+  padding-left: 24px;
+  padding-right: 24px;
+}
+
+.league-info {
+  display: flex;
+
+  & .league-blurb {
+    margin-top: 112px;
+
+    & h1.title {
+      margin-bottom: 0;
+      line-height: 1;
+      color: $butts_text;
+    }
+
+    & hr {
+      background-color: $butts_purple;
+      height: $picture_highlight_border;
+      width: 150px;
+      border-radius: 1px;
+
+      margin: 10px 0 26px;
+    }
+  }
+}
+
+.league-tables {
+  color: white;
+
+  background-image: linear-gradient(96deg, $butts_purple, $butts_purple_alt);
+  transform: skewY(-6deg);
+
+  //height: 808px;
+
+  & > .container {
+    transform: skewY(6deg);
+
+    padding-top: 50px;
+  }
+
+  & .title {
+    color: white;
+  }
+}

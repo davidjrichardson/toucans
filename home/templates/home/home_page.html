@@ -3,9 +3,60 @@
 {% block body_class %}template-homepage{% endblock %}
 
 {% block content %}
-    <h1>Welcome to your new Wagtail site!</h1>
+  <div class="league-hero">
+    <nav class="navbar" role="navigation" aria-label="main navigation">
+      <div class="container">
+        <div class="navbar-brand">
+          <a class="navbar-item" href="#">B.U.T.T.S. League</a>
 
-    <p>You can access the admin interface <a href="{% url 'wagtailadmin_home' %}">here</a> (make sure you have run "./manage.py createsuperuser" in the console first).</p>
+          <a role="button" class="navbar-burger burger" aria-label="menu" aria-expanded="false"
+             data-target="navbarBasicExample">
+            <span aria-hidden="true"></span>
+            <span aria-hidden="true"></span>
+            <span aria-hidden="true"></span>
+          </a>
+        </div>
+        <div class="navbar-menu">
+          <div class="navbar-end">
+            <a class="navbar-item">Standings</a>
+            <a class="navbar-item">Schedule</a>
+            <a class="navbar-item">League</a>
+            <a class="navbar-item">News</a>
+            <a class="navbar-item">Records</a>
+            <a class="navbar-item">Resources</a>
+          </div>
+        </div>
+      </div>
+    </nav>
 
-    <p>If you haven't already given the documentation a read, head over to <a href="http://docs.wagtail.io/">http://docs.wagtail.io</a> to start building on Wagtail</p>
+    <div class="container league-info">
+      <div class="league-blurb">
+        <h1 class="title is-size-1">B.U.T.T.S. League</h1>
+        <hr/>
+        <p>The BUTTS League is the premier student archery league in the United Kingdom. 8 clubs from the West and
+          East Midlands competing at the highest levels of national and student archery.</p>
+      </div>
+      <div class="league-logo is-hidden-touch">
+        {% include 'includes/butts_toucan.svg' %}
+      </div>
+    </div>
+  </div>
+
+  <div class="section league-tables">
+    <div class="container">
+      <h2 class="title is-size-2">Latest Results</h2>
+      <div class="tile is-ancestor">
+        <div class="tile is-6 is-parent">
+          <div class="tile is-child">
+            <h3 class="title is-size-3">Experienced</h3>
+          </div>
+        </div>
+        <div class="tile is-6 is-parent">
+          <div class="tile is-child">
+            <h3 class="title is-size-3">Novice</h3>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
 {% endblock %}

@@ -1,0 +1,37 @@
+// League title font face
+@font-face {
+  font-family: "Norwester";
+  src: url("/static/fonts/norwester.eot") format("eot"),
+  url("/static/fonts/norwester.woff") format("woff"),
+  url("/static/fonts/norwester.ttf") format("ttf"),
+  url("/static/fonts/norwester.svg") format("svg");
+}
+
+// Colors
+$butts_background: #F5F5F5;
+$butts_purple: #5B27FF;
+$butts_purple_alt: #7211FF;
+$butts_footer: #342F3A;
+$butts_text: #1E1921;
+$butts_text_secondary: rgba($butts_text, 0.7);
+$butts_text_tertiary: rgba($butts_text, 0.54);
+
+$fullhd-enabled: false;
+
+// Title sizes
+$size-1: 4.625rem;
+$size-2: 3rem;
+$size-3: 2.25rem;
+
+$navbar-height: 5rem;
+
+$picture_highlight_border: 7px;
+
+$family-primary: 'Montserrat', sans-serif;
+$family-title: 'Norwester', 'Montserrat', sans-serif;
+$background: $butts_background;
+$link: $butts_purple;
+$link-hover: lighten($butts_purple, 10%);
+$primary: $butts_purple;
+$radius: 4px;
+$text: $butts_text;

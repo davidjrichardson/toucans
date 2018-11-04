@@ -16,7 +16,6 @@ import os
 PROJECT_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 BASE_DIR = os.path.dirname(PROJECT_DIR)
 
-
 # Quick-start development settings - unsuitable for production
 # See https://docs.djangoproject.com/en/2.1/howto/deployment/checklist/
 
@@ -41,6 +40,9 @@ INSTALLED_APPS = [
 
     'modelcluster',
     'taggit',
+
+    'djangobower',
+    'compressor',
 
     'django.contrib.admin',
     'django.contrib.auth',
@@ -85,7 +87,6 @@ TEMPLATES = [
 
 WSGI_APPLICATION = 'toucans.wsgi.application'
 
-
 # Database
 # https://docs.djangoproject.com/en/2.1/ref/settings/#databases
 
@@ -95,7 +96,6 @@ DATABASES = {
         'NAME': os.path.join(BASE_DIR, 'db.sqlite3'),
     }
 }
-
 
 # Password validation
 # https://docs.djangoproject.com/en/2.1/ref/settings/#auth-password-validators
@@ -115,7 +115,6 @@ AUTH_PASSWORD_VALIDATORS = [
     },
 ]
 
-
 # Internationalization
 # https://docs.djangoproject.com/en/2.1/topics/i18n/
 
@@ -129,13 +128,13 @@ USE_L10N = True
 
 USE_TZ = True
 
-
 # Static files (CSS, JavaScript, Images)
-# https://docs.djangoproject.com/en/2.1/howto/static-files/
-
+# https://docs.djangoproject.com/en/1.8/howto/static-files/
 STATICFILES_FINDERS = [
     'django.contrib.staticfiles.finders.FileSystemFinder',
     'django.contrib.staticfiles.finders.AppDirectoriesFinder',
+    'djangobower.finders.BowerFinder',
+    'compressor.finders.CompressorFinder',
 ]
 
 STATICFILES_DIRS = [
@@ -153,6 +152,18 @@ STATIC_URL = '/static/'
 MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
 MEDIA_URL = '/media/'
 
+# Django Compressor
+PROJECT_PATH = os.path.abspath(os.path.dirname(__file__))
+BOWER_COMPONENTS_ROOT = os.path.join(PROJECT_PATH, "../components")
+COMPRESS_PRECOMPILERS = (
+    ('text/x-scss',
+     'sass --scss --style compressed -I "%s/bower_components/bulma" "{infile}" "{outfile}"' % BOWER_COMPONENTS_ROOT),
+)
+
+# Django-bower
+BOWER_INSTALLED_APPS = [
+    'bulma~0.7.2',
+]
 
 # Wagtail settings
 
