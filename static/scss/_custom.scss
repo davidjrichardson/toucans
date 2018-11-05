@@ -15,25 +15,33 @@
   padding-right: 24px;
 }
 
-.league-info {
-  display: flex;
+.league-hero {
+  margin-bottom: -12rem;
 
-  & .league-blurb {
-    margin-top: 112px;
+  & .league-info {
+    display: flex;
 
-    & h1.title {
-      margin-bottom: 0;
-      line-height: 1;
-      color: $butts_text;
+    & .league-logo {
+      //z-index: 2;
     }
 
-    & hr {
-      background-color: $butts_purple;
-      height: $picture_highlight_border;
-      width: 150px;
-      border-radius: 1px;
+    & .league-blurb {
+      margin-top: 112px;
 
-      margin: 10px 0 26px;
+      & h1.title {
+        margin-bottom: 0;
+        line-height: 1;
+        color: $butts_text;
+      }
+
+      & hr {
+        background-color: $butts_purple;
+        height: $picture_highlight_border;
+        width: 150px;
+        border-radius: 1px;
+
+        margin: 10px 0 26px;
+      }
     }
   }
 }
@@ -41,10 +49,24 @@
 .league-tables {
   color: white;
 
+  z-index: -1;
+
   background-image: linear-gradient(96deg, $butts_purple, $butts_purple_alt);
   transform: skewY(-6deg);
 
-  //height: 808px;
+  &.league-tables.league-tables {
+    padding-bottom: 6.5rem;
+  }
+
+  & .tile.is-ancestor {
+    & .is-parent:first-child {
+      padding-right: 10px;
+    }
+
+    & .is-parent:last-child {
+      padding-left: 10px;
+    }
+  }
 
   & > .container {
     transform: skewY(6deg);
@@ -54,5 +76,65 @@
 
   & .title {
     color: white;
+  }
+
+  & .table {
+    width: 100%;
+    table-layout: fixed;
+    border-collapse: separate;
+
+    background-color: transparent;
+
+    &.is-striped tbody tr:not(.is-selected):nth-child(2n) {
+      background-color: transparent;
+
+      & td {
+        background-color: rgba(0, 0, 0, 0.1);
+      }
+
+      & td:first-child {
+        border-top-left-radius: $radius;
+        border-bottom-left-radius: $radius;
+      }
+
+      & td:last-child {
+        border-top-right-radius: $radius;
+        border-bottom-right-radius: $radius;
+      }
+    }
+
+    & td,
+    & th {
+      padding: 13px 10px;
+      color: white;
+
+      border: 0 solid transparent;
+    }
+
+    & .pos {
+      padding-left: 0;
+    }
+
+    & .uni {
+      width: 45%;
+    }
+
+    & .hits {
+      width: 10%;
+    }
+
+    & .tens {
+      padding-right: 30px;
+    }
+  }
+}
+
+.table {
+  & .is-numeric {
+    text-align: right;
+  }
+
+  & .is-text {
+    text-align: left;
   }
 }
