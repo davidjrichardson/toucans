@@ -1,8 +1,16 @@
+@import "sass/utilities/mixins";
+
 .title {
   font-family: $family-title;
   text-transform: uppercase;
 
   color: $butts_text;
+}
+
+.navbar-brand .navbar-item {
+  @include touch {
+    padding: .5rem 1.5rem;
+  }
 }
 
 .navbar-item {
@@ -18,11 +26,15 @@
 .league-hero {
   margin-bottom: -12rem;
 
+  @include touch {
+    margin-bottom: 3rem;
+  }
+
   & .league-info {
     display: flex;
 
-    & .league-logo {
-      //z-index: 2;
+    @include touch {
+      padding: 0 1.5rem;
     }
 
     & .league-blurb {
