@@ -211,11 +211,11 @@ a {
     }
 
     & .uni {
-      width: 45%;
+      width: 43%;
     }
 
     & .hits {
-      width: 10%;
+      width: 12%;
     }
 
     & .tens {
@@ -245,6 +245,8 @@ a {
     }
 
     & .button.is-white {
+      transition: background-color 0.1s ease-in-out;
+
       color: $butts_text_secondary;
 
       & .fas {
@@ -285,6 +287,8 @@ a {
     & .article-link .title {
       color: $link;
       line-height: 1.5;
+
+      transition: color 0.15s ease-in-out;
 
       &:hover {
         color: $link-hover;
