@@ -7,6 +7,10 @@
   color: $butts_text;
 }
 
+a {
+  transition: color 0.15s ease-in-out;
+}
+
 .navbar-brand .navbar-item {
   @include touch {
     padding: .5rem 1.5rem;
@@ -23,8 +27,88 @@
   padding-right: 24px;
 }
 
+.footer {
+  color: rgba(255, 255, 255, 0.87);
+
+  & .social-media {
+    & h4 {
+      color: $butts-text_tertiary_inv;
+    }
+  }
+
+  & strong {
+    color: $butts_text_secondary_inv;
+  }
+
+  & .sitemap {
+    margin-bottom: 3rem;
+  }
+
+  & a {
+    color: $butts_text_secondary_inv;
+
+    &:hover {
+      color: white;
+    }
+  }
+
+  & .sitemap-entry {
+    &:not(:first-of-type) {
+      margin-top: 4px;
+    }
+
+    &.more-news {
+      font-size: 12px;
+
+      & a {
+        color: $butts-text_tertiary_inv;
+      }
+
+      & .fas {
+        margin-left: 0px;
+
+        transition: margin-left 0.2s ease-out;
+      }
+
+      &:hover,
+      &:focus {
+        & .fas {
+          margin-left: 2px;
+        }
+
+        & a {
+          color: $butts_text_secondary_inv;
+        }
+      }
+    }
+
+    &.title {
+      margin-bottom: 0;
+
+      &:not(:first-of-type) {
+        margin-top: 1rem;
+      }
+
+      & a {
+        color: $butts-text_tertiary_inv;
+
+        font-size: 2rem;
+
+        &:hover, &:focus {
+          color: $butts_text_secondary_inv;
+        }
+      }
+    }
+  }
+}
+
 .league-hero {
   margin-bottom: -12rem;
+
+  background-image: url('/static/img/hero_background.jpg');
+  background-position: center;
+  background-size: cover;
+  background-repeat: no-repeat;
 
   @include touch {
     margin-bottom: 3rem;
@@ -32,6 +116,7 @@
 
   & .league-info {
     display: flex;
+    z-index: 2;
 
     @include touch {
       padding: 0 1.5rem;
@@ -60,8 +145,6 @@
 
 .league-tables {
   color: white;
-
-  z-index: -1;
 
   background-image: linear-gradient(96deg, $butts_purple, $butts_purple_alt);
   transform: skewY(-6deg);
@@ -137,6 +220,85 @@
 
     & .tens {
       padding-right: 30px;
+    }
+  }
+}
+
+.league-news {
+  @include touch {
+    margin-top: 6.5rem;
+  }
+
+  @include mobile {
+    margin-top: 5rem;
+  }
+
+  margin-top: 8rem;
+}
+
+.league-news {
+  & .older-news {
+    margin-top: 20px;
+
+    & .fas {
+      margin-left: 5px;
+    }
+
+    & .button.is-white {
+      color: $butts_text_secondary;
+
+      & .fas {
+        color: $butts_text_tertiary;
+      }
+
+      &:hover {
+        background-color: rgba($butts_purple, 0.075);
+        color: $butts_text;
+
+        & .fas {
+          color: $butts_text;
+        }
+      }
+
+      &:focus {
+        background-color: rgba($butts_purple, 0.15);
+        color: $butts_text;
+
+        & .fas {
+          color: $butts_text;
+        }
+      }
+    }
+  }
+
+  & .article {
+    & hr {
+      margin-bottom: 36px;
+    }
+
+    & .article-cover {
+      border-radius: $radius;
+
+      margin-bottom: 10px;
+    }
+
+    & .article-link .title {
+      color: $link;
+      line-height: 1.5;
+
+      &:hover {
+        color: $link-hover;
+      }
+    }
+
+    & .article-info {
+      color: $butts_text_secondary;
+
+      margin-bottom: 16px;
+
+      & .fa {
+        color: $butts_text_tertiary;
+      }
     }
   }
 }

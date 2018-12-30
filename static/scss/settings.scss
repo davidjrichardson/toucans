@@ -16,6 +16,9 @@ $butts_text: #1E1921;
 $butts_text_secondary: rgba($butts_text, 0.7);
 $butts_text_tertiary: rgba($butts_text, 0.54);
 
+$butts_text_secondary_inv: rgba($white, 0.87);
+$butts_text_tertiary_inv: rgba($white, 0.54);
+
 $fullhd-enabled: false;
 
 // Title sizes
@@ -24,12 +27,17 @@ $size-2: 3rem;
 $size-3: 2.25rem;
 
 $navbar-height: 5rem;
+$navbar-item-color: $butts_text;
+$navbar-background-color: transparent;
+$navbar-item-hover-background-color: transparent;
+$navbar-item-active-background-color: transparent;
 
 $picture_highlight_border: 7px;
 
 $family-primary: 'Montserrat', sans-serif;
 $family-title: 'Norwester', 'Montserrat', sans-serif;
 $background: $butts_background;
+$footer-background-color: $butts_footer;
 $link: $butts_purple;
 $link-hover: lighten($butts_purple, 10%);
 $primary: $butts_purple;
