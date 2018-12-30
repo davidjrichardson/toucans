@@ -3,6 +3,8 @@
 
 {% block body_class %}template-homepage{% endblock %}
 
+{% block title %}The B.U.T.T.S. Challenge League{% endblock %}
+
 {% block content %}
   {# TODO: Split the navbar into its own include/tag #}
   <div class="league-hero">
@@ -205,53 +207,8 @@
       <h2 class="title is-size-2">Latest News</h2>
       <div class="columns">
         <div class="column is-8">
-          <article class="article">
-            <img class="article-cover" src="https://picsum.photos/760/250">
-            <a class="article-link" href="#">
-              <h3 class="title is-size-3">Lorem ipsum dolor</h3>
-            </a>
-            <p class="article-info"><i class="fas fa-clock"></i> 06/11/2018 by David Richardson</p>
-            <p class="article-blurb"> Lorem ipsum dolor sit amet, consectetur adipiscing elit. Vivamus non turpis
-              imperdiet, luctus nisi eget, maximus ante. Donec rutrum nisi ac dictum rutrum. Donec feugiat, libero a
-              cursus sodales, mauris magna sodales diam, eu sollicitudin elit velit sit amet risus. Fusce consectetur,
-              leo sed aliquet tincidunt, felis tortor suscipit diam, ac fringilla lectus leo ac nunc.</p>
-            <hr/>
-          </article>
-          <article class="article">
-            <img class="article-cover" src="https://picsum.photos/760/250">
-            <a class="article-link" href="#">
-              <h3 class="title is-size-3">Lorem ipsum dolor</h3>
-            </a>
-            <p class="article-info"><i class="fas fa-clock"></i> 06/11/2018 by David Richardson</p>
-            <p class="article-blurb"> Lorem ipsum dolor sit amet, consectetur adipiscing elit. Vivamus non turpis
-              imperdiet, luctus nisi eget, maximus ante. Donec rutrum nisi ac dictum rutrum. Donec feugiat, libero a
-              cursus sodales, mauris magna sodales diam, eu sollicitudin elit velit sit amet risus. Fusce consectetur,
-              leo sed aliquet tincidunt, felis tortor suscipit diam, ac fringilla lectus leo ac nunc.</p>
-            <hr/>
-          </article>
-          <article class="article">
-            <img class="article-cover" src="https://picsum.photos/760/250">
-            <a class="article-link" href="#">
-              <h3 class="title is-size-3">Lorem ipsum dolor</h3>
-            </a>
-            <p class="article-info"><i class="fas fa-clock"></i> 06/11/2018 by David Richardson</p>
-            <p class="article-blurb"> Lorem ipsum dolor sit amet, consectetur adipiscing elit. Vivamus non turpis
-              imperdiet, luctus nisi eget, maximus ante. Donec rutrum nisi ac dictum rutrum. Donec feugiat, libero a
-              cursus sodales, mauris magna sodales diam, eu sollicitudin elit velit sit amet risus. Fusce consectetur,
-              leo sed aliquet tincidunt, felis tortor suscipit diam, ac fringilla lectus leo ac nunc.</p>
-            <hr/>
-          </article>
-          <article class="article">
-            <img class="article-cover" src="https://picsum.photos/760/250">
-            <a class="article-link" href="#">
-              <h3 class="title is-size-3">Lorem ipsum dolor</h3>
-            </a>
-            <p class="article-info"><i class="fas fa-clock"></i> 06/11/2018 by David Richardson</p>
-            <p class="article-blurb"> Lorem ipsum dolor sit amet, consectetur adipiscing elit. Vivamus non turpis
-              imperdiet, luctus nisi eget, maximus ante. Donec rutrum nisi ac dictum rutrum. Donec feugiat, libero a
-              cursus sodales, mauris magna sodales diam, eu sollicitudin elit velit sit amet risus. Fusce consectetur,
-              leo sed aliquet tincidunt, felis tortor suscipit diam, ac fringilla lectus leo ac nunc.</p>
-          </article>
+          {# TODO: Pass the 5 most recent blog posts #}
+          {% include 'home/includes/article.html' %}
           <div class="level older-news">
             <div class="level-left"></div>
             <div class="level-right">
