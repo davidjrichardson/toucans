@@ -33,6 +33,19 @@ a {
   & .social-media {
     & h4 {
       color: $butts-text_tertiary_inv;
+
+      margin-bottom: 1rem;
+    }
+
+    & .social-icons li {
+      line-height: 1;
+      font-size: 32px;
+
+      float: left;
+
+      &:not(last-of-type) {
+        margin-right: 1rem;
+      }
     }
   }
 
@@ -282,6 +295,10 @@ a {
       border-radius: $radius;
 
       margin-bottom: 10px;
+    }
+
+    & .article-cover-link {
+      line-height: 0;
     }
 
     & .article-link .title {
