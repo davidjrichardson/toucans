@@ -13,6 +13,7 @@
         <option value="$MODULE_DIR$/static" />
         <option value="$MODULE_DIR$/toucans/templates" />
         <option value="$MODULE_DIR$/home/templates" />
+        <option value="$MODULE_DIR$/lib/templates" />
       </list>
     </option>
   </component>

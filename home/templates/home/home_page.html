@@ -1,5 +1,5 @@
 {% extends "base.html" %}
-{% load static %}
+{% load static base_tags %}
 
 {% block body_class %}template-homepage{% endblock %}
 
@@ -8,199 +8,21 @@
 {% block content %}
   {# TODO: Split the navbar into its own include/tag #}
   <div class="league-hero">
-    <nav class="navbar" role="navigation" aria-label="main navigation">
-      <div class="container">
-        <div class="navbar-brand">
-          <a class="navbar-item" href="#">B.U.T.T.S. League</a>
-
-          <a role="button" class="navbar-burger burger" aria-label="menu" aria-expanded="false"
-             data-target="navbarBasicExample">
-            <span aria-hidden="true"></span>
-            <span aria-hidden="true"></span>
-            <span aria-hidden="true"></span>
-          </a>
-        </div>
-        <div class="navbar-menu">
-          <div class="navbar-end">
-            <a class="navbar-item">Standings</a>
-            <a class="navbar-item">Schedule</a>
-            <a class="navbar-item">League</a>
-            <a class="navbar-item">News</a>
-            <a class="navbar-item">Records</a>
-            <a class="navbar-item">Resources</a>
-          </div>
-        </div>
-      </div>
-    </nav>
+    {% navigation calling_page=request.path %}
 
     <div class="container league-info">
       <div class="league-blurb">
         <h1 class="title is-size-1">B.U.T.T.S. League</h1>
         <hr/>
-        <p>The BUTTS League is the premier student archery league in the United Kingdom. 8 clubs from the West and
-          East Midlands competing at the highest levels of national and student archery.</p>
+        <p>{{ page.discription }}</p>
       </div>
       <div class="league-logo is-hidden-touch">
-        {% include 'includes/butts_toucan.svg' %}
+        {% include 'home/includes/butts_toucan.svg' %}
       </div>
     </div>
   </div>
 
-  <div class="section league-tables">
-    <div class="container">
-      <h2 class="title is-size-2">Current Standings</h2>
-      <div class="tile is-ancestor">
-        <div class="tile is-6 is-parent">
-          <div class="tile is-child">
-            <h3 class="title is-size-3">Experienced</h3>
-            <table class="table is-striped">
-              <thead>
-              <tr>
-                <th class="is-numeric pos">Position</th>
-                <th class="is-text uni">University</th>
-                <th class="is-numeric points">Points</th>
-                <th class="is-numeric hits">Score</th>
-                <th class="is-numeric tens">10s</th>
-              </tr>
-              </thead>
-              <tbody>
-              <tr>
-                <td class="is-numeric pos">1st</td>
-                <td class="is-text">Warwick</td>
-                <td class="is-numeric">1234</td>
-                <td class="is-numeric">240</td>
-                <td class="is-numeric tens">240</td>
-              </tr>
-              <tr>
-                <td class="is-numeric pos">1st</td>
-                <td class="is-text">Warwick</td>
-                <td class="is-numeric">1234</td>
-                <td class="is-numeric">240</td>
-                <td class="is-numeric tens">240</td>
-              </tr>
-              <tr>
-                <td class="is-numeric pos">1st</td>
-                <td class="is-text">Warwick</td>
-                <td class="is-numeric">1234</td>
-                <td class="is-numeric">240</td>
-                <td class="is-numeric tens">240</td>
-              </tr>
-              <tr>
-                <td class="is-numeric pos">1st</td>
-                <td class="is-text">Warwick</td>
-                <td class="is-numeric">1234</td>
-                <td class="is-numeric">240</td>
-                <td class="is-numeric tens">240</td>
-              </tr>
-              <tr>
-                <td class="is-numeric pos">1st</td>
-                <td class="is-text">Warwick</td>
-                <td class="is-numeric">1234</td>
-                <td class="is-numeric">240</td>
-                <td class="is-numeric tens">240</td>
-              </tr>
-              <tr>
-                <td class="is-numeric pos">1st</td>
-                <td class="is-text">Warwick</td>
-                <td class="is-numeric">1234</td>
-                <td class="is-numeric">240</td>
-                <td class="is-numeric tens">240</td>
-              </tr>
-              <tr>
-                <td class="is-numeric pos">1st</td>
-                <td class="is-text">Warwick</td>
-                <td class="is-numeric">1234</td>
-                <td class="is-numeric">240</td>
-                <td class="is-numeric tens">240</td>
-              </tr>
-              <tr>
-                <td class="is-numeric pos">1st</td>
-                <td class="is-text">Warwick</td>
-                <td class="is-numeric">1234</td>
-                <td class="is-numeric">240</td>
-                <td class="is-numeric tens">240</td>
-              </tr>
-              </tbody>
-            </table>
-          </div>
-        </div>
-        <div class="tile is-6 is-parent">
-          <div class="tile is-child">
-            <h3 class="title is-size-3">Novice</h3>
-            <table class="table is-striped">
-              <thead>
-              <tr>
-                <th class="is-numeric pos">Position</th>
-                <th class="is-text uni">University</th>
-                <th class="is-numeric points">Points</th>
-                <th class="is-numeric hits">Score</th>
-                <th class="is-numeric tens">10s</th>
-              </tr>
-              </thead>
-              <tbody>
-              <tr>
-                <td class="is-numeric pos">1st</td>
-                <td class="is-text">Warwick</td>
-                <td class="is-numeric">1234</td>
-                <td class="is-numeric">240</td>
-                <td class="is-numeric tens">240</td>
-              </tr>
-              <tr>
-                <td class="is-numeric pos">1st</td>
-                <td class="is-text">Warwick</td>
-                <td class="is-numeric">1234</td>
-                <td class="is-numeric">240</td>
-                <td class="is-numeric tens">240</td>
-              </tr>
-              <tr>
-                <td class="is-numeric pos">1st</td>
-                <td class="is-text">Warwick</td>
-                <td class="is-numeric">1234</td>
-                <td class="is-numeric">240</td>
-                <td class="is-numeric tens">240</td>
-              </tr>
-              <tr>
-                <td class="is-numeric pos">1st</td>
-                <td class="is-text">Warwick</td>
-                <td class="is-numeric">1234</td>
-                <td class="is-numeric">240</td>
-                <td class="is-numeric tens">240</td>
-              </tr>
-              <tr>
-                <td class="is-numeric pos">1st</td>
-                <td class="is-text">Warwick</td>
-                <td class="is-numeric">1234</td>
-                <td class="is-numeric">240</td>
-                <td class="is-numeric tens">240</td>
-              </tr>
-              <tr>
-                <td class="is-numeric pos">1st</td>
-                <td class="is-text">Warwick</td>
-                <td class="is-numeric">1234</td>
-                <td class="is-numeric">240</td>
-                <td class="is-numeric tens">240</td>
-              </tr>
-              <tr>
-                <td class="is-numeric pos">1st</td>
-                <td class="is-text">Warwick</td>
-                <td class="is-numeric">1234</td>
-                <td class="is-numeric">240</td>
-                <td class="is-numeric tens">240</td>
-              </tr>
-              <tr>
-                <td class="is-numeric pos">1st</td>
-                <td class="is-text">Warwick</td>
-                <td class="is-numeric">1234</td>
-                <td class="is-numeric">240</td>
-                <td class="is-numeric tens">240</td>
-              </tr>
-              </tbody>
-            </table>
-          </div>
-        </div>
-      </div>
-    </div>
-  </div>
+  {% include 'home/tags/table_homepage.html' %}
 
   <div class="section league-news">
     <div class="container">
