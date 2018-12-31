@@ -11,6 +11,16 @@ a {
   transition: color 0.15s ease-in-out;
 }
 
+.site-wrapper {
+  display: flex;
+  height: 100vh;
+  flex-direction: column;
+
+  & .site-content {
+    flex: 1;
+  }
+}
+
 .navbar-brand .navbar-item {
   @include touch {
     padding: .5rem 1.5rem;
@@ -25,6 +35,10 @@ a {
 .navbar-end .navbar-item {
   padding-left: 24px;
   padding-right: 24px;
+
+  &.is-active {
+    color: $butts_purple;
+  }
 }
 
 .footer {

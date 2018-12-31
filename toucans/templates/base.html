@@ -30,16 +30,18 @@
 
   {% block extra_css %}{% endblock %}
 </head>
-<body class="site-wrapper {% block template_classname %}{% endblock %}">
+<body class="{% block template_classname %}{% endblock %}">
 {% wagtailuserbar %}
-<div class="site-content">
-  {% block navigation %}
-    {% navigation calling_page=self %}
-  {% endblock %}
-  {% block content %}{% endblock %}
-</div>
+<div class="site-wrapper">
+  <div class="site-content">
+    {% block navigation %}
+      {% navigation calling_page=self %}
+    {% endblock %}
+    {% block content %}{% endblock %}
+  </div>
 
-{% footer %}
+  {% footer %}
+</div>
 
 {% block extra_js %}{% endblock %}
 </body>

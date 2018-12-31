@@ -1,3 +1,5 @@
+{% load wagtailcore_tags %}
+
 <footer class="footer">
   <div class="container">
     <div class="sitemap">
@@ -14,7 +16,7 @@
           </ul>
         </div>
         <div class="column is-3">
-          <p class="sitemap-entry title"><a href="#">Home</a></p>
+          <p class="sitemap-entry title"><a href="{% pageurl request.site.root_page %}">Home</a></p>
           <p class="sitemap-entry title"><a href="#">Standings</a></p>
           <p class="sitemap-entry"><a href="#">Previous Results</a></p>
           <p class="sitemap-entry title"><a href="#">Schedule</a></p>

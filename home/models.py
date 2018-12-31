@@ -1,5 +1,5 @@
 from django.db import models
-from wagtail.admin.edit_handlers import FieldPanel
+from wagtail.admin.edit_handlers import FieldPanel, MultiFieldPanel
 from wagtail.core.models import Page
 from wagtail.snippets.models import register_snippet
 
@@ -22,7 +22,16 @@ class BlogPage(Page):
     pass
 
 
+# TODO: Create a streamblock for the timeline w/ a few types of blocks: leg block, champs block
+# Each block needs a date, host/venue, clubs attending
+# Handle the case when a leg is split across different weekends
+class SchedulePage(Page):
+    parent_page_types = ['home.HomePage']
+
+
 class HomePage(Page):
+    subpage_types = ['home.SchedulePage']
+
     description = models.TextField(max_length=400, default='')
 
     @property

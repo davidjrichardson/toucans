@@ -44,7 +44,7 @@ def navigation(context, calling_page=None):
         # We don't directly check if calling_page is None since the template
         # engine can pass an empty string to calling_page
         # if the variable passed as calling_page does not exist.
-        item.active = (calling_page.startswith(item.url) if calling_page else False)
+        item.active = (calling_page.url.startswith(item.url) if calling_page else False)
 
     return {
         'is_home': (calling_page.url == u'/' if calling_page else False),
