@@ -1,7 +1,11 @@
+{% load wagtailcore_tags %}
+
 <nav class="navbar" role="navigation" aria-label="main navigation">
   <div class="container">
     <div class="navbar-brand">
-      <a class="navbar-item" href="#">B.U.T.T.S. League</a>
+      {% if not is_home %}
+        <a class="navbar-item" href="#">B.U.T.T.S. League</a>
+      {% endif %}
 
       <a role="button" class="navbar-burger burger" aria-label="menu" aria-expanded="false"
          data-target="navbarBasicExample">
@@ -12,12 +16,15 @@
     </div>
     <div class="navbar-menu">
       <div class="navbar-end">
-        <a class="navbar-item">Standings</a>
-        <a class="navbar-item">Schedule</a>
-        <a class="navbar-item">League</a>
-        <a class="navbar-item">News</a>
-        <a class="navbar-item">Records</a>
-        <a class="navbar-item">Resources</a>
+        {% for item in menu_items %}
+          <a class="navbar-item" href="{% pageurl item %}">item.title</a>
+        {% endfor %}
+{#        <a class="navbar-item">Standings</a>#}
+{#        <a class="navbar-item">Schedule</a>#}
+{#        <a class="navbar-item">League</a>#}
+{#        <a class="navbar-item">News</a>#}
+{#        <a class="navbar-item">Records</a>#}
+{#        <a class="navbar-item">Resources</a>#}
       </div>
     </div>
   </div>

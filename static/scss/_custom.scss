@@ -30,6 +30,10 @@ a {
 .footer {
   color: rgba(255, 255, 255, 0.87);
 
+  &.footer.footer {
+    padding-bottom: 3rem;
+  }
+
   & .social-media {
     & h4 {
       color: $butts-text_tertiary_inv;

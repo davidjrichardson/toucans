@@ -5,9 +5,12 @@
         <div class="column is-3 social-media">
           <h4 class="title is-4">Social Media</h4>
           <ul class="social-icons">
-            {# TODO: Actually finish the footer #}
-            <li><a href="#" title="Facebook"><i class="fab fa-facebook-square"></i></a></li>
-            <li><a href="#" title="Twitter"><i class="fab fa-twitter-square"></i></a></li>
+            {% if facebook_url %}
+              <li><a href="{{ facebook_url }}" title="Facebook"><i class="fab fa-facebook-square"></i></a></li>
+            {% endif %}
+            {% if twitter_url %}
+              <li><a href="{{ twitter_url }}" title="Twitter"><i class="fab fa-twitter-square"></i></a></li>
+            {% endif %}
           </ul>
         </div>
         <div class="column is-3">
@@ -19,7 +22,8 @@
         <div class="column is-3">
           <p class="sitemap-entry title"><a href="#">News</a></p>
           <p class="sitemap-entry"><a href="#">B.U.T.T.S. Leg 1 Recap</a></p>
-          <p class="sitemap-entry more-news"><a href="#">Older news articles <i class="fas fa-chevron-right"></i></a></p>
+          <p class="sitemap-entry more-news"><a href="#">Older news articles <i class="fas fa-chevron-right"></i></a>
+          </p>
           <p class="sitemap-entry title"><a href="#">League</a></p>
           <p class="sitemap-entry"><a href="#">League History</a></p>
           <p class="sitemap-entry"><a href="#">Rules</a></p>
@@ -33,12 +37,14 @@
           <p class="sitemap-entry"><a href="#">B.U.T.T.S. Badges</a></p>
           <p class="sitemap-entry"><a href="#">Organising a Leg</a></p>
           <p class="sitemap-entry"><a href="#">Ultimate Archer</a></p>
+          <p class="sitemap-entry"><a href="{% url 'wagtailadmin_home' %}">Admin Login</a></p>
         </div>
       </div>
     </div>
     <div class="content has-text-centered">
       <p>
-        <strong>© B.U.T.T.S. League {% now 'Y' %}</strong>. Website built by <a href="https://github.com/davidjrichardson">David
+        <strong>© B.U.T.T.S. League {% now 'Y' %}</strong>. Website built by <a
+          href="https://github.com/davidjrichardson">David
         Richardson</a> using <a href="https://wagtail.io">Wagtail</a>.
       </p>
     </div>
