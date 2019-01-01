@@ -1,6 +1,20 @@
 {% extends "base.html" %}
-{% load static base_tags %}
+{% load static base_tags wagtailcore_tags %}
 
 {% block body_class %}template-schedulepage{% endblock %}
 
 {% block title %}League Schedule | B.U.T.T.S. League{% endblock %}
+
+{% block content %}
+  <div class="section league-schedule">
+    <div class="container">
+      <h2 class="title is-size-2">{{ page.page_title }}</h2>
+      <h6 class="subtitle is-size-6">Last edited at {{ page.last_published_at|time:'P' }} on the {{ page.last_published_at|date:'jS F Y' }}</h6>
+      <div class="content">
+        {{ page.page_description|richtext }}
+      </div>
+      {% include 'home/includes/schedule_timeline.html' with timeline=page.timeline %}
+    </div>
+  </div>
+
+{% endblock %}

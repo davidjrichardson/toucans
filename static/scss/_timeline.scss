@@ -27,6 +27,21 @@ $dimensions: 16 24 32 48 64 96 128 !default;
     text-align: center;
     display: flex;
     justify-content: center;
+
+    & .tag {
+      min-height: 2em;
+      height: auto;
+
+      &.league-start {
+        display: flex;
+        flex-direction: column;
+
+        & span.date {
+          font-size: 0.75rem;
+          margin-bottom: 0.15rem;
+        }
+      }
+    }
   }
 
   .timeline-item {
@@ -156,6 +171,14 @@ $dimensions: 16 24 32 48 64 96 128 !default;
 
       .heading {
         font-weight: $weight-semibold;
+      }
+
+      .timeline-group {
+        font-size: 0.9rem;
+
+        &:not(:last-child) {
+          margin-bottom: 1rem;
+        }
       }
     }
 

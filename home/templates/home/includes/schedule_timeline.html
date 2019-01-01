@@ -1,0 +1,56 @@
+{% load wagtailimages_tags %}
+
+<div class="timeline is-centered">
+  {% for item in timeline %}
+    {% if item.block_type == 'league_start_block' %}
+      <header class="timeline-header">
+        <div class="tag is-medium is-primary league-start">
+          <span>League Starts</span>
+          <span class="date">{{ item.value.start_date|date:'jS F Y' }}</span>
+        </div>
+      </header>
+    {% elif item.block_type == 'league_end_block' %}
+      <header class="timeline-header">
+        <span class="tag is-medium is-primary">League Finished</span>
+      </header>
+    {% elif item.block_type == 'league_new_year_block' %}
+      <header class="timeline-header">
+        <span class="tag is-primary">{{ item.value.new_year }}</span>
+      </header>
+    {% elif item.block_type == 'league_leg_block' %}
+      <div class="timeline-item is-grey">
+        <div class="timeline-marker is-primary"></div>
+        <div class="timeline-content">
+          <div class="timeline-group">
+            <p class="heading">{{ item.value.leg_name }} - {{ item.value.leg_date|date:'jS F Y' }}</p>
+            <p>Hosted by {{ item.value.leg_host }}</p>
+            <p>Attending clubs: <strong>{{ item.value.leg_attendees }}</strong></p>
+          </div>
+        </div>
+      </div>
+    {% elif item.block_type == 'league_champs_block' %}
+      <div class="timeline-item is-grey">
+        <div class="timeline-marker is-primary is-icon">
+          <i class="fas fa-trophy"></i>
+        </div>
+        <div class="timeline-content">
+          <p class="heading">{{ item.value.champs_name }} - {{ item.value.champs_date|date:'jS F Y' }}</p>
+          <p>Hosted by {{ item.value.champs_venue }}</p>
+        </div>
+      </div>
+    {% elif item.block_type == 'league_combined_leg_block' %}
+      <div class="timeline-item is-grey">
+        <div class="timeline-marker is-primary"></div>
+        <div class="timeline-content">
+          {% for sub_item in item.value %}
+            <div class="timeline-group">
+              <p class="heading">{{ sub_item.leg_name }} - {{ sub_item.leg_date|date:'jS F Y' }}</p>
+              <p>Hosted by {{ sub_item.leg_host }}</p>
+              <p>Attending clubs: <strong>{{ sub_item.leg_attendees }}</strong></p>
+            </div>
+          {% endfor %}
+        </div>
+      </div>
+    {% endif %}
+  {% endfor %}
+</div>

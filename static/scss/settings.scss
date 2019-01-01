@@ -43,3 +43,10 @@ $link-hover: lighten($butts_purple, 10%);
 $primary: $butts_purple;
 $radius: 4px;
 $text: $butts_text;
+
+@import "sass/utilities/functions";
+
+$custom-colors: (
+        "primary-alt": ($butts_purple_alt, findColorInvert($butts_purple)),
+        "primary-desat": (desaturate($butts_purple, 50%), findColorInvert(desaturate($butts_purple, 50%)))
+);
