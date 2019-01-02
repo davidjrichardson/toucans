@@ -277,13 +277,18 @@ class BlogIndexPage(Page):
 
 
 class HomePage(Page):
-    subpage_types = ['home.SchedulePage']
+    subpage_types = ['home.SchedulePage', 'home.BlogIndexPage']
 
     description = models.TextField(max_length=400, default='')
 
     @property
     def posts(self):
-        return BlogPage.objects.live().order_by('-first_published_at')[:5]
+        return self.news_index.blogs[:5]
+        # return BlogPage.objects.live().order_by('-first_published_at')[:5]
+
+    @property
+    def news_index(self):
+        return BlogIndexPage.objects.live().child_of(self).first()
 
     content_panels = Page.content_panels + [
         FieldPanel('description', classname="full"),

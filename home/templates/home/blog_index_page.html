@@ -1,0 +1,38 @@
+{% extends "base.html" %}
+{% load static base_tags wagtailcore_tags %}
+
+{% block body_class %}template-newsindex{% endblock %}
+
+{% block title %}Latest News | B.U.T.T.S. League{% endblock %}
+
+{% block content %}
+  <div class="section league-news">
+    <div class="container">
+      <h2 class="title is-size-2">Latest News</h2>
+      <div class="columns">
+        <div class="column is-8">
+          {% for article in blogs %}
+            {% include 'home/includes/article.html' with article=article last_article=forloop.last %}
+          {% endfor %}
+          <nav class="pagination is-centered" role="navigation" aria-label="pagination">
+            <a class="pagination-previous">Previous</a>
+            <a class="pagination-next">Next page</a>
+            <ul class="pagination-list">
+              <li><a class="pagination-link" aria-label="Goto page 1">1</a></li>
+              <li><span class="pagination-ellipsis">&hellip;</span></li>
+              <li><a class="pagination-link" aria-label="Goto page 45">45</a></li>
+              <li><a class="pagination-link is-current" aria-label="Page 46" aria-current="page">46</a></li>
+              <li><a class="pagination-link" aria-label="Goto page 47">47</a></li>
+              <li><span class="pagination-ellipsis">&hellip;</span></li>
+              <li><a class="pagination-link" aria-label="Goto page 86">86</a></li>
+            </ul>
+          </nav>
+        </div>
+        <div class="column is-4">
+          {# TODO: Tags/date filtering #}
+        </div>
+      </div>
+    </div>
+  </div>
+
+{% endblock %}

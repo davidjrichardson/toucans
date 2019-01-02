@@ -1,5 +1,5 @@
 {% extends "base.html" %}
-{% load static base_tags %}
+{% load static base_tags wagtailcore_tags %}
 
 {% block navigation %}{% endblock %}
 
@@ -31,13 +31,14 @@
       <h2 class="title is-size-2">Latest News</h2>
       <div class="columns">
         <div class="column is-8">
-          {# TODO: Pass the 5 most recent blog posts #}
-          {% include 'home/includes/article.html' %}
+          {% for article in page.posts %}
+            {% include 'home/includes/article.html' with article=article last_article=forloop.last %}
+          {% endfor %}
           <div class="level older-news">
             <div class="level-left"></div>
             <div class="level-right">
               <div class="level-item">
-                <a href="#" class="button is-white">Older news<i class="fas fa-chevron-right"></i></a>
+                <a href="{% pageurl page.news_index %}" class="button is-white">Older news<i class="fas fa-chevron-right"></i></a>
               </div>
             </div>
           </div>

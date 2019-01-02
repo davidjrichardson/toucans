@@ -1,15 +1,17 @@
+{% load wagtailcore_tags wagtailimages_tags %}
+
 <article class="article">
-  <a class="article-cover-link" href="#">
-    <img class="article-cover" src="https://picsum.photos/760/250">
+  {% if article.cover_image %}
+    <a class="article-cover-link" href="{% pageurl article %}">
+      {% image article.cover_image fill-760x250 class="article-cover" %}
+    </a>
+  {% endif %}
+  <a class="article-link" href="{% pageurl article %}">
+    <h3 class="title is-size-3">{{ article.title }}</h3>
   </a>
-  <a class="article-link" href="#">
-    <h3 class="title is-size-3">Lorem ipsum dolor</h3>
-  </a>
-  <p class="article-info"><i class="fas fa-clock"></i> 06/11/2018 by David Richardson</p>
-  <p class="article-blurb"> Lorem ipsum dolor sit amet, consectetur adipiscing elit. Vivamus non turpis
-    imperdiet, luctus nisi eget, maximus ante. Donec rutrum nisi ac dictum rutrum. Donec feugiat, libero a
-    cursus sodales, mauris magna sodales diam, eu sollicitudin elit velit sit amet risus. Fusce consectetur,
-    leo sed aliquet tincidunt, felis tortor suscipit diam, ac fringilla lectus leo ac nunc.</p>
-  {# TODO: Check if the HR should be displayed #}
-  <hr/>
+  <p class="article-info"><i class="fas fa-clock"></i> {{ article.first_published_at|date:'d/m/Y' }} by {{ article.owner }}</p>
+  <div class="content article-blurb">{{ article.excerpt|richtext }}</div>
+  {% if not last_article %}
+    <hr/>
+  {% endif %}
 </article>
