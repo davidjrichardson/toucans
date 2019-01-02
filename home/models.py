@@ -1,10 +1,20 @@
+from datetime import datetime
+
+from django.core.paginator import Paginator, PageNotAnInteger, EmptyPage
 from django.db import models
-from wagtail.admin.edit_handlers import FieldPanel, StreamFieldPanel
+from django.utils import timezone
+from modelcluster.contrib.taggit import ClusterTaggableManager
+from modelcluster.fields import ParentalKey
+from taggit.models import TaggedItemBase
+from wagtail.admin.edit_handlers import FieldPanel, StreamFieldPanel, MultiFieldPanel
+from wagtail.contrib.table_block.blocks import TableBlock
 from wagtail.core.blocks import StructBlock, DateBlock, CharBlock, TextBlock, StreamBlock, IntegerBlock, StaticBlock, \
-    ListBlock
+    ListBlock, RichTextBlock
 from wagtail.core.fields import RichTextField, StreamField
 from wagtail.core.models import Page
+from wagtail.documents.blocks import DocumentChooserBlock
 from wagtail.images.blocks import ImageChooserBlock
+from wagtail.images.edit_handlers import ImageChooserPanel
 from wagtail.snippets.models import register_snippet
 
 
@@ -20,10 +30,6 @@ class Footer(models.Model):
 
     def __str__(self):
         return 'Footer URLs'
-
-
-class BlogPage(Page):
-    pass
 
 
 class LeagueStartDateBlock(StructBlock):
@@ -128,6 +134,146 @@ class SchedulePage(Page):
         FieldPanel('page_description', help_text="The description text for this web page"),
         StreamFieldPanel('timeline', help_text="The B.U.T.T.S. League schedule timeline for the coming year")
     ]
+
+
+class PullQuoteBlock(StructBlock):
+    quote = TextBlock('quote title')
+    attribution = CharBlock()
+
+    class Meta:
+        icon = 'openquote'
+
+
+class CreditImageBlock(StructBlock):
+    image = ImageChooserBlock()
+    caption = TextBlock(help_text='Photo caption', required=False)
+    credit = TextBlock(help_text='Image credit')
+
+    class Meta:
+        icon = 'image'
+
+
+class PlainImageBlock(StructBlock):
+    image = ImageChooserBlock()
+    caption = TextBlock(help_text='Photo caption', required=False)
+
+    class Meta:
+        icon = 'image'
+
+
+class BlogStreamBlock(StreamBlock):
+    h2 = CharBlock(icon='title', classname='title')
+    h3 = CharBlock(icon='title', classname='title')
+    h4 = CharBlock(icon='title', classname='title')
+    paragraph = RichTextBlock(icon='pilcrow')
+    credit_image = CreditImageBlock()
+    plain_image = PlainImageBlock()
+    pullquote = PullQuoteBlock()
+    document = DocumentChooserBlock(icon='doc-full-inverse')
+    table = TableBlock(table_options={
+        'startRows': 1,
+        'startCols': 2
+    })
+
+
+def chunks(l, n):
+    """Yield successive n-sized chunks from l."""
+    for i in range(0, len(l), n):
+        yield l[i:i + n]
+
+
+class BlogPageTag(TaggedItemBase):
+    content_object = ParentalKey('home.BlogPage', related_name='tagged_items')
+
+
+class BlogPage(Page):
+    parent_page_types = ['home.BlogIndexPage']
+
+    body = StreamField(BlogStreamBlock)
+    tags = ClusterTaggableManager(through=BlogPageTag, blank=True)
+    date = models.DateTimeField('Post date', default=timezone.now)
+    excerpt = RichTextField(help_text='This is displayed on the home and blog listing pages', default='')
+    cover_image = models.ForeignKey(
+        'wagtailimages.Image',
+        null=True,
+        blank=True,
+        on_delete=models.SET_NULL,
+        related_name='+',
+        help_text='This is the image displayed on the home page as the first thing a user will see'
+    )
+    cover_image_credit = models.CharField(blank=True, max_length=100, default='')
+
+    content_panels = [
+        MultiFieldPanel([
+            FieldPanel('title', classname="full title"),
+            FieldPanel('excerpt'),
+            FieldPanel('date'),
+            StreamFieldPanel('body')
+        ], heading='Post content'),
+        MultiFieldPanel([
+            ImageChooserPanel('cover_image'),
+            FieldPanel('cover_image_credit')
+        ], heading='Blog post cover image')
+    ]
+
+    promote_panels = Page.promote_panels + [
+        FieldPanel('tags'),
+    ]
+
+    @property
+    def further_reading(self):
+        siblings = BlogPage.objects.live().sibling_of(self, inclusive=False).order_by('-date')
+
+        if siblings:
+            latest = siblings.first()
+            next_article = siblings.filter(date__lte=self.date).exclude(id=latest.id).order_by('-date').first()
+            if next_article:
+                return [latest, next_article]
+            else:
+                return [latest]
+        else:
+            return []
+
+
+class BlogIndexPage(Page):
+    subpage_types = ['home.BlogPage']
+    parent_page_types = ['home.HomePage']
+
+    @property
+    def blogs(self):
+        # Get list of live blog pages that are descendants of this page ordered by most recent
+        return BlogPage.objects.live().descendant_of(self).order_by('-date')
+
+    def get_context(self, request, *args, **kwargs):
+        # Get blogs
+        blogs = self.blogs
+
+        # Filter by tag
+        tag = request.GET.get('tag')
+        if tag:
+            blogs = blogs.filter(tags__name=tag)
+
+        # Filter by date
+        filter_date = request.GET.get('date')
+        if filter_date:
+            filter_date = datetime.strptime(filter_date, '%Y-%m')
+            blogs = blogs.filter(date__month=filter_date.month, date__year=filter_date.year)
+
+        # Pagination
+        paginator = Paginator(blogs, 10)  # Show 10 blogs per page
+        try:
+            blogs = paginator.page(request.GET.get('page'))
+        except PageNotAnInteger:
+            blogs = paginator.page(1)
+        except EmptyPage:
+            blogs = paginator.page(paginator.num_pages)
+
+        # Update template context
+        context = super(BlogIndexPage, self).get_context(request)
+        context['blogs'] = blogs
+        context['paginator'] = paginator
+
+        return context
 
 
 class HomePage(Page):
