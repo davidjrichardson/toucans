@@ -260,7 +260,7 @@ class BlogIndexPage(Page):
             blogs = blogs.filter(date__month=filter_date.month, date__year=filter_date.year)
 
         # Pagination
-        paginator = Paginator(blogs, 10)  # Show 10 blogs per page
+        paginator = Paginator(blogs, 1)  # Show 10 blogs per page
         try:
             blogs = paginator.page(request.GET.get('page'))
         except PageNotAnInteger:

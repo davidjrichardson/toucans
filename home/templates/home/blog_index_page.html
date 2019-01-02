@@ -11,20 +11,72 @@
       <h2 class="title is-size-2">Latest News</h2>
       <div class="columns">
         <div class="column is-8">
-          {% for article in blogs %}
+          {% for article in blogs.object_list %}
             {% include 'home/includes/article.html' with article=article last_article=forloop.last %}
           {% endfor %}
+          {# TODO: Show the pagination only if there are other pages to show #}
           <nav class="pagination is-centered" role="navigation" aria-label="pagination">
-            <a class="pagination-previous">Previous</a>
-            <a class="pagination-next">Next page</a>
+            {% if blogs.has_previous %}
+              <a href="?page={{ blogs.previous_page_number }}{% for key,value in request.GET.items %}{% ifnotequal key 'page' %}&amp;{{ key }}={{ value }}{% endifnotequal %}{% endfor %}"
+                 class="pagination-previous">Previous</a>
+            {% else %}
+              <a class="pagination-previous is-disabled">Previous</a>
+            {% endif %}
+
+            {% if blogs.has_next %}
+              <a href="?page={{ blogs.next_page_number }}{% for key,value in request.GET.items %}{% ifnotequal key 'page' %}&amp;{{ key }}={{ value }}{% endifnotequal %}{% endfor %}"
+                 class="pagination-next">Next page</a>
+            {% else %}
+              <a class="pagination-next is-disabled">Next page</a>
+            {% endif %}
+
             <ul class="pagination-list">
-              <li><a class="pagination-link" aria-label="Goto page 1">1</a></li>
-              <li><span class="pagination-ellipsis">&hellip;</span></li>
-              <li><a class="pagination-link" aria-label="Goto page 45">45</a></li>
-              <li><a class="pagination-link is-current" aria-label="Page 46" aria-current="page">46</a></li>
-              <li><a class="pagination-link" aria-label="Goto page 47">47</a></li>
-              <li><span class="pagination-ellipsis">&hellip;</span></li>
-              <li><a class="pagination-link" aria-label="Goto page 86">86</a></li>
+              {% if paginator.num_pages > 5 %}
+                <li><a class="pagination-link {% if paginator.page_range|first == blogs.number %}is-current{% endif %}"
+                       aria-label="Goto page {{ paginator.page_range|first }}"
+                       {% if paginator.page_range|first == blogs.number %}aria-current="page"{% endif %}>{{ paginator.page_range|first }}</a></li>
+                {% if blogs.number|add:"-3" < 1 %}
+                  {% for page in paginator.page_range|first_three %}
+                    <li><a class="pagination-link {% if blogs.number == page %}is-current{% endif %}"
+                         aria-label="Goto page {{ page }}" {% if blogs.number == page %}aria-current="page"{% endif %}>
+                      {{ page }}
+                    </a></li>
+                  {% endfor %}
+                  <li><span class="pagination-ellipsis">&hellip;</span></li>
+                {% elif blogs.number|add:"3" > paginator.num_pages %}
+                  <li><span class="pagination-ellipsis">&hellip;</span></li>
+                  {% for page in paginator.page_range|last_three %}
+                    <li><a class="pagination-link {% if blogs.number == page %}is-current{% endif %}"
+                         aria-label="Goto page {{ page }}" {% if blogs.number == page %}aria-current="page"{% endif %}>
+                      {{ page }}
+                    </a></li>
+                  {% endfor %}
+                {% else %}
+                  <li><span class="pagination-ellipsis">&hellip;</span></li>
+                   <li><a class="pagination-link" aria-label="Goto page {{ blogs.previous_page_number }}">{{ blogs.previous_page_number }}</a></li>
+                   <li><a class="pagination-link is-current" aria-label="Goto page {{ blogs.number }}">{{ blogs.number }}</a></li>
+                   <li><a class="pagination-link" aria-label="Goto page {{ blogs.next_page_number }}">{{ blogs.next_page_number }}</a></li>
+                  <li><span class="pagination-ellipsis">&hellip;</span></li>
+                {% endif %}
+
+                <li><a class="pagination-link {% if paginator.page_range|last == blogs.number %}is-current{% endif %}"
+                       aria-label="Goto page {{ paginator.page_range|last }}"
+                       {% if paginator.page_range|last == blogs.number %}aria-current="page"{% endif %}>{{ paginator.page_range|last }}</a></li>
+              {% else %}
+                {% for page in paginator.page_range %}
+                  <li><a class="pagination-link {% if blogs.number == page %}is-current{% endif %}"
+                         aria-label="Goto page {{ page }}" {% if blogs.number == page %}aria-current="page"{% endif %}>
+                    {{ page }}
+                  </a></li>
+                {% endfor %}
+              {% endif %}
+              {#              <li><a class="pagination-link" aria-label="Goto page 1">1</a></li>#}
+              {#              <li><span class="pagination-ellipsis">&hellip;</span></li>#}
+              {#              <li><a class="pagination-link" aria-label="Goto page 45">45</a></li>#}
+              {#              <li><a class="pagination-link is-current" aria-label="Page 46" aria-current="page">46</a></li>#}
+              {#              <li><a class="pagination-link" aria-label="Goto page 47">47</a></li>#}
+              {#              <li><span class="pagination-ellipsis">&hellip;</span></li>#}
+              {#              <li><a class="pagination-link" aria-label="Goto page 86">86</a></li>#}
             </ul>
           </nav>
         </div>

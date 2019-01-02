@@ -9,6 +9,16 @@ def has_menu_children(page):
     return page.get_children().live().in_menu().exists()
 
 
+@register.filter()
+def last_three(l):
+    return l[-3:-1]
+
+
+@register.filter()
+def first_three(l):
+    return l[1:3]
+
+
 @register.inclusion_tag('common/tags/footer.html', takes_context=True)
 def footer(context):
     # TODO: Get all of the items marked to be in a menu bar

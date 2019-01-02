@@ -359,7 +359,7 @@ a {
 
     & .pagination-previous,
     & .pagination-next,
-    & .pagination-link {
+    & .pagination-link:not(.is-current) {
       transition: background-color 0.1s ease-in-out, color 0.2s ease-in-out;
 
       &:hover {
