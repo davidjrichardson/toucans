@@ -43,6 +43,14 @@ $link-hover: lighten($butts_purple, 10%);
 $primary: $butts_purple;
 $radius: 4px;
 $text: $butts_text;
+$pagination-color: $butts_text_secondary;
+$pagination-hover-color: $butts_text;
+$pagination-active-color: $butts_text;
+$pagination-current-background-color: rgba($butts_purple, 0.15);
+$pagination-current-border-color: transparent;
+$pagination-current-color: $butts_text;
+$pagination-border-color: transparent;
+$pagination-hover-border-color: transparent;
 
 @import "sass/utilities/functions";
 

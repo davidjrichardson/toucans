@@ -255,7 +255,7 @@ a {
   }
 }
 
-.league-news {
+.template-homepage .league-news {
   @include touch {
     margin-top: 6.5rem;
   }
@@ -351,3 +351,27 @@ a {
     text-align: left;
   }
 }
+
+// Pagination
+.template-newsindex {
+  & .pagination {
+    margin-top: 1rem;
+
+    & .pagination-previous,
+    & .pagination-next,
+    & .pagination-link {
+      transition: background-color 0.1s ease-in-out, color 0.2s ease-in-out;
+
+      &:hover {
+        background-color: rgba($butts_purple, 0.075);
+      }
+
+      &:active {
+        box-shadow: none;
+
+        background-color: rgba($butts_purple, 0.15);
+      }
+    }
+  }
+}
+
