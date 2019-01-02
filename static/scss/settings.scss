@@ -55,6 +55,7 @@ $pagination-hover-border-color: transparent;
 @import "sass/utilities/functions";
 
 $custom-colors: (
+        "tertiary": ($butts_text_tertiary, $butts_text_tertiary_inv),
         "primary-alt": ($butts_purple_alt, findColorInvert($butts_purple)),
         "primary-desat": (desaturate($butts_purple, 50%), findColorInvert(desaturate($butts_purple, 50%)))
 );
