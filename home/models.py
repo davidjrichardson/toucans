@@ -73,7 +73,7 @@ class LeagueLegBlock(StructBlock):
     )
 
     class Meta:
-        label = 'Tournament leg'
+        label = 'League event'
         icon = 'table'
 
 
@@ -105,8 +105,8 @@ class LeagueChampsBlock(StructBlock):
 
 class TimelineStreamBlock(StreamBlock):
     league_start_block = LeagueStartDateBlock()
-    league_combined_leg_block = LeagueCombinedLegBlock(LeagueLegBlock())
-    league_leg_block = LeagueLegBlock()
+    league_leg_block = LeagueCombinedLegBlock(LeagueLegBlock())
+    league_event_block = LeagueLegBlock()
     league_champs_block = LeagueChampsBlock()
     league_new_year_block = LeagueNewYearBlock()
     league_end_block = LeagueEndBlock()

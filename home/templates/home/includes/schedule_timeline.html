@@ -17,9 +17,11 @@
       <header class="timeline-header">
         <span class="tag is-primary">{{ item.value.new_year }}</span>
       </header>
-    {% elif item.block_type == 'league_leg_block' %}
+    {% elif item.block_type == 'league_event_block' %}
       <div class="timeline-item is-grey">
-        <div class="timeline-marker is-primary"></div>
+        <div class="timeline-marker is-primary is-icon">
+          <i class="fas fa-flag"></i>
+        </div>
         <div class="timeline-content">
           <div class="timeline-group">
             <p class="heading">{{ item.value.leg_name }} - {{ item.value.leg_date|date:'jS F Y' }}</p>
@@ -38,7 +40,7 @@
           <p>Hosted by {{ item.value.champs_venue }}</p>
         </div>
       </div>
-    {% elif item.block_type == 'league_combined_leg_block' %}
+    {% elif item.block_type == 'league_leg_block' %}
       <div class="timeline-item is-grey">
         <div class="timeline-marker is-primary"></div>
         <div class="timeline-content">
