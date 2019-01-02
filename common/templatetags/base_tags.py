@@ -19,6 +19,17 @@ def first_three(l):
     return l[1:3]
 
 
+@register.simple_tag
+def relative_url(value, field_name, urlencode=None):
+    url = '?{}={}'.format(field_name, value)
+    if urlencode:
+        querystring = urlencode.split('&')
+        filtered_querystring = filter(lambda p: p.split('=')[0] != field_name, querystring)
+        encoded_querystring = '&'.join(filtered_querystring)
+        url = '{}&{}'.format(url, encoded_querystring)
+    return url
+
+
 @register.inclusion_tag('common/tags/footer.html', takes_context=True)
 def footer(context):
     # TODO: Get all of the items marked to be in a menu bar
