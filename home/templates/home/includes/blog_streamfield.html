@@ -1,0 +1,60 @@
+{% load wagtailcore_tags wagtailimages_tags base_tags %}
+
+<article class="stream-field">
+  {% for child in content %}
+    <div class="auto cell">
+      {% if child.block_type == 'h2' %}
+        <h2 class="title is-size-2" id="{{ child | slugify }}">
+          {{ child }} <a href="#{{ child | slugify }}" class="title-link">
+          <i class="fa fa-paragraph"aria-hidden="true"></i></a>
+        </h2>
+      {% elif child.block_type == 'h3' %}
+        <h3 class="title is-size-3" id="{{ child | slugify }}">
+          {{ child }} <a href="#{{ child | slugify }}" class="title-link">
+          <i class="fa fa-paragraph" aria-hidden="true"></i></a>
+        </h3>
+      {% elif child.block_type == 'h4' %}
+        <h4 class="title is-size-4" id="{{ child | slugify }}">
+          {{ child }} <a href="#{{ child | slugify }}" class="title-link">
+          <i class="fa fa-paragraph" aria-hidden="true"></i></a>
+        </h4>
+      {% elif child.block_type == 'pullquote' %}
+        <blockquote>
+          {{ child.value.quote }}
+          {% if child.value.attribution %}
+            <cite>{{ child.value.attribution }}</cite>
+          {% endif %}
+        </blockquote>
+      {% elif child.block_type == 'paragraph' %}
+        {{ child.value | richtext }}
+      {% elif child.block_type == 'plain_image' %}
+        {% image child.value.image max-770x770 as image %}
+        <figure class="blog-image" style="max-width: {{ image.width }}px; max-height: {{ image.height }}px;">
+          <img src="{{ image.url }}" alt="{{ image.title }}">
+          {% if child.value.caption %}
+            <figcaption>
+              <p class="caption">{{ child.value.caption }}</p>
+            </figcaption>
+          {% endif %}
+        </figure>
+      {% elif child.block_type == 'credit_image' %}
+        {% image child.value.image max-770x770 as image %}
+        <figure class="blog-image" style="max-width: {{ image.width }}px; max-height: {{ image.height }}px;">
+          <img src="{{ image.url }}" alt="{{ image.title }}">
+          <figcaption>
+            {% if child.value.caption %}
+              <p class="caption">{{ child.value.caption }}</p>
+            {% endif %}
+            <p class="credit">Image credit: {{ child.value.credit }}</p>
+          </figcaption>
+        </figure>
+      {% elif child.block_type == 'document' %}
+        <div class="document-wrapper">
+          {{ child }}
+        </div>
+      {% else %}
+        {{ child }}
+      {% endif %}
+    </div>
+  {% endfor %}
+</article>

@@ -384,3 +384,33 @@ a {
 .is-secondary {
   color: $butts_text_secondary;
 }
+
+.template-newspage {
+  .cover-image {
+    background-position: center;
+    background-repeat: no-repeat;
+    background-size: cover;
+  }
+
+  .jumbotron-mask {
+    width: 100%;
+    height: 100px;
+    fill: white;
+  }
+
+  .title-link {
+    color: transparent;
+
+    transition: color 0.075s ease-in-out;
+
+    &:hover,
+    &:focus {
+      color: $grey-light;
+    }
+
+    &:active {
+      color: $grey;
+    }
+  }
+}
+
