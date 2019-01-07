@@ -12,26 +12,48 @@
   {% else %}
     <section class="hero is-large no-cover">
   {% endif %}
-<svg version="1.1" class="jumbotron-mask" xmlns="http://www.w3.org/2000/svg" x="0px" y="0px"
-     viewBox="0 0 1280 70" enable-background="new 0 0 1280 70" xml:space="preserve" preserveAspectRatio="none">
-      <polygon points="0,0 0,70 1280,0"></polygon>
-      </svg>
-<div class="hero-body">
-  <div class="container">
-    <h1 class="title has-text-centered">{{ page.title }}</h1>
-    <h2 class="subtitle has-text-centered">Posted {{ page.first_published_at|date:'d/m/Y' }} by {{ page.owner }}</h2>
+  <svg version="1.1" class="jumbotron-mask" xmlns="http://www.w3.org/2000/svg" x="0px" y="0px"
+       viewBox="0 0 1280 70" enable-background="new 0 0 1280 70" xml:space="preserve" preserveAspectRatio="none">
+        <polygon points="0,0 0,70 1280,0"></polygon>
+        </svg>
+  <div class="hero-body">
+    <div class="container">
+      <h1 class="title has-text-centered">{{ page.title }}</h1>
+      <h2 class="subtitle has-text-centered">Posted {{ page.first_published_at|date:'d/m/Y' }} by {{ page.owner }}</h2>
+    </div>
   </div>
-</div>
-<svg version="1.1" class="jumbotron-mask" xmlns="http://www.w3.org/2000/svg" x="0px" y="0px"
-     viewBox="0 0 1280 70" enable-background="new 0 0 1280 70" xml:space="preserve" preserveAspectRatio="none">
-  <polygon points="1280,70 0,70 1280,0 "></polygon>
-</svg>
-</section>
-<section class="section league-news-article">
-  <div class="container">
-    <main>
-      {% include 'home/includes/blog_streamfield.html' with content=page.body %}
-    </main>
-  </div>
-</section>
+  <svg version="1.1" class="jumbotron-mask" xmlns="http://www.w3.org/2000/svg" x="0px" y="0px"
+       viewBox="0 0 1280 70" enable-background="new 0 0 1280 70" xml:space="preserve" preserveAspectRatio="none">
+    <polygon points="1280,70 0,70 1280,0 "></polygon>
+  </svg>
+  </section>
+  <section class="section league-news-article">
+    <div class="container">
+      <main>
+        {% include 'home/includes/blog_streamfield.html' with content=page.body %}
+      </main>
+    </div>
+  </section>
+  {% if page.further_reading %}
+    <section class="section">
+      <div class="container">
+        <div class="columns">
+          <div class="column is-10 is-offset-1">
+            <div class="tile is-ancestor">
+              <div class="tile is-parent">
+                <div class="tile is-child further-reading">
+                  <h1>Foo</h1>
+                </div>
+              </div>
+              <div class="tile is-parent">
+                <div class="tile is-child further-reading">
+                  <h1>Foo</h1>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+  {% endif %}
 {% endblock %}
