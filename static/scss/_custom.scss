@@ -398,6 +398,40 @@ a {
     fill: white;
   }
 
+  .hero.is-large {
+    .hero-body {
+
+      padding-top: 11rem;
+      padding-bottom: 11rem;
+
+      & .title {
+        font-size: 5rem;
+      }
+
+      & .title,
+      & .subtitle {
+        text-shadow: rgba(0, 0, 0, 0.26) 0 2px 6px;
+      }
+    }
+
+    &.no-cover {
+      background-image: linear-gradient(96deg, $butts_purple, $butts_purple_alt);
+
+      & .title {
+        color: rgba(white, 0.95);
+      }
+
+      & .subtitle {
+        color: rgba(white, 0.8);
+      }
+
+      & .title,
+      & .subtitle {
+        text-shadow: none;
+      }
+    }
+  }
+
   .title-link {
     color: transparent;
 

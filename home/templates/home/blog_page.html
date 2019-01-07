@@ -9,25 +9,23 @@
   {% if page.cover_image %}
     {% image page.cover_image fill-1536x700 as cover %}
     <section class="hero is-large cover-image" style="background-image: url('{{ cover.url }}');">
-    <svg version="1.1" class="jumbotron-mask" xmlns="http://www.w3.org/2000/svg" x="0px" y="0px"
-         viewBox="0 0 1280 70" enable-background="new 0 0 1280 70" xml:space="preserve" preserveAspectRatio="none">
+  {% else %}
+    <section class="hero is-large no-cover">
+  {% endif %}
+<svg version="1.1" class="jumbotron-mask" xmlns="http://www.w3.org/2000/svg" x="0px" y="0px"
+     viewBox="0 0 1280 70" enable-background="new 0 0 1280 70" xml:space="preserve" preserveAspectRatio="none">
       <polygon points="0,0 0,70 1280,0"></polygon>
       </svg>
-  {% else %}
-    <section class="hero is-large">
-  {% endif %}
 <div class="hero-body">
   <div class="container">
     <h1 class="title has-text-centered">{{ page.title }}</h1>
     <h2 class="subtitle has-text-centered">Posted {{ page.first_published_at|date:'d/m/Y' }} by {{ page.owner }}</h2>
   </div>
 </div>
-{% if page.cover_image %}
-  <svg version="1.1" class="jumbotron-mask" xmlns="http://www.w3.org/2000/svg" x="0px" y="0px"
-       viewBox="0 0 1280 70" enable-background="new 0 0 1280 70" xml:space="preserve" preserveAspectRatio="none">
+<svg version="1.1" class="jumbotron-mask" xmlns="http://www.w3.org/2000/svg" x="0px" y="0px"
+     viewBox="0 0 1280 70" enable-background="new 0 0 1280 70" xml:space="preserve" preserveAspectRatio="none">
   <polygon points="1280,70 0,70 1280,0 "></polygon>
-  </svg>
-{% endif %}
+</svg>
 </section>
 <section class="section league-news-article">
   <div class="container">

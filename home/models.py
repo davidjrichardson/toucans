@@ -118,9 +118,6 @@ class TimelineStreamBlock(StreamBlock):
     league_end_block = LeagueEndBlock()
 
 
-# TODO: Create a streamblock for the timeline w/ a few types of blocks: leg block, champs block
-# Each block needs a date, host/venue, clubs attending
-# Handle the case when a leg is split across different weekends
 class SchedulePage(Page):
     parent_page_types = ['home.HomePage']
 
