@@ -208,6 +208,7 @@ class BlogPage(Page):
         help_text='This is the image displayed on the home page as the first thing a user will see'
     )
     cover_image_credit = models.CharField(blank=True, max_length=100, default='')
+    cover_invert_title = models.BooleanField(blank=True, default=False)
 
     content_panels = [
         MultiFieldPanel([
@@ -218,7 +219,8 @@ class BlogPage(Page):
         ], heading='Post content'),
         MultiFieldPanel([
             ImageChooserPanel('cover_image'),
-            FieldPanel('cover_image_credit')
+            FieldPanel('cover_image_credit'),
+            FieldPanel('cover_invert_title', help_text='If the cover image is dark, tick this box')
         ], heading='Blog post cover image')
     ]
 

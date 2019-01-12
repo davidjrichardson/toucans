@@ -424,9 +424,7 @@ a {
       }
     }
 
-    &.no-cover {
-      background-image: linear-gradient(96deg, $butts_purple, $butts_purple_alt);
-
+    &.inverted {
       & .title {
         color: rgba(white, 0.9);
       }
@@ -434,6 +432,10 @@ a {
       & .subtitle {
         color: rgba(white, 0.8);
       }
+    }
+
+    &.no-cover {
+      background-image: linear-gradient(96deg, $butts_purple, $butts_purple_alt);
 
       & .title,
       & .subtitle {
