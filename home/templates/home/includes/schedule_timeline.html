@@ -2,16 +2,16 @@
 
 <div class="timeline is-centered">
   {% for item in timeline %}
-    {% if item.block_type == 'league_start_block' %}
+    {% if item.block_type == 'season_start_block' %}
       <header class="timeline-header">
         <div class="tag is-medium is-primary league-start">
-          <span>League Starts</span>
+          <span>{{ item.value.season_name }} Season Starts</span>
           <span class="date">{{ item.value.start_date|date:'jS F Y' }}</span>
         </div>
       </header>
-    {% elif item.block_type == 'league_end_block' %}
+    {% elif item.block_type == 'season_end_block' %}
       <header class="timeline-header">
-        <span class="tag is-medium is-primary">League Finished</span>
+        <span class="tag is-medium is-primary">{{ item.value.season_name }} Season Ends</span>
       </header>
     {% elif item.block_type == 'league_new_year_block' %}
       <header class="timeline-header">

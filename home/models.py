@@ -32,14 +32,18 @@ class Footer(models.Model):
         return 'Footer URLs'
 
 
-class LeagueStartDateBlock(StructBlock):
+class SeasonStartDateBlock(StructBlock):
     start_date = DateBlock(
         required=True,
         help_text="The start date of the B.U.T.T.S. League for the year"
     )
+    season_name = TextBlock(
+        required=True,
+        help_text="The name of this season e.g.: Indoor, Outdoor"
+    )
 
     class Meta:
-        label = 'League start date'
+        label = 'Season start date'
         icon = 'date'
 
 
@@ -54,9 +58,14 @@ class LeagueNewYearBlock(StructBlock):
         icon = 'date'
 
 
-class LeagueEndBlock(StaticBlock):
+class SeasonEndBlock(StructBlock):
+    season_name = TextBlock(
+        required=True,
+        help_text="The name of this season e.g.: Indoor, Outdoor"
+    )
+
     class Meta:
-        label = 'League end marker'
+        label = 'Season end marker'
         icon = 'date'
 
 
@@ -110,12 +119,12 @@ class LeagueChampsBlock(StructBlock):
 
 
 class TimelineStreamBlock(StreamBlock):
-    league_start_block = LeagueStartDateBlock()
+    season_start_block = SeasonStartDateBlock()
     league_leg_block = LeagueCombinedLegBlock(LeagueLegBlock())
     league_event_block = LeagueLegBlock()
     league_champs_block = LeagueChampsBlock()
     league_new_year_block = LeagueNewYearBlock()
-    league_end_block = LeagueEndBlock()
+    season_end_block = SeasonEndBlock()
 
 
 class SchedulePage(Page):
