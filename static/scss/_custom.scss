@@ -428,7 +428,7 @@ a {
       background-image: linear-gradient(96deg, $butts_purple, $butts_purple_alt);
 
       & .title {
-        color: rgba(white, 0.95);
+        color: rgba(white, 0.9);
       }
 
       & .subtitle {
@@ -458,3 +458,39 @@ a {
   }
 }
 
+.further-reading {
+  background-color: white;
+  border-radius: 4px;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.13), 0 4px 8px rgba(0, 0, 0, 0.06);
+
+  &.no-cover {
+    border-top: 2px solid $butts-purple;
+  }
+
+  .cover-image {
+    border-top-left-radius: 4px;
+    border-top-right-radius: 4px;
+  }
+
+  & .tile-content {
+    padding: 1rem;
+
+    & .title {
+      margin-bottom: 0;
+      & a {
+        display: block;
+      }
+    }
+
+    & .article-info {
+      margin-bottom: .5rem;
+      font-size: 14px;
+
+      color: $butts_text_secondary;
+
+      & .fas {
+        color: $butts_text_tertiary;
+      }
+    }
+  }
+}

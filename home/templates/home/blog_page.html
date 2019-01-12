@@ -37,19 +37,15 @@
   {% if page.further_reading %}
     <section class="section">
       <div class="container">
+        <h3  class="title is-size-3">Further reading</h3>
         <div class="columns">
           <div class="column is-10 is-offset-1">
             <div class="tile is-ancestor">
-              <div class="tile is-parent">
-                <div class="tile is-child further-reading">
-                  <h1>Foo</h1>
+              {% for article in page.further_reading %}
+                <div class="tile is-parent">
+                  {% include 'home/includes/further_reading.html' with article=article %}
                 </div>
-              </div>
-              <div class="tile is-parent">
-                <div class="tile is-child further-reading">
-                  <h1>Foo</h1>
-                </div>
-              </div>
+              {% endfor %}
             </div>
           </div>
         </div>
