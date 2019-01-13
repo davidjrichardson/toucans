@@ -178,8 +178,8 @@ class BlogStreamBlock(StreamBlock):
     document = DocumentChooserBlock(icon='doc-full-inverse')
     table = TableBlock(table_options={
         'startRows': 1,
-        'startCols': 2
-    })
+        'startCols': 4
+    }, template='blocks/table_block.html')
 
 
 def chunks(l, n):

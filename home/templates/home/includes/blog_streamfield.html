@@ -1,8 +1,8 @@
 {% load wagtailcore_tags wagtailimages_tags base_tags %}
 
-<article class="stream-field">
+<article class="content">
   {% for child in content %}
-    <div class="auto cell">
+    <div class="">
       {% if child.block_type == 'h2' %}
         <h2 class="title is-size-2" id="{{ child | slugify }}">
           {{ child }} <a href="#{{ child | slugify }}" class="title-link">
@@ -28,7 +28,7 @@
       {% elif child.block_type == 'paragraph' %}
         {{ child.value | richtext }}
       {% elif child.block_type == 'plain_image' %}
-        {% image child.value.image max-770x770 as image %}
+        {% image child.value.image max-800x800 as image %}
         <figure class="blog-image" style="max-width: {{ image.width }}px; max-height: {{ image.height }}px;">
           <img src="{{ image.url }}" alt="{{ image.title }}">
           {% if child.value.caption %}
@@ -38,7 +38,7 @@
           {% endif %}
         </figure>
       {% elif child.block_type == 'credit_image' %}
-        {% image child.value.image max-770x770 as image %}
+        {% image child.value.image max-800x800 as image %}
         <figure class="blog-image" style="max-width: {{ image.width }}px; max-height: {{ image.height }}px;">
           <img src="{{ image.url }}" alt="{{ image.title }}">
           <figcaption>
@@ -49,6 +49,7 @@
           </figcaption>
         </figure>
       {% elif child.block_type == 'document' %}
+        {# TODO: Style this #}
         <div class="document-wrapper">
           {{ child }}
         </div>

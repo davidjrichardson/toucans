@@ -1,13 +1,16 @@
 {% load wagtailcore_tags wagtailimages_tags %}
 
-<div class="tile is-child further-reading {% if article.cover_image %}no-cover{% endif %}">
-  {% if not article.cover_image %}
-    {% image article.cover_image fill-466x150 class="cover-image" %}
+<div class="tile is-child further-reading {% if not article.cover_image %}no-cover{% endif %}">
+  {% if article.cover_image %}
+    <a href="{% pageurl article %}">
+      {% image article.cover_image fill-466x150 class="cover-image" %}
+    </a>
   {% endif %}
 
   <div class="tile-content">
     <h3 class="title is-3"><a href="{% pageurl article %}">{{ article.title }}</a></h3>
-    <p class="article-info"><i class="fas fa-clock"></i> {{ article.first_published_at|date:'d/m/Y' }} by {{ article.owner }}</p>
+    <p class="article-info"><i class="fas fa-clock"></i> {{ article.first_published_at|date:'d/m/Y' }}
+      by {{ article.owner }}</p>
     <div class="content">
       {{ article.excerpt|richtext }}
     </div>

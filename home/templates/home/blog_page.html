@@ -29,17 +29,21 @@
   </section>
   <section class="section league-news-article">
     <div class="container">
-      <main>
-        {% include 'home/includes/blog_streamfield.html' with content=page.body %}
-      </main>
+      <div class="columns">
+        <div class="column is-8 is-offset-2">
+          <main>
+            {% include 'home/includes/blog_streamfield.html' with content=page.body %}
+          </main>
+        </div>
+      </div>
     </div>
   </section>
   {% if page.further_reading %}
     <section class="section">
       <div class="container">
-        <h3  class="title is-size-3">Further reading</h3>
         <div class="columns">
-          <div class="column is-10 is-offset-1">
+          <div class="column is-8 is-offset-2">
+            <h3 class="title is-size-3">Further reading</h3>
             <div class="tile is-ancestor">
               {% for article in page.further_reading %}
                 <div class="tile is-parent">
