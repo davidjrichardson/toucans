@@ -3,12 +3,15 @@
 
 {% block body_class %}template-newsindex{% endblock %}
 
-{% block title %}Latest News | B.U.T.T.S. League{% endblock %}
+{% block title %}Latest News (page {{ blogs.number }}) | B.U.T.T.S. League{% endblock %}
 
 {% block content %}
   <div class="section league-news">
     <div class="container">
       <h2 class="title is-size-2">Latest News</h2>
+      {% if request.GET.tag or request.GET.date %}
+        <h6 class="subtitle is-size-6">{% filters_to_str request.GET.tag request.GET.date %}</h6>
+      {% endif %}
       <div class="columns">
         <div class="column is-8">
           {% for article in blogs.object_list %}
@@ -92,7 +95,7 @@
               </nav>
             {% endwith %}
           {% else %}
-            <nav class="level">
+            <nav class="level last-level">
               <div class="level-item has-text-centered">
                 <i class="fas fa-newspaper fa-3x empty-icon"></i>
                 <p class="is-secondary">No more news</p>
@@ -100,9 +103,9 @@
             </nav>
           {% endif %}
         </div>
-        <div class="column is-4">
-          {# TODO: Tags/date filtering #}
-        </div>
+        <aside class="column is-4">
+          {% sidebar %}
+        </aside>
       </div>
     </div>
   </div>

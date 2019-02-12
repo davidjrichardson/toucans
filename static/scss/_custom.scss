@@ -496,3 +496,23 @@ a {
     }
   }
 }
+
+.last-level {
+  margin-top: 48px;
+}
+
+.tags-list li a {
+  display: block;
+  padding: 0.5rem;
+
+  background-color: transparent;
+
+  transition: background-color ease-in-out 0.2s;
+
+  border-radius: 3px;
+
+  &:hover,
+  &:focus {
+    background-color: rgba($black, 0.06);
+  }
+}

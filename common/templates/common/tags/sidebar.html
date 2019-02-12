@@ -1,0 +1,40 @@
+{% load static base_tags taggit_templatetags2_tags wagtailcore_tags %}
+
+{% get_taglist as tags for 'home.BlogPage' %}
+
+<div class="tile is-ancestor">
+  <div class="tile is-vertical is-parent">
+    {% if tags %}
+      <div class="tile is-child">
+        <h4 class="title is-size-4">News categories</h4>
+        <ul class="tags-list">
+          {% with params=request.GET.urlencode %}
+            {% for tag in tags %}
+              {% with tag_encoded=tag|urlencode %}
+                <li><a href="{% relative_url tag_encoded 'tag' params %}">{{ tag }}</a></li>
+              {% endwith %}
+            {% endfor %}
+          {% endwith %}
+        </ul>
+      </div>
+    {% endif %}
+    {% if archives %}
+      <div class="tile is-child">
+        <h4 class="title is-size-4">Archives</h4>
+        <ul class="archive-list">
+          {% for year, months in archives.items %}
+            <a href="#">{{ year }}</a>
+            <ul class="archive-sublist">
+              {% for month, posts in months.items %}
+                <li>
+                  {% date_filter year month as date %}
+                  <a href="{% relative_url date 'date' params %}">{{ month|to_month_str }}</a>
+                </li>
+              {% endfor %}
+            </ul>
+          {% endfor %}
+        </ul>
+      </div>
+    {% endif %}
+  </div>
+</div>

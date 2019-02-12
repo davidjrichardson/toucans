@@ -1,6 +1,7 @@
+from collections import OrderedDict
 from django import template
 
-from home.models import Footer
+from home.models import Footer, BlogIndexPage, BlogPage
 
 register = template.Library()
 
@@ -56,6 +57,21 @@ def footer_menu_child(context, parent):
     }
 
 
+@register.inclusion_tag('common/tags/sidebar.html', takes_context=True)
+def sidebar(context):
+    blog_index = BlogIndexPage.objects.live().in_menu().first()
+    archives = OrderedDict()
+
+    for blog in BlogPage.objects.live().order_by('-date'):
+        archives.setdefault(blog.date.year, {}).setdefault(blog.date.month, []).append(blog)
+
+        return {
+            'blog_index': blog_index,
+            'archives': archives,
+            'request': context['request']
+        }
+
+
 @register.inclusion_tag('common/tags/navbar.html', takes_context=True)
 def navigation(context, calling_page=None):
     # Get all of the items marked to be in a menu bar
@@ -73,3 +89,41 @@ def navigation(context, calling_page=None):
         # required by the pageurl tag that we want to use within this template
         'request': context['request'],
     }
+
+
+@register.simple_tag
+def date_filter(year, month):
+    return "{year}-{month:02d}".format(year=year, month=month)
+
+
+@register.simple_tag
+def filters_to_str(tag, date):
+    filter_str = 'Post(s)'
+    if tag:
+        filter_str += ' marked as "{tag}"'.format(tag=tag)
+
+    if date:
+        # date is YYYY-MM -->
+        year, month = date.split("-")
+        month = int(month)
+        filter_str += ' from {month} {year}'.format(month=to_month_str(month), year=year)
+
+    return filter_str
+
+
+@register.filter
+def to_month_str(value):
+    return {
+        1: 'January',
+        2: 'February',
+        3: 'March',
+        4: 'April',
+        5: 'May',
+        6: 'June',
+        7: 'July',
+        8: 'August',
+        9: 'September',
+        10: 'October',
+        11: 'November',
+        12: 'December',
+    }[value]

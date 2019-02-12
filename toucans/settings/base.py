@@ -43,6 +43,7 @@ INSTALLED_APPS = [
 
     'modelcluster',
     'taggit',
+    'taggit_templatetags2',
 
     'djangobower',
     'compressor',
