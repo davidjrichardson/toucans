@@ -479,6 +479,7 @@ a {
 
     & .title {
       margin-bottom: 0;
+
       & a {
         display: block;
       }
@@ -507,12 +508,44 @@ a {
 
   background-color: transparent;
 
-  transition: background-color ease-in-out 0.2s;
+  transition: background-color ease-in-out 0.2s, color ease-in-out 0.2s;
 
-  border-radius: 3px;
+  border-radius: 2px;
 
   &:hover,
   &:focus {
-    background-color: rgba($black, 0.06);
+    color: darken($butts_purple, 5%);
+    background-color: rgba($black, 0.04);
   }
 }
+
+.archive-list {
+  & p:not(first-of-type) {
+    margin-top: 1.5rem;
+  }
+
+  & hr.year-divider {
+    display: inline-block;
+
+    width: 30px;
+    height: 3px;
+
+    border-radius: 1px;
+    background-color: #5B27FF;
+
+    margin: 2px 0 8px;
+  }
+
+  & ul.archive-sublist li a {
+    display: block;
+    padding: 0.35rem 0.5rem;
+    border-radius: 2px;
+
+    &:hover,
+    &:focus {
+      color: darken($butts_purple, 5%);
+      background-color: rgba($black, 0.04);
+    }
+  }
+}
+

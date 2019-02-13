@@ -23,12 +23,13 @@
         <h4 class="title is-size-4">Archives</h4>
         <ul class="archive-list">
           {% for year, months in archives.items %}
-            <a href="#">{{ year }}</a>
+            <p>{{ year }}</p>
+            <hr class="year-divider"/>
             <ul class="archive-sublist">
               {% for month, posts in months.items %}
                 <li>
                   {% date_filter year month as date %}
-                  <a href="{% relative_url date 'date' params %}">{{ month|to_month_str }}</a>
+                  <a href="{% relative_url date 'date' params %}">{{ month|to_month_str }} ({{ posts|length }} post{{ posts|length|pluralize }})</a>
                 </li>
               {% endfor %}
             </ul>

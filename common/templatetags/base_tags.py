@@ -65,11 +65,11 @@ def sidebar(context):
     for blog in BlogPage.objects.live().order_by('-date'):
         archives.setdefault(blog.date.year, {}).setdefault(blog.date.month, []).append(blog)
 
-        return {
-            'blog_index': blog_index,
-            'archives': archives,
-            'request': context['request']
-        }
+    return {
+        'blog_index': blog_index,
+        'archives': archives,
+        'request': context['request']
+    }
 
 
 @register.inclusion_tag('common/tags/navbar.html', takes_context=True)
