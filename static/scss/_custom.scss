@@ -549,8 +549,26 @@ a {
   }
 }
 
-.streamfield-block {
-  margin-bottom: 1.5rem;
+article.content {
+  & .streamfield-block {
+    margin-bottom: 1.5rem;
+
+    & .table {
+      background-color: transparent;
+
+
+
+      &.is-hoverable tbody tr:not(.is-selected) {
+        background-color: transparent;
+
+        transition: background-color 0.075s ease-in-out;
+
+        &:hover {
+          background-color: rgba($butts_purple, 0.06);
+        }
+      }
+    }
+  }
 }
 
 .content blockquote {
@@ -568,7 +586,7 @@ a {
 }
 
 .document-wrapper a {
-  padding: 0.7rem 1rem;
+  padding: 0.5rem .75rem;
 
   background-color: $link;
   color: $white;
@@ -597,9 +615,6 @@ a {
 }
 
 .blog-image {
-  box-shadow: 0 2px 4px rgba($black, 0.26);
-  border-radius: $radius/2;
-
   position: relative;
 
   & img {
