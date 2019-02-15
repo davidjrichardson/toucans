@@ -52,6 +52,9 @@ $pagination-current-color: $butts_text;
 $pagination-border-color: transparent;
 $pagination-hover-border-color: transparent;
 
+$content-blockquote-border-left: 4px solid $butts_purple;
+$content-blockquote-background-color: rgba($butts_purple, 0.06);
+
 @import "sass/utilities/functions";
 
 $custom-colors: (

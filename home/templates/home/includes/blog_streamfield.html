@@ -2,7 +2,7 @@
 
 <article class="content">
   {% for child in content %}
-    <div class="">
+    <div class="streamfield-block">
       {% if child.block_type == 'h2' %}
         <h2 class="title is-size-2" id="{{ child | slugify }}">
           {{ child }} <a href="#{{ child | slugify }}" class="title-link">
@@ -20,7 +20,7 @@
         </h4>
       {% elif child.block_type == 'pullquote' %}
         <blockquote>
-          {{ child.value.quote }}
+          <p class="quote">{{ child.value.quote }}</p>
           {% if child.value.attribution %}
             <cite>{{ child.value.attribution }}</cite>
           {% endif %}
@@ -49,7 +49,6 @@
           </figcaption>
         </figure>
       {% elif child.block_type == 'document' %}
-        {# TODO: Style this #}
         <div class="document-wrapper">
           {{ child }}
         </div>
