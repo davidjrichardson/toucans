@@ -271,42 +271,41 @@ a {
   margin-top: 8rem;
 }
 
-.league-news {
-  & .older-news {
-    margin-top: 20px;
+.league-news, .league-standings {
+  & .button.is-white {
+    transition: background-color 0.1s ease-in-out;
+
+    background-color: $butts-background;
+    color: $butts_text_secondary;
 
     & .fas {
+      color: $butts_text_tertiary;
       margin-left: 5px;
     }
 
-    & .button.is-white {
-      transition: background-color 0.1s ease-in-out;
-
-      background-color: $butts-background;
-      color: $butts_text_secondary;
+    &:hover {
+      background-color: rgba($butts_purple, 0.075);
+      color: $butts_text;
 
       & .fas {
-        color: $butts_text_tertiary;
-      }
-
-      &:hover {
-        background-color: rgba($butts_purple, 0.075);
         color: $butts_text;
-
-        & .fas {
-          color: $butts_text;
-        }
-      }
-
-      &:focus {
-        background-color: rgba($butts_purple, 0.15);
-        color: $butts_text;
-
-        & .fas {
-          color: $butts_text;
-        }
       }
     }
+
+    &:focus {
+      background-color: rgba($butts_purple, 0.15);
+      color: $butts_text;
+
+      & .fas {
+        color: $butts_text;
+      }
+    }
+  }
+}
+
+.league-news {
+  & .older-news {
+    margin-top: 20px;
   }
 
   & .article {
@@ -555,7 +554,6 @@ article.content {
 
     & .table {
       background-color: transparent;
-
 
 
       &.is-hoverable tbody tr:not(.is-selected) {

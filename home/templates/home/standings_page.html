@@ -6,5 +6,22 @@
 {% block title %}{{ page.title }} | B.U.T.T.S. League{% endblock %}
 
 {% block content %}
+  <section class="section league-standings">
+    <div class="container">
+      <nav class="level">
+        <div class="level-left">
+          <div class="level-item">
+            <h2 class="title is-size-2">League Standings for {{ page.standings_year }}</h2>
+          </div>
+        </div>
+        <div class="level-right">
+          <div class="level-item">
+            <a href="#" class="button is-white">Results archive<i class="fas fa-chevron-right"></i></a>
+          </div>
+        </div>
+      </nav>
+      {% include 'home/includes/blog_streamfield.html' with content=page.body %}
+    </div>
+  </section>
   {# TODO: League standings page (and support for being a child page #}
 {% endblock %}
