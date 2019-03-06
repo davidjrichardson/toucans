@@ -178,8 +178,22 @@ class BlogStreamBlock(StreamBlock):
     document = DocumentChooserBlock(icon='doc-full-inverse')
     table = TableBlock(table_options={
         'startRows': 1,
-        'startCols': 4
+        'startCols': 4,
     }, template='blocks/table_block.html')
+
+
+class StandingsStreamBlock(StreamBlock):
+    h2 = CharBlock(icon='title', classname='title')
+    h3 = CharBlock(icon='title', classname='title')
+    h4 = CharBlock(icon='title', classname='title')
+    paragraph = RichTextBlock(icon='pilcrow')
+    table = TableBlock(table_options={
+        'startRows': 8,
+        'startCols': 6,
+        'colHeaders': ['Uni', 'Leg 1', 'Leg 2', 'Leg 3', 'Leg 4', 'Champs'],
+        'rowHeaders': ['1st', '2nd', '3rd', '4th', '5th', '6th', '7th', '8th'],
+        'height': 324
+    }, template='blocks/league_results_block.html')
 
 
 def chunks(l, n):
@@ -284,15 +298,40 @@ class BlogIndexPage(Page):
         return context
 
 
+class StandingsIndexPage(Page):
+    parent_page_types = ['home.StandingsPage']
+    subpage_types = ['home.StandingsPage']
+
+    @property
+    def archives(self):
+        return StandingsPage.objects.live().childof(self).order_by('-standings_year').all()
+
+
+class StandingsPage(Page):
+    parent_page_types = ['home.HomePage', 'home.StandingsIndexPage']
+    subpage_types = ['home.StandingsIndexPage']
+
+    standings_year = models.TextField('Academic year',
+                                      help_text='The academic year for this set of standings')
+    body = StreamField(StandingsStreamBlock)
+    # TODO: Create a nice way to do the table
+    #   > Multiple unis, 5 legs (w/ champs)
+    #   > Each leg has score/golds/hits
+
+    content_panels = Page.content_panels + [
+        FieldPanel('standings_year'),
+        StreamFieldPanel('body'),
+    ]
+
+
 class HomePage(Page):
-    subpage_types = ['home.SchedulePage', 'home.BlogIndexPage']
+    subpage_types = ['home.SchedulePage', 'home.BlogIndexPage', 'home.StandingsPage']
 
     description = models.TextField(max_length=400, default='')
 
     @property
     def posts(self):
         return self.news_index.blogs[:5]
-        # return BlogPage.objects.live().order_by('-first_published_at')[:5]
 
     @property
     def news_index(self):
