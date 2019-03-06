@@ -6,7 +6,7 @@ from django.utils import timezone
 from modelcluster.contrib.taggit import ClusterTaggableManager
 from modelcluster.fields import ParentalKey
 from taggit.models import TaggedItemBase
-from wagtail.admin.edit_handlers import FieldPanel, StreamFieldPanel, MultiFieldPanel
+from wagtail.admin.edit_handlers import FieldPanel, StreamFieldPanel, MultiFieldPanel, FieldRowPanel, InlinePanel
 from wagtail.contrib.table_block.blocks import TableBlock
 from wagtail.core.blocks import StructBlock, DateBlock, CharBlock, TextBlock, StreamBlock, IntegerBlock, StaticBlock, \
     ListBlock, RichTextBlock
@@ -187,13 +187,6 @@ class StandingsStreamBlock(StreamBlock):
     h3 = CharBlock(icon='title', classname='title')
     h4 = CharBlock(icon='title', classname='title')
     paragraph = RichTextBlock(icon='pilcrow')
-    table = TableBlock(table_options={
-        'startRows': 8,
-        'startCols': 6,
-        'colHeaders': ['Uni', 'Leg 1', 'Leg 2', 'Leg 3', 'Leg 4', 'Champs'],
-        'rowHeaders': ['1st', '2nd', '3rd', '4th', '5th', '6th', '7th', '8th'],
-        'height': 324
-    }, template='blocks/league_results_block.html')
 
 
 def chunks(l, n):
@@ -307,6 +300,61 @@ class StandingsIndexPage(Page):
         return StandingsPage.objects.live().childof(self).order_by('-standings_year').all()
 
 
+class StandingsEntry(models.Model):
+    page = ParentalKey('StandingsPage', related_name='results')
+
+    university = models.CharField(max_length=50)
+
+    leg_1_score = models.IntegerField(blank=True, default=None, null=True)
+    leg_1_hits = models.IntegerField(blank=True, default=None, null=True)
+    leg_1_golds = models.IntegerField(blank=True, default=None, null=True)
+
+    leg_2_score = models.IntegerField(blank=True, default=None, null=True)
+    leg_2_hits = models.IntegerField(blank=True, default=None, null=True)
+    leg_2_golds = models.IntegerField(blank=True, default=None, null=True)
+
+    leg_3_score = models.IntegerField(blank=True, default=None, null=True)
+    leg_3_hits = models.IntegerField(blank=True, default=None, null=True)
+    leg_3_golds = models.IntegerField(blank=True, default=None, null=True)
+
+    leg_4_score = models.IntegerField(blank=True, default=None, null=True)
+    leg_4_hits = models.IntegerField(blank=True, default=None, null=True)
+    leg_4_golds = models.IntegerField(blank=True, default=None, null=True)
+
+    leg_5_score = models.IntegerField(blank=True, default=None, null=True)
+    leg_5_hits = models.IntegerField(blank=True, default=None, null=True)
+    leg_5_golds = models.IntegerField(blank=True, default=None, null=True)
+
+    panels = [
+        FieldPanel('university', classname='title'),
+        FieldRowPanel([
+            FieldPanel('leg_1_score'),
+            FieldPanel('leg_1_hits'),
+            FieldPanel('leg_1_golds'),
+        ]),
+        FieldRowPanel([
+            FieldPanel('leg_2_score'),
+            FieldPanel('leg_2_hits'),
+            FieldPanel('leg_2_golds'),
+        ]),
+        FieldRowPanel([
+            FieldPanel('leg_3_score'),
+            FieldPanel('leg_3_hits'),
+            FieldPanel('leg_3_golds'),
+        ]),
+        FieldRowPanel([
+            FieldPanel('leg_4_score'),
+            FieldPanel('leg_4_hits'),
+            FieldPanel('leg_4_golds'),
+        ]),
+        FieldRowPanel([
+            FieldPanel('leg_5_score'),
+            FieldPanel('leg_5_hits'),
+            FieldPanel('leg_5_golds'),
+        ]),
+    ]
+
+
 class StandingsPage(Page):
     parent_page_types = ['home.HomePage', 'home.StandingsIndexPage']
     subpage_types = ['home.StandingsIndexPage']
@@ -319,8 +367,11 @@ class StandingsPage(Page):
     #   > Each leg has score/golds/hits
 
     content_panels = Page.content_panels + [
-        FieldPanel('standings_year'),
-        StreamFieldPanel('body'),
+        MultiFieldPanel([
+            FieldPanel('standings_year'),
+            StreamFieldPanel('body'),
+        ], heading='Standings Info'),
+        InlinePanel('results', label='Results')
     ]
 
 
