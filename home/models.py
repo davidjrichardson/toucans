@@ -366,6 +366,10 @@ class StandingsPage(Page):
     #   > Multiple unis, 5 legs (w/ champs)
     #   > Each leg has score/golds/hits
 
+    @property
+    def results_table(self):
+        return self.results.all()
+
     content_panels = Page.content_panels + [
         MultiFieldPanel([
             FieldPanel('standings_year'),

@@ -643,3 +643,37 @@ article.content {
     }
   }
 }
+
+.league-results.league-results.league-results {
+  //min-width: 100%;
+
+  background-color: transparent;
+
+  & th {
+    border: none;
+  }
+
+  & > thead {
+    margin-bottom: 20px;
+  }
+
+  &.is-hoverable > tbody > tr {
+    transition: background-color 0.1s ease-in-out;
+
+    background-color: transparent;
+
+    &:hover {
+      background-color: rgba($butts_purple, 0.04);
+    }
+  }
+
+
+  & th,
+  & td {
+    padding: .5rem 10px;
+
+    &.leg-divider {
+      padding-left: 30px;
+    }
+  }
+}

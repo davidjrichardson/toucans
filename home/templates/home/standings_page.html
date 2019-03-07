@@ -1,5 +1,5 @@
 {% extends "base.html" %}
-{% load static base_tags wagtailcore_tags %}
+{% load static base_tags table_tags wagtailcore_tags %}
 
 {% block body_class %}template-standings{% endblock %}
 
@@ -21,6 +21,7 @@
         </div>
       </nav>
       {% include 'home/includes/blog_streamfield.html' with content=page.body %}
+      {% overall_standings standings=page.results_table %}
     </div>
   </section>
   {# TODO: League standings page (and support for being a child page #}
