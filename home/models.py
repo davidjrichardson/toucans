@@ -1,3 +1,4 @@
+import functools
 from datetime import datetime
 
 from django.core.paginator import Paginator, PageNotAnInteger, EmptyPage
@@ -8,8 +9,8 @@ from modelcluster.fields import ParentalKey
 from taggit.models import TaggedItemBase
 from wagtail.admin.edit_handlers import FieldPanel, StreamFieldPanel, MultiFieldPanel, FieldRowPanel, InlinePanel
 from wagtail.contrib.table_block.blocks import TableBlock
-from wagtail.core.blocks import StructBlock, DateBlock, CharBlock, TextBlock, StreamBlock, IntegerBlock, StaticBlock, \
-    ListBlock, RichTextBlock
+from wagtail.core.blocks import StructBlock, DateBlock, CharBlock, TextBlock, StreamBlock, IntegerBlock, ListBlock, \
+    RichTextBlock
 from wagtail.core.fields import RichTextField, StreamField
 from wagtail.core.models import Page
 from wagtail.documents.blocks import DocumentChooserBlock
@@ -306,25 +307,57 @@ class StandingsEntry(models.Model):
     team_name = models.CharField(max_length=50)
     team_is_novice = models.BooleanField(default=False)
 
-    leg_1_score = models.IntegerField(blank=True, default=None, null=True)
-    leg_1_hits = models.IntegerField(blank=True, default=None, null=True)
-    leg_1_golds = models.IntegerField(blank=True, default=None, null=True)
+    leg_1_score = models.IntegerField(blank=True, default=0)
+    leg_1_hits = models.IntegerField(blank=True, default=0)
+    leg_1_golds = models.IntegerField(blank=True, default=0)
 
-    leg_2_score = models.IntegerField(blank=True, default=None, null=True)
-    leg_2_hits = models.IntegerField(blank=True, default=None, null=True)
-    leg_2_golds = models.IntegerField(blank=True, default=None, null=True)
+    leg_2_score = models.IntegerField(blank=True, default=0)
+    leg_2_hits = models.IntegerField(blank=True, default=0)
+    leg_2_golds = models.IntegerField(blank=True, default=0)
 
-    leg_3_score = models.IntegerField(blank=True, default=None, null=True)
-    leg_3_hits = models.IntegerField(blank=True, default=None, null=True)
-    leg_3_golds = models.IntegerField(blank=True, default=None, null=True)
+    leg_3_score = models.IntegerField(blank=True, default=0)
+    leg_3_hits = models.IntegerField(blank=True, default=0)
+    leg_3_golds = models.IntegerField(blank=True, default=0)
 
-    leg_4_score = models.IntegerField(blank=True, default=None, null=True)
-    leg_4_hits = models.IntegerField(blank=True, default=None, null=True)
-    leg_4_golds = models.IntegerField(blank=True, default=None, null=True)
+    leg_4_score = models.IntegerField(blank=True, default=0)
+    leg_4_hits = models.IntegerField(blank=True, default=0)
+    leg_4_golds = models.IntegerField(blank=True, default=0)
 
-    champs_score = models.IntegerField(blank=True, default=None, null=True)
-    champs_hits = models.IntegerField(blank=True, default=None, null=True)
-    champs_golds = models.IntegerField(blank=True, default=None, null=True)
+    champs_score = models.IntegerField(blank=True, default=0)
+    champs_hits = models.IntegerField(blank=True, default=0)
+    champs_golds = models.IntegerField(blank=True, default=0)
+
+    @property
+    def leg_1(self):
+        return self.leg_1_score, self.leg_1_hits, self.leg_1_golds
+
+    @property
+    def leg_2(self):
+        return self.leg_2_score, self.leg_2_hits, self.leg_2_golds
+
+    @property
+    def leg_3(self):
+        return self.leg_3_score, self.leg_3_hits, self.leg_3_golds
+
+    @property
+    def leg_4(self):
+        return self.leg_4_score, self.leg_4_hits, self.leg_4_golds
+
+    @property
+    def champs(self):
+        return self.champs_score, self.champs_hits, self.champs_golds
+
+    @property
+    def results(self):
+        return [self.leg_1, self.leg_2, self.leg_3, self.leg_4, self.champs]
+
+    @property
+    def is_empty(self):
+        return not bool(list(filter(lambda x: x != (0, 0, 0), self.results)))
+
+    @property
+    def aggregate(self):
+        return functools.reduce(lambda acc, new: (acc[0] + new[0], acc[1] + new[1], acc[2] + new[2]), self.results)
 
     panels = [
         FieldPanel('team_name', classname='title'),
