@@ -321,9 +321,9 @@ class StandingsEntry(models.Model):
     leg_4_hits = models.IntegerField(blank=True, default=None, null=True)
     leg_4_golds = models.IntegerField(blank=True, default=None, null=True)
 
-    leg_5_score = models.IntegerField(blank=True, default=None, null=True)
-    leg_5_hits = models.IntegerField(blank=True, default=None, null=True)
-    leg_5_golds = models.IntegerField(blank=True, default=None, null=True)
+    champs_score = models.IntegerField(blank=True, default=None, null=True)
+    champs_hits = models.IntegerField(blank=True, default=None, null=True)
+    champs_golds = models.IntegerField(blank=True, default=None, null=True)
 
     panels = [
         FieldPanel('university', classname='title'),
@@ -348,9 +348,9 @@ class StandingsEntry(models.Model):
             FieldPanel('leg_4_golds'),
         ]),
         FieldRowPanel([
-            FieldPanel('leg_5_score'),
-            FieldPanel('leg_5_hits'),
-            FieldPanel('leg_5_golds'),
+            FieldPanel('champs_golds'),
+            FieldPanel('champs_hits'),
+            FieldPanel('champs_golds'),
         ]),
     ]
 
