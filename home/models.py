@@ -303,7 +303,8 @@ class StandingsIndexPage(Page):
 class StandingsEntry(models.Model):
     page = ParentalKey('StandingsPage', related_name='results')
 
-    university = models.CharField(max_length=50)
+    team_name = models.CharField(max_length=50)
+    team_is_novice = models.BooleanField(default=False)
 
     leg_1_score = models.IntegerField(blank=True, default=None, null=True)
     leg_1_hits = models.IntegerField(blank=True, default=None, null=True)
@@ -326,7 +327,8 @@ class StandingsEntry(models.Model):
     champs_golds = models.IntegerField(blank=True, default=None, null=True)
 
     panels = [
-        FieldPanel('university', classname='title'),
+        FieldPanel('team_name', classname='title'),
+        FieldPanel('team_is_novice'),
         FieldRowPanel([
             FieldPanel('leg_1_score'),
             FieldPanel('leg_1_hits'),
@@ -362,13 +364,14 @@ class StandingsPage(Page):
     standings_year = models.TextField('Academic year',
                                       help_text='The academic year for this set of standings')
     body = StreamField(StandingsStreamBlock)
-    # TODO: Create a nice way to do the table
-    #   > Multiple unis, 5 legs (w/ champs)
-    #   > Each leg has score/golds/hits
 
     @property
-    def results_table(self):
-        return self.results.all()
+    def experienced_results(self):
+        return self.results.filter(team_is_novice=False).all()
+
+    @property
+    def novice_results(self):
+        return self.results.filter(team_is_novice=True).all()
 
     content_panels = Page.content_panels + [
         MultiFieldPanel([
