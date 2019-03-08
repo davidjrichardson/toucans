@@ -19,12 +19,27 @@ def rank_leg(scores):
     return list(points.items())
 
 
+def align_results(reference, results):
+    # results is the tuple list from a dict (.items())
+    results_dict = dict(results)
+    reordered = []
+
+    # Reference is already sorted, so simply re-insert in order of the reference
+    for team, _ in reference:
+        reordered.append((team, results_dict[team]))
+
+    return reordered
+
+
 @register.inclusion_tag('home/tags/league_results_table.html', takes_context=True)
 def overall_standings(context, standings):
     # Check if all of the standings provided are empty
     standings_are_empty = reduce(lambda x, y: x and y, map(lambda x: x.is_empty, standings))
     if standings_are_empty:
         standings_sorted = sorted(map(lambda x: (x.team_name, x.results), standings), key=lambda x: x.team_name)
+        # The per-leg column of if there are results: True means 0-points will be displayed, otherwise a dash (-)
+        # will be shown instead
+        standings_has_results = [False, False, False, False, False]
     else:
         # Rank each leg individually
         leg_1 = rank_leg(list(map(lambda x: (x.team_name, x.leg_1), standings)))
@@ -47,11 +62,22 @@ def overall_standings(context, standings):
                                   key=lambda x: reduce(
                                       lambda z, y: (z[0] + y[0], z[1] + y[1], z[2] + y[2], z[3] + y[3]),
                                       x[1]), reverse=True)
+        reduce(lambda x, y: x or y, list(map(lambda x: x[1] != (0, 0, 0, 0), leg_1)))
+        # The per-leg column of if there are results: True means 0-points will be displayed, otherwise a dash (-)
+        # will be shown instead
+        standings_has_results = [
+            reduce(lambda x, y: x or y, list(map(lambda x: x[1] != (0, 0, 0, 0), leg_1))),
+            reduce(lambda x, y: x or y, list(map(lambda x: x[1] != (0, 0, 0, 0), leg_2))),
+            reduce(lambda x, y: x or y, list(map(lambda x: x[1] != (0, 0, 0, 0), leg_3))),
+            reduce(lambda x, y: x or y, list(map(lambda x: x[1] != (0, 0, 0, 0), leg_4))),
+            reduce(lambda x, y: x or y, list(map(lambda x: x[1] != (0, 0, 0, 0), champs))),
+        ]
 
-        # TODO: Sort the per-leg results into the order of the overall standings
-
-    print(standings_sorted)
+    standings_aggregate = align_results(standings_sorted, list(map(lambda x: (x.team_name, x.aggregate), standings)))
 
     return {
-        'request': context
+        'request': context,
+        'standings': standings_sorted,
+        'standings_agg': standings_aggregate,
+        'results_mask': standings_has_results,
     }
