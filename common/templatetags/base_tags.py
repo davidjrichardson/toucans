@@ -10,6 +10,14 @@ def has_menu_children(page):
     return page.get_children().live().in_menu().exists()
 
 
+@register.filter
+def return_item(l, i):
+    try:
+        return l[i]
+    except:
+        return None
+
+
 @register.filter()
 def last_three(l):
     return l[-3:-1]

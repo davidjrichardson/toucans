@@ -383,7 +383,7 @@ class StandingsEntry(models.Model):
             FieldPanel('leg_4_golds'),
         ]),
         FieldRowPanel([
-            FieldPanel('champs_golds'),
+            FieldPanel('champs_score'),
             FieldPanel('champs_hits'),
             FieldPanel('champs_golds'),
         ]),

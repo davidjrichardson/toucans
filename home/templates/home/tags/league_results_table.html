@@ -1,3 +1,5 @@
+{% load humanize base_tags %}
+
 <div class="table-wrapper">
   <table class="table is-hoverable league-results">
     <thead>
@@ -28,38 +30,30 @@
     </tr>
     </thead>
     <tbody>
-    <tr>
-      <td class="is-numeric">1st</td>
-      <td class="is-text">Warwick</td>
-      <td class="is-numeric leg-divider">2313</td>
-      <td class="is-numeric">8</td>
-      <td class="is-numeric leg-divider">2297</td>
-      <td class="is-numeric">8</td>
-      <td class="is-numeric leg-divider">2299</td>
-      <td class="is-numeric">8</td>
-      <td class="is-numeric leg-divider">2319</td>
-      <td class="is-numeric">8</td>
-      <td class="is-numeric leg-divider">2322</td>
-      <td class="is-numeric">8</td>
-      <td class="is-numeric leg-divider">11550</td>
-      <td class="is-numeric">40</td>
-    </tr>
-    <tr>
-      <td class="is-numeric">2nd</td>
-      <td class="is-text">Birmingham</td>
-      <td class="is-numeric leg-divider">-</td>
-      <td class="is-numeric">-</td>
-      <td class="is-numeric leg-divider">-</td>
-      <td class="is-numeric">-</td>
-      <td class="is-numeric leg-divider">-</td>
-      <td class="is-numeric">-</td>
-      <td class="is-numeric leg-divider">-</td>
-      <td class="is-numeric">-</td>
-      <td class="is-numeric leg-divider">-</td>
-      <td class="is-numeric">-</td>
-      <td class="is-numeric leg-divider">-</td>
-      <td class="is-numeric">-</td>
-    </tr>
+    {% for team in standings %}
+      <tr>
+        <td class="is-numeric">{{ forloop.counter|ordinal }}</td>
+        <td class="is-text">{{ team.0 }}</td>
+        {% for score in team.1 %}
+          {% if results_mask|return_item:forloop.counter0 %}
+            <td class="is-numeric leg-divider">{{ score.1 }}</td>
+            <td class="is-numeric">{{ score.0 }}</td>
+          {% else %}
+            <td class="is-numeric leg-divider">-</td>
+            <td class="is-numeric">-</td>
+          {% endif %}
+        {% endfor %}
+        {% if not results_empty %}
+          <td class="is-numeric leg-divider">-</td>
+          <td class="is-numeric">-</td>
+        {% else %}
+          {% with standings_agg|return_item:forloop.counter0 as agg %}
+            <td class="is-numeric leg-divider">{{ agg.1 }}</td>
+            <td class="is-numeric">{{ agg.0 }}</td>
+          {% endwith %}
+        {% endif %}
+      </tr>
+    {% endfor %}
     </tbody>
   </table>
 </div>
