@@ -36,10 +36,11 @@ def overall_standings(context, standings):
     # Check if all of the standings provided are empty
     standings_are_empty = reduce(lambda x, y: x and y, map(lambda x: x.is_empty, standings))
     if standings_are_empty:
-        standings_sorted = sorted(map(lambda x: (x.team_name, x.results), standings), key=lambda x: x.team_name)
+        standings_sorted = sorted(map(lambda x: (x.team_name, x.results), standings))
         # The per-leg column of if there are results: True means 0-points will be displayed, otherwise a dash (-)
         # will be shown instead
         standings_has_results = [False, False, False, False, False]
+        standings_aggregate = [(0, 0, 0, 0), (0, 0, 0, 0), (0, 0, 0, 0), (0, 0, 0, 0), (0, 0, 0, 0)]
     else:
         # Rank each leg individually
         leg_1 = rank_leg(list(map(lambda x: (x.team_name, x.leg_1), standings)))
@@ -72,13 +73,9 @@ def overall_standings(context, standings):
             reduce(lambda x, y: x or y, list(map(lambda x: x[1] != (0, 0, 0, 0), leg_4))),
             reduce(lambda x, y: x or y, list(map(lambda x: x[1] != (0, 0, 0, 0), champs))),
         ]
-
-    standings_aggregate = list(
-        map(lambda x: reduce(lambda z, y: (z[0] + y[0], z[1] + y[1], z[2] + y[2], z[3] + y[3]), x[1]),
-            standings_sorted))
-
-    print(standings_has_results)
-    print(reduce(lambda x, y: x or y, standings_has_results))
+        standings_aggregate = list(
+            map(lambda x: reduce(lambda z, y: (z[0] + y[0], z[1] + y[1], z[2] + y[2], z[3] + y[3]), x[1]),
+                standings_sorted))
 
     return {
         'request': context,

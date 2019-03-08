@@ -14,11 +14,13 @@
             <h2 class="title is-size-2">League Standings for {{ page.standings_year }}</h2>
           </div>
         </div>
-        <div class="level-right">
-          <div class="level-item">
-            <a href="#" class="button is-white">Results archive<i class="fas fa-chevron-right"></i></a>
+        {% if page.archives %}
+          <div class="level-right">
+            <div class="level-item">
+              <a href="{% pageurl page.archives %}" class="button is-white">Results archive<i class="fas fa-chevron-right"></i></a>
+            </div>
           </div>
-        </div>
+        {% endif %}
       </nav>
       <h4 class="title is-size-4">Experienced Table</h4>
       {% overall_standings standings=page.experienced_results %}
@@ -27,5 +29,5 @@
       {% include 'home/includes/blog_streamfield.html' with content=page.body %}
     </div>
   </section>
-  {# TODO: League standings page (and support for being a child page #}
+  {# TODO: Support for being a child page #}
 {% endblock %}

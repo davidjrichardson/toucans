@@ -406,6 +406,10 @@ class StandingsPage(Page):
     def novice_results(self):
         return self.results.filter(team_is_novice=True).all()
 
+    @property
+    def archives(self):
+        return StandingsIndexPage.objects.live().child_of(self).first()
+
     content_panels = Page.content_panels + [
         MultiFieldPanel([
             FieldPanel('standings_year'),
