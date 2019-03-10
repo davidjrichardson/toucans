@@ -432,6 +432,10 @@ class ResourcePage(Page):
     description = RichTextField(blank=True, null=True)
     body = StreamField(BlogStreamBlock)
 
+    @property
+    def child_resources(self):
+        return ResourcePage.objects.live().child_of(self).all()
+
     content_panels = [
         MultiFieldPanel([
             FieldPanel('title', classname="full title"),
@@ -442,7 +446,7 @@ class ResourcePage(Page):
 
 
 class HomePage(Page):
-    subpage_types = ['home.SchedulePage', 'home.BlogIndexPage', 'home.StandingsPage']
+    subpage_types = ['home.SchedulePage', 'home.BlogIndexPage', 'home.StandingsPage', 'home.ResourcePage']
 
     description = models.TextField(max_length=400, default='')
 

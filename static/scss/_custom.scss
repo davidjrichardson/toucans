@@ -702,3 +702,20 @@ article.content {
     background-color: rgba($black, 0.04);
   }
 }
+
+.resource-sublist li a {
+  display: block;
+  padding: 0.5rem;
+
+  background-color: transparent;
+
+  transition: background-color ease-in-out 0.1s, color ease-in-out 0.1s;
+
+  border-radius: $radius/2;
+
+  &:hover,
+  &:focus {
+    color: darken($butts_purple, 5%);
+    background-color: rgba($black, 0.04);
+  }
+}

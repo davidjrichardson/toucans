@@ -13,7 +13,7 @@
         <h6 class="subtitle is-size-6">{% filters_to_str request.GET.tag request.GET.date %}</h6>
       {% endif %}
       <div class="columns">
-        <div class="column is-8">
+        <div class="column is-9">
           {% for article in blogs.object_list %}
             {% include 'home/includes/article.html' with article=article last_article=forloop.last %}
           {% endfor %}
@@ -103,7 +103,7 @@
             </nav>
           {% endif %}
         </div>
-        <aside class="column is-4">
+        <aside class="column is-3">
           {% sidebar %}
         </aside>
       </div>
