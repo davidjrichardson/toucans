@@ -425,6 +425,22 @@ class StandingsPage(Page):
     ]
 
 
+class ResourcePage(Page):
+    subpage_types = ['home.ResourcePage']
+    parent_page_types = ['home.ResourcePage', 'home.HomePage']
+
+    description = RichTextField(blank=True, null=True)
+    body = StreamField(BlogStreamBlock)
+
+    content_panels = [
+        MultiFieldPanel([
+            FieldPanel('title', classname="full title"),
+            FieldPanel('description'),
+            StreamFieldPanel('body')
+        ], heading='Page content')
+    ]
+
+
 class HomePage(Page):
     subpage_types = ['home.SchedulePage', 'home.BlogIndexPage', 'home.StandingsPage']
 

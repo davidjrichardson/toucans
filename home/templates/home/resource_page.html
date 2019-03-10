@@ -1,0 +1,20 @@
+{% extends "base.html" %}
+{% load static base_tags wagtailcore_tags %}
+
+{% block body_class %}template-resource-page{% endblock %}
+
+{% block title %}{{ page.title }} | B.U.T.T.S. League{% endblock %}
+
+{% block content %}
+  {% if page.depth > 3 %}
+    {% breadcrumbs calling_page=page %}
+  {% endif %}
+  <section class="section">
+    <div class="container">
+      <h2 class="title is-size-2">{{ page.title }}</h2>
+      <div class="content">
+        {{ page.description|richtext }}
+      </div>
+    </div>
+  </section>
+{% endblock %}
