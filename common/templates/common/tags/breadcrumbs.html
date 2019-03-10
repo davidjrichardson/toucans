@@ -1,0 +1,13 @@
+{% load wagtailcore_tags base_tags %}
+
+<nav class="breadcrumb" aria-label="breadcrumbs">
+  <div class="container">
+    <ul>
+      {% for parent in parent_list %}
+        <li {% if parent == calling_page %}class="is-active"{% endif %}>
+          <a href="{% pageurl parent %}">{{ parent.title }}</a>
+        </li>
+      {% endfor %}
+    </ul>
+  </div>
+</nav>

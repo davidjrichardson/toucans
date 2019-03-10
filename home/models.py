@@ -296,9 +296,15 @@ class StandingsIndexPage(Page):
     parent_page_types = ['home.StandingsPage']
     subpage_types = ['home.StandingsPage']
 
+    description = RichTextField(blank=True, null=True)
+
     @property
     def archives(self):
         return StandingsPage.objects.live().childof(self).order_by('-standings_year').all()
+
+    content_panels = Page.content_panels + [
+        FieldPanel('description')
+    ]
 
 
 class StandingsEntry(models.Model):

@@ -6,5 +6,18 @@
 {% block title %}{{ page.title }} | B.U.T.T.S. League{% endblock %}
 
 {% block content %}
-  {# TODO: List of league standings (for archival purposes) #}
+  {% breadcrumbs calling_page=page %}
+  <section class="section">
+    <div class="container">
+      <h2 class="title is-size-2">Standings Archive</h2>
+      <div class="content">
+        {{ page.description|richtext }}
+      </div>
+    </div>
+  </section>
+  <section class="section">
+    <div class="container">
+      {# TODO: Display the list of results from previous years #}
+    </div>
+  </section>
 {% endblock %}

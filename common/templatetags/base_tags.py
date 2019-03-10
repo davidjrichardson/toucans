@@ -80,6 +80,22 @@ def sidebar(context):
     }
 
 
+@register.inclusion_tag('common/tags/breadcrumbs.html', takes_context=True)
+def breadcrumbs(context, calling_page):
+    parent_list = []
+
+    current = calling_page
+    while current.depth >= 3:
+        parent_list = [current] + parent_list
+        current = current.get_parent()
+
+    return {
+        'request': context['request'],
+        'parent_list': parent_list,
+        'calling_page': calling_page
+    }
+
+
 @register.inclusion_tag('common/tags/navbar.html', takes_context=True)
 def navigation(context, calling_page=None):
     # Get all of the items marked to be in a menu bar
