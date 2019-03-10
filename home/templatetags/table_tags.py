@@ -31,8 +31,7 @@ def align_results(reference, results):
     return reordered
 
 
-@register.inclusion_tag('home/tags/league_results_table.html', takes_context=True)
-def overall_standings(context, standings):
+def generate_league_table(standings):
     # Check if all of the standings provided are empty
     standings_are_empty = reduce(lambda x, y: x and y, map(lambda x: x.is_empty, standings))
     if standings_are_empty:
@@ -76,6 +75,26 @@ def overall_standings(context, standings):
         standings_aggregate = list(
             map(lambda x: reduce(lambda z, y: (z[0] + y[0], z[1] + y[1], z[2] + y[2], z[3] + y[3]), x[1]),
                 standings_sorted))
+
+    return standings_sorted, standings_aggregate, standings_has_results
+
+
+@register.inclusion_tag('home/tags/aggregate_results_table.html', takes_context=True)
+def aggregated_standings(context, standings):
+    standings_sorted, standings_aggregate, standings_has_results = generate_league_table(standings)
+
+    return {
+        'request': context['request'],
+        'standings': standings_sorted,
+        'standings_agg': standings_aggregate,
+        # Results empty is simply if there are no results through the entire table
+        'results_empty': not reduce(lambda x, y: x or y, standings_has_results)
+    }
+
+
+@register.inclusion_tag('home/tags/league_results_table.html', takes_context=True)
+def overall_standings(context, standings):
+    standings_sorted, standings_aggregate, standings_has_results = generate_league_table(standings)
 
     return {
         'request': context,

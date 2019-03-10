@@ -1,0 +1,21 @@
+{% load table_tags %}
+
+<div class="section league-tables">
+  <div class="container">
+    <h2 class="title is-size-2">Current Standings</h2>
+    <div class="tile is-ancestor">
+      <div class="tile is-6 is-parent">
+        <div class="tile is-child">
+          <h3 class="title is-size-3">Experienced</h3>
+          {% aggregated_standings standings=page.experienced_standings %}
+        </div>
+      </div>
+      <div class="tile is-6 is-parent">
+        <div class="tile is-child">
+          <h3 class="title is-size-3">Novice</h3>
+          {% aggregated_standings standings=page.novice_standings %}
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

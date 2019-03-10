@@ -438,6 +438,15 @@ class HomePage(Page):
     def news_index(self):
         return BlogIndexPage.objects.live().child_of(self).first()
 
+    @property
+    def experienced_standings(self):
+        return StandingsPage.objects.live().child_of(self).first().experienced_results
+
+    @property
+    def novice_standings(self):
+        return StandingsPage.objects.live().child_of(self).first().novice_results
+
+
     content_panels = Page.content_panels + [
         FieldPanel('description', classname="full"),
     ]

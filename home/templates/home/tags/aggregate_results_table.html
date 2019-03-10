@@ -1,0 +1,32 @@
+{% load humanize base_tags %}
+
+<table class="table is-striped">
+  <thead>
+  <tr>
+    <th class="is-numeric pos">Position</th>
+    <th class="is-text uni">University</th>
+    <th class="is-numeric points">Points</th>
+    <th class="is-numeric hits">Score</th>
+    <th class="is-numeric tens">10s</th>
+  </tr>
+  </thead>
+  <tbody>
+  {% for team in standings %}
+    <tr>
+      <td class="is-numeric pos">{{ forloop.counter|ordinal }}</td>
+      <td class="is-text">{{ team.0 }}</td>
+      {% if results_empty %}
+        <td class="is-numeric">-</td>
+        <td class="is-numeric">-</td>
+        <td class="is-numeric tens">-</td>
+      {% else %}
+        {% with standings_agg|return_item:forloop.counter0 as agg %}
+          <td class="is-numeric">{{ agg.0 }}</td>
+          <td class="is-numeric">{{ agg.1 }}</td>
+          <td class="is-numeric tens">{{ agg.3 }}</td>
+        {% endwith %}
+      {% endif %}
+    </tr>
+  {% endfor %}
+  </tbody>
+</table>
