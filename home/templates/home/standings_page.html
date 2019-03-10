@@ -3,9 +3,12 @@
 
 {% block body_class %}template-standings{% endblock %}
 
-{% block title %}{{ page.standings_year }} {{ page.title }} | B.U.T.T.S. League{% endblock %}
+{% block title %}{{ page.standings_year }} Standings | B.U.T.T.S. League{% endblock %}
 
 {% block content %}
+  {% if page.depth > 3 %}
+    {% breadcrumbs calling_page=page %}
+  {% endif %}
   <section class="section league-standings">
     <div class="container">
       <nav class="level">
@@ -29,5 +32,4 @@
       {% include 'home/includes/blog_streamfield.html' with content=page.body %}
     </div>
   </section>
-  {# TODO: Support for being a child page #}
 {% endblock %}

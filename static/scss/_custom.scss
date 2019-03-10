@@ -507,7 +507,7 @@ a {
 
   background-color: transparent;
 
-  transition: background-color ease-in-out 0.2s, color ease-in-out 0.2s;
+  transition: background-color ease-in-out 0.1s, color ease-in-out 0.1s;
 
   border-radius: $radius/2;
 
@@ -539,6 +539,8 @@ a {
     display: block;
     padding: 0.35rem 0.5rem;
     border-radius: $radius/2;
+
+    transition: background-color ease-in-out 0.1s, color ease-in-out 0.1s;
 
     &:hover,
     &:focus {
@@ -681,5 +683,22 @@ article.content {
     &.leg-divider {
       padding-left: 30px;
     }
+  }
+}
+
+.results-list li a {
+  display: block;
+  padding: 0.5rem;
+
+  background-color: transparent;
+
+  transition: background-color ease-in-out 0.1s, color ease-in-out 0.1s;
+
+  border-radius: $radius/2;
+
+  &:hover,
+  &:focus {
+    color: darken($butts_purple, 5%);
+    background-color: rgba($black, 0.04);
   }
 }

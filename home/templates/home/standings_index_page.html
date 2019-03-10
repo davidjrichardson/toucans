@@ -13,11 +13,27 @@
       <div class="content">
         {{ page.description|richtext }}
       </div>
-    </div>
-  </section>
-  <section class="section">
-    <div class="container">
-      {# TODO: Display the list of results from previous years #}
+      <div class="columns">
+        <div class="column is-8">
+          <ul class="results-list">
+            {% for result in page.archives %}
+              <li>
+                <a href="{% pageurl result %}">Results for {{ result.standings_year }}</a>
+              </li>
+            {% endfor %}
+          </ul>
+        </div>
+        <div class="column is-4">
+          <div class="tile is-ancestor">
+            <div class="tile is-vertical is-parent">
+              <div class="tile is-child">
+                <h4 class="title is-size-4">Other Resources</h4>
+                {# TODO: Link to resource pages #}
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
     </div>
   </section>
 {% endblock %}

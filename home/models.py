@@ -300,7 +300,7 @@ class StandingsIndexPage(Page):
 
     @property
     def archives(self):
-        return StandingsPage.objects.live().childof(self).order_by('-standings_year').all()
+        return StandingsPage.objects.live().child_of(self).order_by('-standings_year').all()
 
     content_panels = Page.content_panels + [
         FieldPanel('description')
