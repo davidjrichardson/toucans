@@ -302,6 +302,10 @@ class StandingsIndexPage(Page):
     def archives(self):
         return StandingsPage.objects.live().child_of(self).order_by('-standings_year').all()
 
+    @property
+    def resources(self):
+        return filter(lambda x: x.depth > 3, ResourcePage.objects.live().all())
+
     content_panels = Page.content_panels + [
         FieldPanel('description')
     ]
@@ -465,7 +469,6 @@ class HomePage(Page):
     @property
     def novice_standings(self):
         return StandingsPage.objects.live().child_of(self).first().novice_results
-
 
     content_panels = Page.content_panels + [
         FieldPanel('description', classname="full"),

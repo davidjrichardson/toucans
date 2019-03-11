@@ -28,7 +28,13 @@
             <div class="tile is-vertical is-parent">
               <div class="tile is-child">
                 <h4 class="title is-size-4">Other Resources</h4>
-                {# TODO: Link to resource pages #}
+                <ul class="resource-sublist">
+                  {% for resource in page.resources %}
+                    <li>
+                      <a href="{% pageurl resource %}">{{ resource.title }}</a>
+                    </li>
+                  {% endfor %}
+                </ul>
               </div>
             </div>
           </div>
