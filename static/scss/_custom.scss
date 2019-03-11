@@ -25,6 +25,12 @@ a {
   }
 }
 
+@include touch {
+  .navbar-menu.navbar-menu.navbar-menu {
+    background-color: $white;
+  }
+}
+
 .navbar-brand .navbar-item {
   @include touch {
     padding: .5rem 1.5rem;
