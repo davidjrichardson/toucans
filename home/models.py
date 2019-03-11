@@ -450,6 +450,9 @@ class ResourcePage(Page):
     subpage_types = ['home.ResourcePage']
     parent_page_types = ['home.ResourcePage', 'home.HomePage']
 
+    page_title = models.CharField(max_length=200, blank=True, null=True,
+                                  help_text='Use this to override the title text in the web page itself, useful for '
+                                            'keeping the menu title consistent')
     description = RichTextField(blank=True, null=True)
     body = StreamField(BlogStreamBlock)
 
@@ -464,6 +467,7 @@ class ResourcePage(Page):
     content_panels = [
         MultiFieldPanel([
             FieldPanel('title', classname="full title"),
+            FieldPanel('page_title', classname="title"),
             FieldPanel('description'),
             StreamFieldPanel('body')
         ], heading='Page content'),
@@ -471,8 +475,36 @@ class ResourcePage(Page):
     ]
 
 
+class GenericRelatedLink(Orderable, RelatedLink):
+    page = ParentalKey('home.GenericPage', on_delete=models.CASCADE, related_name='related_links')
+
+
+class GenericPage(Page):
+    subpage_types = ['home.GenericPage', 'home.ResourcePage']
+    parent_page_types = ['home.GenericPage', 'home.ResourcePage', 'home.HomePage']
+
+    page_title = models.CharField(max_length=200, blank=True, null=True,
+                                  help_text='Use this to override the title text in the web page itself, useful for '
+                                            'keeping the menu title consistent')
+    body = StreamField(BlogStreamBlock)
+
+    @property
+    def related(self):
+        return self.related_links.all()
+
+    content_panels = [
+        MultiFieldPanel([
+            FieldPanel('title', classname="full title"),
+            FieldPanel('page_title', classname="title"),
+            StreamFieldPanel('body')
+        ], heading='Page content'),
+        InlinePanel('related_links', label='Related links')
+    ]
+
+
 class HomePage(Page):
-    subpage_types = ['home.SchedulePage', 'home.BlogIndexPage', 'home.StandingsPage', 'home.ResourcePage']
+    subpage_types = ['home.SchedulePage', 'home.BlogIndexPage', 'home.StandingsPage', 'home.ResourcePage',
+                     'home.GenericPage']
 
     description = models.TextField(max_length=400, default='')
 

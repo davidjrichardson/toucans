@@ -5,7 +5,7 @@
     <ul>
       {% for parent in parent_list %}
         <li {% if parent == calling_page %}class="is-active"{% endif %}>
-          <a href="{% pageurl parent %}">{{ parent.title }}</a>
+          <a href="{% pageurl parent %}">{% if parent.page_title %}{{ parent.page_title }}{% else %}{{ parent.title }}{% endif %}</a>
         </li>
       {% endfor %}
     </ul>

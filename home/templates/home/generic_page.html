@@ -1,7 +1,7 @@
 {% extends "base.html" %}
 {% load static base_tags wagtailcore_tags %}
 
-{% block body_class %}template-resource-page{% endblock %}
+{% block body_class %}template-generic-page{% endblock %}
 
 {% block title %}{% if page.page_title %}{{ page.page_title }}{% else %}{{ page.title }}{% endif %} | B.U.T.T.S. League{% endblock %}
 
@@ -16,13 +16,8 @@
       {% else %}
         <h2 class="title is-size-2">{{ page.title }}</h2>
       {% endif %}
-      {% if page.description %}
-        <div class="content">
-          {{ page.description|richtext }}
-        </div>
-      {% endif %}
       <div class="columns">
-        {% if page.child_resources %}
+        {% if page.get_children or page.related %}
           <div class="column is-9">
         {% else %}
           <div class="column">
@@ -31,15 +26,15 @@
           {% include 'home/includes/blog_streamfield.html' with content=page.body %}
         </main>
         </div>
-        {% if page.child_resources or page.related %}
+        {% if page.get_children or page.related %}
           <div class="column is-3">
             <div class="tile is-ancestor">
               <div class="tile is-vertical is-parent">
-                {% if page.child_resources %}
+                {% if page.get_children %}
                   <div class="tile is-child">
-                    <h4 class="title is-size-4">Other Resources</h4>
+                    <h4 class="title is-size-4">More Information</h4>
                     <ul class="resource-sublist">
-                      {% for resource in page.child_resources %}
+                      {% for resource in page.get_children %}
                         <li>
                           <a href="{% pageurl resource %}">{{ resource.title }}</a>
                         </li>
