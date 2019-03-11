@@ -12,7 +12,7 @@ from wagtail.contrib.table_block.blocks import TableBlock
 from wagtail.core.blocks import StructBlock, DateBlock, CharBlock, TextBlock, StreamBlock, IntegerBlock, ListBlock, \
     RichTextBlock
 from wagtail.core.fields import RichTextField, StreamField
-from wagtail.core.models import Page
+from wagtail.core.models import Page, Orderable
 from wagtail.documents.blocks import DocumentChooserBlock
 from wagtail.images.blocks import ImageChooserBlock
 from wagtail.images.edit_handlers import ImageChooserPanel
@@ -190,6 +190,19 @@ class StandingsStreamBlock(StreamBlock):
     paragraph = RichTextBlock(icon='pilcrow')
 
 
+class RelatedLink(models.Model):
+    title = models.CharField(max_length=255)
+    link_external = models.URLField("External link", blank=True)
+
+    panels = [
+        FieldPanel('title'),
+        FieldPanel('link_external'),
+    ]
+
+    class Meta:
+        abstract = True
+
+
 def chunks(l, n):
     """Yield successive n-sized chunks from l."""
     for i in range(0, len(l), n):
@@ -197,7 +210,7 @@ def chunks(l, n):
 
 
 class BlogPageTag(TaggedItemBase):
-    content_object = ParentalKey('home.BlogPage', related_name='tagged_items')
+    content_object = ParentalKey('home.BlogPage', related_name='tagged_items', on_delete=models.CASCADE)
 
 
 class BlogPage(Page):
@@ -312,7 +325,7 @@ class StandingsIndexPage(Page):
 
 
 class StandingsEntry(models.Model):
-    page = ParentalKey('StandingsPage', related_name='results')
+    page = ParentalKey('StandingsPage', related_name='results', on_delete=models.CASCADE)
 
     team_name = models.CharField(max_length=50)
     team_is_novice = models.BooleanField(default=False)
@@ -429,6 +442,10 @@ class StandingsPage(Page):
     ]
 
 
+class ResourceRelatedLink(Orderable, RelatedLink):
+    page = ParentalKey('home.ResourcePage', on_delete=models.CASCADE, related_name='related_links')
+
+
 class ResourcePage(Page):
     subpage_types = ['home.ResourcePage']
     parent_page_types = ['home.ResourcePage', 'home.HomePage']
@@ -440,12 +457,17 @@ class ResourcePage(Page):
     def child_resources(self):
         return ResourcePage.objects.live().child_of(self).all()
 
+    @property
+    def related(self):
+        return self.related_links.all()
+
     content_panels = [
         MultiFieldPanel([
             FieldPanel('title', classname="full title"),
             FieldPanel('description'),
             StreamFieldPanel('body')
-        ], heading='Page content')
+        ], heading='Page content'),
+        InlinePanel('related_links', label='Related links')
     ]
 
 

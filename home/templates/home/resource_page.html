@@ -27,20 +27,34 @@
           {% include 'home/includes/blog_streamfield.html' with content=page.body %}
         </main>
         </div>
-        {% if page.child_resources %}
+        {% if page.child_resources or page.related_links %}
           <div class="column is-3">
             <div class="tile is-ancestor">
               <div class="tile is-vertical is-parent">
-                <div class="tile is-child">
-                  <h4 class="title is-size-4">Other Resources</h4>
-                  <ul class="resource-sublist">
-                    {% for resource in page.child_resources %}
-                      <li>
-                        <a href="{% pageurl resource %}">{{ resource.title }}</a>
-                      </li>
-                    {% endfor %}
-                  </ul>
-                </div>
+                {% if page.child_resources %}
+                  <div class="tile is-child">
+                    <h4 class="title is-size-4">Other Resources</h4>
+                    <ul class="resource-sublist">
+                      {% for resource in page.child_resources %}
+                        <li>
+                          <a href="{% pageurl resource %}">{{ resource.title }}</a>
+                        </li>
+                      {% endfor %}
+                    </ul>
+                  </div>
+                {% endif %}
+                {% if page.related %}
+                  <div class="tile is-child">
+                    <h4 class="title is-size-4">Related Links</h4>
+                    <ul class="resource-sublist">
+                      {% for link in page.related %}
+                        <li>
+                          <a href="{{ link.link_external }}">{{ link.title }}</a>
+                        </li>
+                      {% endfor %}
+                    </ul>
+                  </div>
+                {% endif %}
               </div>
             </div>
           </div>
