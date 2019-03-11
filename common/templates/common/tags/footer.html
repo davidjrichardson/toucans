@@ -17,28 +17,43 @@
         </div>
         <div class="column is-3">
           <p class="sitemap-entry title"><a href="{% pageurl request.site.root_page %}">Home</a></p>
-          <p class="sitemap-entry title"><a href="#">Standings</a></p>
-          <p class="sitemap-entry"><a href="#">Previous Results</a></p>
-          <p class="sitemap-entry title"><a href="#">Schedule</a></p>
+          {% if standings %}
+            <p class="sitemap-entry title"><a href="{% pageurl standings %}">{{ standings.title }}</a></p>
+            <p class="sitemap-entry"><a href="{% pageurl standings_archive %}">{{ standings_archive.title }}</a></p>
+          {% endif %}
+          {% if schedule %}
+            <p class="sitemap-entry title"><a href="{% pageurl schedule %}">{{ schedule.title }}</a></p>
+          {% endif %}
         </div>
         <div class="column is-3">
-          <p class="sitemap-entry title"><a href="#">News</a></p>
-          <p class="sitemap-entry"><a href="#">B.U.T.T.S. Leg 1 Recap</a></p>
-          <p class="sitemap-entry more-news"><a href="#">Older news articles <i class="fas fa-chevron-right"></i></a>
+          {% if news %}
+            <p class="sitemap-entry title"><a href="{% pageurl news %}">{{ news.title }}</a></p>
+            {% if news_article %}
+              <p class="sitemap-entry"><a href="{% pageurl news_article %}">{{ news_article.title }}</a></p>
+              <p class="sitemap-entry more-news"><a href="{% pageurl news %}">Older news articles <i class="fas fa-chevron-right"></i></a>
+            {% endif %}
+          {% endif %}
           </p>
-          <p class="sitemap-entry title"><a href="#">League</a></p>
-          <p class="sitemap-entry"><a href="#">League History</a></p>
-          <p class="sitemap-entry"><a href="#">Rules</a></p>
-          <p class="sitemap-entry"><a href="#">The Boat Race</a></p>
+          {% if league %}
+            <p class="sitemap-entry title"><a href="#">League</a></p>
+            {% for subpage in league_subpages %}
+              <p class="sitemap-entry"><a href="{% pageurl subpage %}">{{ subpage.title }}</a></p>
+            {% endfor %}
+          {% endif %}
         </div>
         <div class="column is-3">
-          <p class="sitemap-entry title"><a href="#">Records</a></p>
-          <p class="sitemap-entry"><a href="#">Hall of Fame</a></p>
-          <p class="sitemap-entry title"><a href="#">Resources</a></p>
-          <p class="sitemap-entry"><a href="#">Archer Etiquette</a></p>
-          <p class="sitemap-entry"><a href="#">B.U.T.T.S. Badges</a></p>
-          <p class="sitemap-entry"><a href="#">Organising a Leg</a></p>
-          <p class="sitemap-entry"><a href="#">Ultimate Archer</a></p>
+          {% if records %}
+            <p class="sitemap-entry title"><a href="{% pageurl records %}">{{ records.title }}</a></p>
+            {% for subpage in records_subpages %}
+              <p class="sitemap-entry"><a href="{% pageurl subpage %}">{{ subpage.title }}</a></p>
+            {% endfor %}
+          {% endif %}
+          {% if resources %}
+            <p class="sitemap-entry title"><a href="{% pageurl resources %}">{{ resources.title }}</a></p>
+            {% for subpage in resources_subpages %}
+              <p class="sitemap-entry"><a href="{% pageurl subpage %}">{{ subpage.title }}</a></p>
+            {% endfor %}
+          {% endif %}
           <p class="sitemap-entry"><a href="{% url 'wagtailadmin_home' %}">Admin Login</a></p>
         </div>
       </div>

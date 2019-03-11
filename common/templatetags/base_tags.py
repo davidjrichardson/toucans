@@ -1,7 +1,8 @@
 from collections import OrderedDict
 from django import template
 
-from home.models import Footer, BlogIndexPage, BlogPage
+from home.models import Footer, BlogIndexPage, BlogPage, StandingsPage, SchedulePage, StandingsIndexPage, GenericPage, \
+    ResourcePage
 
 register = template.Library()
 
@@ -41,10 +42,35 @@ def relative_url(value, field_name, urlencode=None):
 
 @register.inclusion_tag('common/tags/footer.html', takes_context=True)
 def footer(context):
-    # TODO: Get all of the items marked to be in a menu bar
-    # Standings, Schedule, News, League, Records, Resources (in that order)
+    # Get the site root to find top-level pages
+    root = context['request'].site.root_page
+    # Find the navbar-level categories
+    standings = StandingsPage.objects.live().child_of(root).order_by('-standings_year').first()
+    standings_archive = StandingsIndexPage.objects.live().child_of(standings).first()
+    schedule = SchedulePage.objects.live().child_of(root).first()
+    news_root = BlogIndexPage.objects.live().child_of(root).first()
+    news_article = BlogPage.objects.live().child_of(news_root).order_by('-date').first()
+    league = GenericPage.objects.live().child_of(root).filter(title__iexact='league').first()
+    league_subpages = GenericPage.objects.live().child_of(league).all()
+    records = GenericPage.objects.live().child_of(root).filter(title__iexact='records').first()
+    records_subpages = GenericPage.objects.live().child_of(records).all()
+    resources = ResourcePage.objects.live().child_of(root).first()
+    resources_subpages = ResourcePage.objects.live().child_of(resources).all()
 
     return {
+        # Footer link categories
+        'standings': standings,
+        'standings_archive': standings_archive,
+        'schedule': schedule,
+        'news': news_root,
+        'news_article': news_article,
+        'league': league,
+        'league_subpages': league_subpages,
+        'records': records,
+        'records_subpages': records_subpages,
+        'resources': resources,
+        'resources_subpages': resources_subpages,
+        # Social media links
         'facebook_url': Footer.objects.first().facebook_url if Footer.objects.first() else None,
         'twitter_url': Footer.objects.first().twitter_url if Footer.objects.first() else None,
         # required by the pageurl tag that we want to use within this template
