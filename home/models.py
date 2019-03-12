@@ -44,29 +44,30 @@ class SeasonStartDateBlock(StructBlock):
     )
 
     class Meta:
-        label = 'Season start date'
+        label = 'Start of academic year marker'
         icon = 'date'
 
 
-class LeagueNewYearBlock(StructBlock):
-    new_year = IntegerBlock(
+class LeagueMidSeasonMarkerBlock(StructBlock):
+    marker_text = CharBlock(
+        min_length=50,
         required=True,
-        help_text="The new year for the league"
+        help_text="The name of the thing you would like to mark"
     )
 
     class Meta:
-        label = 'New year marker'
+        label = 'Mid-season marker'
         icon = 'date'
 
 
 class SeasonEndBlock(StructBlock):
     season_name = TextBlock(
         required=True,
-        help_text="The name of this season e.g.: Indoor, Outdoor"
+        help_text="The name of this season e.g.: B.U.T.T.S. 2018-19"
     )
 
     class Meta:
-        label = 'Season end marker'
+        label = 'End of year marker'
         icon = 'date'
 
 
@@ -95,7 +96,7 @@ class LeagueLegBlock(StructBlock):
 
 class LeagueCombinedLegBlock(ListBlock):
     class Meta:
-        label = 'Combined tournament leg'
+        label = 'Tournament leg'
         icon = 'table'
         admin_text = 'For when two legs are on the same weekend'
 
@@ -124,7 +125,7 @@ class TimelineStreamBlock(StreamBlock):
     league_leg_block = LeagueCombinedLegBlock(LeagueLegBlock())
     league_event_block = LeagueLegBlock()
     league_champs_block = LeagueChampsBlock()
-    league_new_year_block = LeagueNewYearBlock()
+    league_new_year_block = LeagueMidSeasonMarkerBlock()
     season_end_block = SeasonEndBlock()
 
 

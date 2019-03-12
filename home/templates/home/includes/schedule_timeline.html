@@ -13,9 +13,9 @@
       <header class="timeline-header">
         <span class="tag is-medium is-primary">{{ item.value.season_name }} Season Ends</span>
       </header>
-    {% elif item.block_type == 'league_new_year_block' %}
+    {% elif item.block_type == 'league_midseason_marker_block' %}
       <header class="timeline-header">
-        <span class="tag is-primary">{{ item.value.new_year }}</span>
+        <span class="tag is-primary">{{ item.value.marker_text }}</span>
       </header>
     {% elif item.block_type == 'league_event_block' %}
       <div class="timeline-item is-grey">
