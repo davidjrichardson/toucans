@@ -35,7 +35,7 @@
           {% endif %}
           </p>
           {% if league %}
-            <p class="sitemap-entry title"><a href="#">League</a></p>
+            <p class="sitemap-entry title"><a href="{% pageurl league %}">League</a></p>
             {% for subpage in league_subpages %}
               <p class="sitemap-entry"><a href="{% pageurl subpage %}">{{ subpage.title }}</a></p>
             {% endfor %}
