@@ -40,7 +40,7 @@ class SeasonStartDateBlock(StructBlock):
     )
     season_name = TextBlock(
         required=True,
-        help_text="The name of this season e.g.: Indoor, Outdoor"
+        help_text="The name of this season e.g.: B.U.T.T.S. 2018-19"
     )
 
     class Meta:
@@ -50,7 +50,7 @@ class SeasonStartDateBlock(StructBlock):
 
 class LeagueMidSeasonMarkerBlock(StructBlock):
     marker_text = CharBlock(
-        min_length=50,
+        max_length=50,
         required=True,
         help_text="The name of the thing you would like to mark"
     )
@@ -114,6 +114,11 @@ class LeagueChampsBlock(StructBlock):
         required=True,
         help_text="The date of this championship event"
     )
+    champs_attendees = TextBlock(
+        required=False,
+        null=True,
+        help_text="The clubs attending this champs, separated by a comma"
+    )
 
     class Meta:
         label = 'Champs'
@@ -125,7 +130,7 @@ class TimelineStreamBlock(StreamBlock):
     league_leg_block = LeagueCombinedLegBlock(LeagueLegBlock())
     league_event_block = LeagueLegBlock()
     league_champs_block = LeagueChampsBlock()
-    league_new_year_block = LeagueMidSeasonMarkerBlock()
+    league_midseason_marker_block = LeagueMidSeasonMarkerBlock()
     season_end_block = SeasonEndBlock()
 
 
