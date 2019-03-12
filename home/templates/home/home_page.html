@@ -7,6 +7,17 @@
 
 {% block title %}The B.U.T.T.S. Challenge League{% endblock %}
 
+{% block ogp_prefix %}prefix="og: http://ogp.me/ns#"{% endblock %}
+
+{% block ogp_metadata %}
+  <meta property="og:title" content="{{ page.title }}">
+  <meta property="og:type" content="website">
+  <meta property="og:determiner" content="the">
+  <meta property="og:description" content="{{ page.description }}">
+  <meta property="og:locale" content="en_GB">
+  <meta property="og:url" content="https://buttsleague.com{% pageurl self %}">
+{% endblock %}
+
 {% block content %}
   <div class="league-hero">
     {% navigation calling_page=self %}

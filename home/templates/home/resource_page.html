@@ -1,9 +1,26 @@
 {% extends "base.html" %}
 {% load static base_tags wagtailcore_tags %}
+{% get_site_root as site_root %}
 
 {% block body_class %}template-resource-page{% endblock %}
 
 {% block title %}{% if page.page_title %}{{ page.page_title }}{% else %}{{ page.title }}{% endif %} | B.U.T.T.S. League{% endblock %}
+
+{% block ogp_prefix %}prefix="og: http://ogp.me/ns#"{% endblock %}
+
+{% block ogp_metadata %}
+  <meta property="og:title" content="{{ page.title }}">
+  <meta property="og:site_name" content="{{ site_root.title }}">
+  <meta property="og:type" content="website">
+  <meta property="og:determiner" content="the">
+  <meta property="og:locale" content="en_GB">
+  <meta property="og:url" content="https://buttsleague.com{% pageurl self %}">
+  {% if page.search_description %}
+    <meta property="og:description" content="{{ page.search_description }}">
+  {% elif page.description %}
+    <meta property="og:description" content="{{ page.description|striptags }}">
+  {% endif %}
+{% endblock %}
 
 {% block content %}
   {% if page.depth > 3 %}

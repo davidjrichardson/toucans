@@ -5,6 +5,20 @@
 
 {% block title %}League Schedule | B.U.T.T.S. League{% endblock %}
 
+{% block ogp_prefix %}prefix="og: http://ogp.me/ns#"{% endblock %}
+
+{% block ogp_metadata %}
+  <meta property="og:title" content="{{ page.title }}">
+  <meta property="og:site_name" content="{{ site_root.title }}">
+  <meta property="og:type" content="website">
+  <meta property="og:determiner" content="the">
+  <meta property="og:locale" content="en_GB">
+  <meta property="og:url" content="https://buttsleague.com{% pageurl self %}">
+  {% if page.search_description %}
+    <meta property="og:description" content="{{ page.search_description }}">
+  {% endif %}
+{% endblock %}
+
 {% block content %}
   <div class="section league-schedule">
     <div class="container">

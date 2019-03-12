@@ -1,7 +1,7 @@
 {% load static compress wagtailuserbar base_tags wagtailcore_tags %}
 
 <html>
-<head>
+<head {% block ogp_prefix %}{% endblock %}>
   <meta charset="utf-8">
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
   <meta name="description" content="{% if page.search_description %}{{ page.search_description }}{% endif %}"/>
@@ -53,6 +53,10 @@
   {% compress css %}
     <link href="{% static 'scss/app.scss' %}" rel="stylesheet" type="text/x-scss"/>
   {% endcompress %}
+
+  {% block ogp_metadata %}
+    {# OpenGraph data goes here #}
+  {% endblock %}
 
   {% block extra_css %}{% endblock %}
 </head>

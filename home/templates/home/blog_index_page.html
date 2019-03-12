@@ -5,6 +5,17 @@
 
 {% block title %}Latest News (page {{ blogs.number }}) | B.U.T.T.S. League{% endblock %}
 
+{% block ogp_prefix %}prefix="og: http://ogp.me/ns#"{% endblock %}
+
+{% block ogp_metadata %}
+  <meta property="og:title" content="{{ page.title }}">
+  <meta property="og:type" content="website">
+  <meta property="og:determiner" content="the">
+  <meta property="og:description" content="B.U.T.T.S. Challenge League News (page {{ blogs.number }})">
+  <meta property="og:locale" content="en_GB">
+  <meta property="og:url" content="https://buttsleague.com{{ request.get_full_path }}">
+{% endblock %}
+
 {% block content %}
   <div class="section league-news">
     <div class="container">
