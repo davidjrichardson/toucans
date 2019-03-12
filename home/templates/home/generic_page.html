@@ -4,7 +4,8 @@
 
 {% block body_class %}template-generic-page{% endblock %}
 
-{% block title %}{% if page.page_title %}{{ page.page_title }}{% else %}{{ page.title }}{% endif %} | B.U.T.T.S. League{% endblock %}
+{% block title %}{% if page.page_title %}{{ page.page_title }}{% else %}{{ page.title }}{% endif %} | B.U.T.T.S.
+  League{% endblock %}
 
 {% block ogp_prefix %}prefix="og: http://ogp.me/ns#"{% endblock %}
 
@@ -31,6 +32,8 @@
       {% else %}
         <h2 class="title is-size-2">{{ page.title }}</h2>
       {% endif %}
+      <h6 class="subtitle is-size-6">Last updated at {{ page.last_published_at|time:'P' }} on
+        the {{ page.last_published_at|date:'jS F Y' }}</h6>
       <div class="columns">
         {% if page.get_children or page.related %}
           <div class="column is-9">
