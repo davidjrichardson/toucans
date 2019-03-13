@@ -152,6 +152,10 @@ a {
   background-repeat: no-repeat;
 
   @include desktop {
+    margin-bottom: -10rem;
+  }
+
+  @include widescreen {
     margin-bottom: -12rem;
   }
 
