@@ -252,15 +252,43 @@ a {
     }
 
     & .uni {
-      width: 39%;
+      width: 33%;
+
+      @include tablet {
+        width: 39%;
+      }
+
+      @include widescreen {
+        width: 49%;
+      }
     }
 
     & .hits {
-      width: 15%;
+      width: 20%;
+
+      @include tablet {
+        width: 16%;
+      }
+
+      @include desktop {
+        width: 15%;
+      }
+
+      @include widescreen {
+        width: 13%;
+      }
     }
 
     & .tens {
-      padding-right: 30px;
+      padding-right: 15px;
+
+      @include tablet {
+        padding-right: 20px;
+      }
+
+      @include desktop {
+        padding-right: 30px;
+      }
     }
   }
 }
