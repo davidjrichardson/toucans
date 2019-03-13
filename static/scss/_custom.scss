@@ -144,15 +144,15 @@ a {
 }
 
 .league-hero {
-  margin-bottom: -12rem;
+  margin-bottom: -4rem;
 
   background-image: url('/static/img/hero_background.jpg');
   background-position: center;
   background-size: cover;
   background-repeat: no-repeat;
 
-  @include touch {
-    margin-bottom: 3rem;
+  @include desktop {
+    margin-bottom: -12rem;
   }
 
   & .league-info {
@@ -160,7 +160,7 @@ a {
     z-index: 2;
 
     @include touch {
-      padding: 0 1.5rem;
+      padding: 0 1.5rem 7.5rem;
     }
 
     & .league-blurb {
