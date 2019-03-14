@@ -1,4 +1,4 @@
-{% load humanize base_tags %}
+{% load humanize base_tags table_tags %}
 
 <table class="table is-striped">
   <thead>
@@ -14,7 +14,7 @@
   {% for team in standings %}
     <tr>
       <td class="is-numeric pos">{{ forloop.counter|ordinal }}</td>
-      <td class="is-text">{{ team.0 }}</td>
+      <td class="is-text"><span class="is-hidden-touch">{{ team.0 }}</span><span class="is-hidden-desktop" aria-hidden="true">{{ team.0|contract }}</span></td>
       {% if results_empty %}
         <td class="is-numeric">-</td>
         <td class="is-numeric">-</td>

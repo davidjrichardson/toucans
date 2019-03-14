@@ -31,6 +31,13 @@ def align_results(reference, results):
     return reordered
 
 
+@register.filter()
+def contract(name):
+    return {
+        'loughborough': 'L\'boro'
+    }.get(name.lower(), name)
+
+
 def generate_league_table(standings):
     # Check if all of the standings provided are empty
     standings_are_empty = reduce(lambda x, y: x and y, map(lambda x: x.is_empty, standings))
