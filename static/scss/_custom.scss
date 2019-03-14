@@ -59,6 +59,12 @@ a {
   }
 
   & .social-media {
+    margin-bottom: 2.5rem;
+
+    &:first-child {
+      clear: both;
+    }
+
     & h4 {
       color: $butts-text_tertiary_inv;
 
