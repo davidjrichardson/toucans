@@ -597,6 +597,10 @@ a {
 article.content {
   & .streamfield-block {
     margin-bottom: 1.5rem;
+    
+    & .title {
+      padding-top: 1.5rem;
+    }
 
     & .table {
       background-color: transparent;
