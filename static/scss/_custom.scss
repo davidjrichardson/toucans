@@ -486,20 +486,20 @@ a {
       }
     }
   }
+}
 
-  .title-link {
-    color: transparent;
+.title-link {
+  color: transparent;
 
-    transition: color 0.075s ease-in-out;
+  transition: color 0.075s ease-in-out;
 
-    &:hover,
-    &:focus {
-      color: $grey-light;
-    }
+  &:hover,
+  &:focus {
+    color: $grey-light;
+  }
 
-    &:active {
-      color: $grey;
-    }
+  &:active {
+    color: $grey;
   }
 }
 
@@ -597,14 +597,13 @@ a {
 article.content {
   & .streamfield-block {
     margin-bottom: 1.5rem;
-    
+
     & .title {
       padding-top: 1.5rem;
     }
 
     & .table {
       background-color: transparent;
-
 
       &.is-hoverable tbody tr:not(.is-selected) {
         background-color: transparent;
