@@ -776,3 +776,31 @@ table {
   -o-font-feature-settings: "tnum" 1;
   font-feature-settings: "tnum" 1;
 }
+
+.error-container {
+  & .is-err {
+    font-size: 11rem;
+    text-align: center;
+
+    @include tablet {
+      font-size: 16rem;
+    }
+
+    &.title.title.title {
+      margin-bottom: 0;
+    }
+
+    background-image: linear-gradient(6deg, $butts_purple, $butts_purple_alt);
+    background-clip: text;
+    -webkit-background-clip: text;
+    color: transparent;
+  }
+}
+
+.has-text-secondary {
+  color: $butts_text_secondary;
+}
+
+.has-text-tertiary {
+  color: $butts_text_tertiary;
+}

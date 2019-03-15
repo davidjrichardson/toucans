@@ -1,0 +1,17 @@
+{% extends 'base.html' %}
+
+{% block body_class %}template-err-page{% endblock %}
+
+{% block title %}Internal Server Error | B.U.T.T.S. League{% endblock %}
+
+{% block content %}
+  <section class="section">
+    <div class="container">
+      <div class="error-container">
+        <h1 class="is-err title">500</h1>
+        <p class="has-text-weight-bold is-size-5 has-text-centered">Internal server error</p>
+        <p class="has-text-secondary is-italic has-text-centered">Someone didn't pay their dues to toucan gods.</p>
+      </div>
+    </div>
+  </section>
+{% endblock %}
