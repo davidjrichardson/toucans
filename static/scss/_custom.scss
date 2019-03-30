@@ -698,6 +698,11 @@ article.content {
 
   padding-bottom: 16px;
   margin-bottom: 2rem;
+
+  &.no-padding {
+    padding-bottom: 0;
+    margin-bottom: 0;
+  }
 }
 
 .league-results.league-results.league-results {
