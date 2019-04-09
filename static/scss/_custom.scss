@@ -875,7 +875,7 @@ nav.breadcrumb {
       & tr:hover td,
       & tr:focus td {
         &.is-black {
-          background-color: lighten($butts_text, 5%);
+          background-color: $butts_text;
         }
 
         &.is-blue {

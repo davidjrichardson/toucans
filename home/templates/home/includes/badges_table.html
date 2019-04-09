@@ -1,7 +1,7 @@
 <div class="tabs">
   <ul>
     {% for round in rounds %}
-      <li {% if forloop.counter == 1 %}class="is-active"{% endif %}>
+      <li class="tab {% if forloop.counter == 1 %}is-active{% endif %}">
         <a href="#{{ round.round_name|slugify }}">{{ round.round_name }}</a>
       </li>
     {% endfor %}
