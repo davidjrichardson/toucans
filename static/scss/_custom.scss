@@ -819,3 +819,95 @@ nav.breadcrumb {
     padding-right: 1.5rem;
   }
 }
+
+.tabs {
+  & li a {
+    transition: border-bottom-color 0.075s ease-in-out, color 0.075s ease-in-out;
+  }
+}
+
+.badges-info {
+  display: none;
+
+  table.score-table {
+    &.is-hoverable tbody tr:not(.is-selected) {
+      background-color: transparent;
+
+      transition: background-color 0.075s ease-in-out;
+
+      &:hover,
+      &:focus {
+        background-color: rgba($butts_purple, 0.06);
+      }
+    }
+
+    background-color: transparent;
+
+    & .is-black {
+      background-color: rgba($butts_text, 0.9);
+      border-color: rgba($white, 0.15);
+
+      transition: background-color 0.075s ease-in-out;
+    }
+
+    & .is-blue {
+      background-color: rgba($blue, 0.9);
+      border-color: rgba($white, 0.15);
+      color: white;
+    }
+
+    & .is-red {
+      background-color: rgba(#ff2121, 0.85);
+      border-color: rgba($white, 0.25);
+      color: white;
+    }
+
+    & .is-gold {
+      background-color: $yellow;
+      border-color: rgba($butts-text, 0.15);
+    }
+
+    & tbody {
+      & tr td {
+        transition: background-color 0.075s ease-in-out;
+      }
+
+      & tr:hover td,
+      & tr:focus td {
+        &.is-black {
+          background-color: lighten($butts_text, 5%);
+        }
+
+        &.is-blue {
+          background-color: darken($blue, 3%);
+        }
+
+        &.is-red {
+          background-color: darken(#ff2121, 3%);
+        }
+
+        &.is-gold {
+          background-color: darken($yellow, 15%);
+        }
+      }
+    }
+
+    & th {
+      border-width: 0;
+    }
+
+    & td.is-text,
+    & th.is-text {
+      width: 50%;
+    }
+
+    & td.is-numeric,
+    & th.is-numeric {
+      width: 10%;
+    }
+  }
+
+  &.is-active {
+    display: block;
+  }
+}

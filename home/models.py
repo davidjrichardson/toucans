@@ -9,7 +9,7 @@ from modelcluster.fields import ParentalKey
 from taggit.models import TaggedItemBase
 from wagtail.admin.edit_handlers import FieldPanel, StreamFieldPanel, MultiFieldPanel, FieldRowPanel, InlinePanel
 from wagtail.contrib.table_block.blocks import TableBlock
-from wagtail.core.blocks import StructBlock, DateBlock, CharBlock, TextBlock, StreamBlock, IntegerBlock, ListBlock, \
+from wagtail.core.blocks import StructBlock, DateBlock, CharBlock, TextBlock, StreamBlock, ListBlock, \
     RichTextBlock
 from wagtail.core.fields import RichTextField, StreamField
 from wagtail.core.models import Page, Orderable
@@ -330,6 +330,89 @@ class StandingsIndexPage(Page):
     ]
 
 
+class LeagueBadgeRoundEntry(models.Model):
+    page = ParentalKey('BadgesPage', related_name='rounds', on_delete=models.CASCADE)
+    round_name = models.CharField(max_length=50)
+
+    # Recurve
+    rc_white_score = models.IntegerField("RC White")
+    rc_black_score = models.IntegerField("RC Black")
+    rc_blue_score = models.IntegerField("RC Blue")
+    rc_red_score = models.IntegerField("RC Red")
+    rc_gold_score = models.IntegerField("RC Gold")
+    # Barebow
+    bb_white_score = models.IntegerField("BB White")
+    bb_black_score = models.IntegerField("BB Black")
+    bb_blue_score = models.IntegerField("BB Blue")
+    bb_red_score = models.IntegerField("BB Red")
+    bb_gold_score = models.IntegerField("BB Gold")
+    # Compound
+    cb_white_score = models.IntegerField("CP White")
+    cb_black_score = models.IntegerField("CP Black")
+    cb_blue_score = models.IntegerField("CP Blue")
+    cb_red_score = models.IntegerField("CP Red")
+    cb_gold_score = models.IntegerField("CP Gold")
+    # Longbow
+    lb_white_score = models.IntegerField("LB White")
+    lb_black_score = models.IntegerField("LB Black")
+    lb_blue_score = models.IntegerField("LB Blue")
+    lb_red_score = models.IntegerField("LB Red")
+    lb_gold_score = models.IntegerField("LB Gold")
+
+    @property
+    def recurve_scores(self):
+        return self.rc_white_score, self.rc_black_score, self.rc_blue_score, self.rc_red_score, self.rc_gold_score
+
+    @property
+    def barebow_scores(self):
+        return self.bb_white_score, self.bb_black_score, self.bb_blue_score, self.bb_red_score, self.bb_gold_score
+
+    @property
+    def compound_scores(self):
+        return self.cb_white_score, self.cb_black_score, self.cb_blue_score, self.cb_red_score, self.cb_gold_score
+
+    @property
+    def longbow_scores(self):
+        return self.lb_white_score, self.lb_black_score, self.lb_blue_score, self.lb_red_score, self.lb_gold_score
+
+    @property
+    def table_order(self):
+        return ("Recurve", self.recurve_scores), ("Barebow", self.barebow_scores), ("Compound", self.compound_scores), \
+               ("Longbow", self.longbow_scores)
+
+    panels = [
+        FieldPanel('round_name', classname='title'),
+        FieldRowPanel([
+            FieldPanel('rc_white_score', classname='col4'),
+            FieldPanel('rc_black_score', classname='col4'),
+            FieldPanel('rc_blue_score', classname='col4'),
+            FieldPanel('rc_red_score', classname='col4'),
+            FieldPanel('rc_gold_score', classname='col4')
+        ]),
+        FieldRowPanel([
+            FieldPanel('bb_white_score', classname='col4'),
+            FieldPanel('bb_black_score', classname='col4'),
+            FieldPanel('bb_blue_score', classname='col4'),
+            FieldPanel('bb_red_score', classname='col4'),
+            FieldPanel('bb_gold_score', classname='col4')
+        ]),
+        FieldRowPanel([
+            FieldPanel('cb_white_score', classname='col4'),
+            FieldPanel('cb_black_score', classname='col4'),
+            FieldPanel('cb_blue_score', classname='col4'),
+            FieldPanel('cb_red_score', classname='col4'),
+            FieldPanel('cb_gold_score', classname='col4')
+        ]),
+        FieldRowPanel([
+            FieldPanel('lb_white_score', classname='col4'),
+            FieldPanel('lb_black_score', classname='col4'),
+            FieldPanel('lb_blue_score', classname='col4'),
+            FieldPanel('lb_red_score', classname='col4'),
+            FieldPanel('lb_gold_score', classname='col4')
+        ]),
+    ]
+
+
 class StandingsEntry(models.Model):
     page = ParentalKey('StandingsPage', related_name='results', on_delete=models.CASCADE)
 
@@ -453,7 +536,7 @@ class ResourceRelatedLink(Orderable, RelatedLink):
 
 
 class ResourcePage(Page):
-    subpage_types = ['home.ResourcePage']
+    subpage_types = ['home.ResourcePage', 'home.BadgesPage']
     parent_page_types = ['home.ResourcePage', 'home.HomePage']
 
     page_title = models.CharField(max_length=200, blank=True, null=True,
@@ -504,6 +587,23 @@ class GenericPage(Page):
             FieldPanel('page_title', classname="title"),
             StreamFieldPanel('body')
         ], heading='Page content'),
+        InlinePanel('related_links', label='Related links')
+    ]
+
+
+class BadgesPage(ResourcePage):
+    @property
+    def get_rounds(self):
+        return self.rounds.all()
+
+    content_panels = [
+        MultiFieldPanel([
+            FieldPanel('title', classname="full title"),
+            FieldPanel('page_title', classname="title"),
+            FieldPanel('description'),
+            StreamFieldPanel('body')
+        ], heading='Page content'),
+        InlinePanel('rounds', label='Badge information'),
         InlinePanel('related_links', label='Related links')
     ]
 

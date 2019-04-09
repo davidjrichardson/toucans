@@ -1,0 +1,93 @@
+{% extends "base.html" %}
+{% load static base_tags wagtailcore_tags %}
+{% get_site_root as site_root %}
+
+{% block body_class %}template-badge-page{% endblock %}
+
+{% block title %}{% if page.page_title %}{{ page.page_title }}{% else %}{{ page.title }}{% endif %} | B.U.T.T.S.
+  League{% endblock %}
+
+{% block ogp_prefix %}prefix="og: http://ogp.me/ns#"{% endblock %}
+
+{% block ogp_metadata %}
+  <meta property="og:title" content="{{ page.title }}">
+  <meta property="og:site_name" content="{{ site_root.title }}">
+  <meta property="og:type" content="website">
+  <meta property="og:determiner" content="the">
+  <meta property="og:locale" content="en_GB">
+  <meta property="og:url" content="https://buttsleague.com{% pageurl self %}">
+  {% if page.search_description %}
+    <meta property="og:description" content="{{ page.search_description }}">
+  {% endif %}
+{% endblock %}
+
+{# TODO: Write the javascript to power the table/tab hiding/showing #}
+
+{% block content %}
+  {% if page.depth > 3 %}
+    {% breadcrumbs calling_page=page %}
+  {% endif %}
+  <section class="section">
+    <div class="container">
+      {% if page.page_title %}
+        <h2 class="title is-size-2">{{ page.page_title }}</h2>
+      {% else %}
+        <h2 class="title is-size-2">{{ page.title }}</h2>
+      {% endif %}
+      <h6 class="subtitle is-size-6">Last updated at {{ page.last_published_at|time:'P' }} on
+        the {{ page.last_published_at|date:'jS F Y' }}</h6>
+      {% if page.description %}
+        <div class="content">
+          {{ page.description|richtext }}
+        </div>
+      {% endif %}
+      <div class="columns">
+        {% if page.get_children or page.related %}
+          <div class="column is-9">
+        {% else %}
+          <div class="column">
+        {% endif %}
+        {% if page.rounds %}
+          <h3 class="title is-size-3">Scoring Thresholds</h3>
+          {% include 'home/includes/badges_table.html' with rounds=page.get_rounds %}
+        {% endif %}
+        <main>
+          {% include 'home/includes/blog_streamfield.html' with content=page.body %}
+        </main>
+        </div>
+        {% if page.get_children or page.related %}
+          <div class="column is-3">
+            <div class="tile is-ancestor">
+              <div class="tile is-vertical is-parent">
+                {% if page.get_children %}
+                  <div class="tile is-child">
+                    <h4 class="title is-size-4">More Information</h4>
+                    <ul class="resource-sublist">
+                      {% for resource in page.get_children %}
+                        <li>
+                          <a href="{% pageurl resource %}">{{ resource.title }}</a>
+                        </li>
+                      {% endfor %}
+                    </ul>
+                  </div>
+                {% endif %}
+                {% if page.related %}
+                  <div class="tile is-child">
+                    <h4 class="title is-size-4">Useful Links</h4>
+                    <ul class="resource-sublist">
+                      {% for link in page.related %}
+                        <li>
+                          <a href="{{ link.link_external }}">{{ link.title }}</a>
+                        </li>
+                      {% endfor %}
+                    </ul>
+                  </div>
+                {% endif %}
+              </div>
+            </div>
+          </div>
+        {% endif %}
+        </div>
+      </div>
+  </section>
+{% endblock %}
