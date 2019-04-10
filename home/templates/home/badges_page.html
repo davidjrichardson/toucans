@@ -23,6 +23,10 @@
 
 {# TODO: Write the javascript to power the table/tab hiding/showing #}
 
+{% block extra_js %}
+  <script type="text/javascript" src="{% static 'js/badges_tabs.js' %}"></script>
+{% endblock %}
+
 {% block content %}
   {% if page.depth > 3 %}
     {% breadcrumbs calling_page=page %}
@@ -48,7 +52,7 @@
           <div class="column">
         {% endif %}
         {% if page.rounds %}
-          <h3 class="title is-size-3">Scoring Thresholds</h3>
+          <h3 class="title is-size-3">Badge Milestones</h3>
           {% include 'home/includes/badges_table.html' with rounds=page.get_rounds %}
         {% endif %}
         <main>
