@@ -34,8 +34,17 @@ def align_results(reference, results):
 @register.filter()
 def contract(name):
     return {
-        'loughborough': 'L\'boro'
+        'loughborough': 'L\'boro',
+        'de montfort': 'DMU'
     }.get(name.lower(), name)
+
+
+@register.filter()
+def dashify(val):
+    if int(val) >= 0:
+        return val
+    else:
+        return '‒'
 
 
 def generate_league_table(standings):
