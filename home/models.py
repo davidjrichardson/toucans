@@ -579,7 +579,7 @@ class GenericPage(Page):
 
     @property
     def related(self):
-        return self.related_links.all()
+        return self.related_links.order_by('-round_name').all()
 
     content_panels = [
         MultiFieldPanel([
