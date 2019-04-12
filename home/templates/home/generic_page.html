@@ -35,7 +35,7 @@
       <h6 class="subtitle is-size-6">Last updated at {{ page.last_published_at|time:'P' }} on
         the {{ page.last_published_at|date:'jS F Y' }}</h6>
       <div class="columns">
-        {% if page.get_children or page.related %}
+        {% if page.get_children or page.related or page.body|contains_title %}
           <div class="column is-9">
         {% else %}
           <div class="column is-12">
@@ -44,10 +44,24 @@
           {% include 'home/includes/blog_streamfield.html' with content=page.body %}
         </main>
         </div>
-        {% if page.get_children or page.related %}
+        {% if page.get_children or page.related or page.body|contains_title %}
           <div class="column is-3">
             <div class="tile is-ancestor">
               <div class="tile is-vertical is-parent">
+                {% if page.body|contains_title %}
+                  <div class="tile is-child">
+                    <h4 class="title is-size-4">Page overview</h4>
+                    <ul class="resource-sublist">
+                      {% for item in page.body %}
+                        {% if item.block_type == 'h2' or item.block_type == 'h3' or item.block_type == 'h4' %}
+                          <li>
+                            <a href="#{{ item|slugify }}">{{ item }}</a>
+                          </li>
+                        {% endif %}
+                      {% endfor %}
+                    </ul>
+                  </div>
+                {% endif %}
                 {% if page.get_children %}
                   <div class="tile is-child">
                     <h4 class="title is-size-4">More Information</h4>

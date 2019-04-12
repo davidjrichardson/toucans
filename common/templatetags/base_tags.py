@@ -21,6 +21,11 @@ def get_site_root(context):
 
 
 @register.filter
+def contains_title(streamfield):
+    return bool([x for x in streamfield if x.block_type == 'h2' or x.block_type == 'h3' or x.block_type == 'h4'])
+
+
+@register.filter
 def get_image_mime_type(image):
     return mimetypes.guess_type(image.url)[0]
 

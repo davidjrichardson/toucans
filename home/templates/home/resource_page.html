@@ -42,7 +42,7 @@
         </div>
       {% endif %}
       <div class="columns">
-        {% if page.child_resources %}
+        {% if page.child_resources or page.related or page.body|contains_title %}
           <div class="column is-9">
         {% else %}
           <div class="column is-12">
@@ -51,10 +51,24 @@
           {% include 'home/includes/blog_streamfield.html' with content=page.body %}
         </main>
         </div>
-        {% if page.child_resources or page.related %}
+        {% if page.child_resources or page.related or page.body|contains_title %}
           <div class="column is-3">
             <div class="tile is-ancestor">
               <div class="tile is-vertical is-parent">
+                {% if page.body|contains_title %}
+                  <div class="tile is-child">
+                    <h4 class="title is-size-4">Page overview</h4>
+                    <ul class="resource-sublist">
+                      {% for item in page.body %}
+                        {% if item.block_type == 'h2' or item.block_type == 'h3' or item.block_type == 'h4' %}
+                          <li>
+                            <a href="#{{ item|slugify }}">{{ item }}</a>
+                          </li>
+                        {% endif %}
+                      {% endfor %}
+                    </ul>
+                  </div>
+                {% endif %}
                 {% if page.child_resources %}
                   <div class="tile is-child">
                     <h4 class="title is-size-4">Other Resources</h4>
