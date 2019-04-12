@@ -579,7 +579,7 @@ class GenericPage(Page):
 
     @property
     def related(self):
-        return self.related_links.order_by('-round_name').all()
+        return self.related_links.all()
 
     content_panels = [
         MultiFieldPanel([
@@ -594,7 +594,7 @@ class GenericPage(Page):
 class BadgesPage(ResourcePage):
     @property
     def get_rounds(self):
-        return self.rounds.all()
+        return self.rounds.order_by('-round_name').all()
 
     content_panels = [
         MultiFieldPanel([
