@@ -46,14 +46,14 @@
         {% else %}
           <div class="column">
         {% endif %}
-        {% if page.rounds %}
-          <h3 class="title is-size-3">Badge Milestones</h3>
-          {% include 'home/includes/badges_table.html' with rounds=page.get_rounds %}
-        {% endif %}
         {% if page.description %}
           <div class="content">
             {{ page.description|richtext }}
           </div>
+        {% endif %}
+        {% if page.rounds %}
+          <h3 class="title is-size-3">Badge Milestones</h3>
+          {% include 'home/includes/badges_table.html' with rounds=page.get_rounds %}
         {% endif %}
         <main>
           {% include 'home/includes/blog_streamfield.html' with content=page.body %}
