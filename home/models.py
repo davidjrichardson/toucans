@@ -594,7 +594,7 @@ class GenericPage(Page):
 class BadgesPage(ResourcePage):
     @property
     def get_rounds(self):
-        return self.rounds.order_by('-round_name').all()
+        return self.rounds.order_by('round_name').all()
 
     content_panels = [
         MultiFieldPanel([
