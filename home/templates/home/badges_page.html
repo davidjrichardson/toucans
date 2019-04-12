@@ -40,11 +40,6 @@
       {% endif %}
       <h6 class="subtitle is-size-6">Last updated at {{ page.last_published_at|time:'P' }} on
         the {{ page.last_published_at|date:'jS F Y' }}</h6>
-      {% if page.description %}
-        <div class="content">
-          {{ page.description|richtext }}
-        </div>
-      {% endif %}
       <div class="columns">
         {% if page.get_children or page.related %}
           <div class="column is-9">
@@ -54,6 +49,11 @@
         {% if page.rounds %}
           <h3 class="title is-size-3">Badge Milestones</h3>
           {% include 'home/includes/badges_table.html' with rounds=page.get_rounds %}
+        {% endif %}
+        {% if page.description %}
+          <div class="content">
+            {{ page.description|richtext }}
+          </div>
         {% endif %}
         <main>
           {% include 'home/includes/blog_streamfield.html' with content=page.body %}
