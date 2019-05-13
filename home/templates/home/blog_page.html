@@ -50,7 +50,7 @@
 <div class="hero-body">
   <div class="container">
     <h1 class="title has-text-centered">{{ page.title }}</h1>
-    <h2 class="subtitle has-text-centered">Posted {{ page.first_published_at|date:'d/m/Y' }} by {{ page.owner }}</h2>
+    <h2 class="subtitle has-text-centered">Posted {{ page.first_published_at|date:'d/m/Y' }} by {{ page.owner.get_full_name }}</h2>
   </div>
 </div>
 <svg version="1.1" class="jumbotron-mask" xmlns="http://www.w3.org/2000/svg" x="0px" y="0px"

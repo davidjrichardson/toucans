@@ -9,7 +9,7 @@
   <a class="article-link" href="{% pageurl article %}">
     <h3 class="title is-size-3">{{ article.title }}</h3>
   </a>
-  <p class="article-info"><i class="fas fa-clock"></i> {{ article.first_published_at|date:'d/m/Y' }} by {{ article.owner }}</p>
+  <p class="article-info"><i class="fas fa-clock"></i> {{ article.first_published_at|date:'d/m/Y' }} by {{ article.owner.get_full_name }}</p>
   <div class="content article-blurb">{{ article.excerpt|richtext }}</div>
   {% if not last_article %}
     <hr/>
