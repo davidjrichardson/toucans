@@ -1,7 +1,7 @@
 {% load static compress wagtailuserbar base_tags wagtailcore_tags %}
 
 <html>
-<head {% block ogp_prefix %}{% endblock %}>
+<head {% block ogp_prefix %}prefix="og: http://ogp.me/ns#"{% endblock %}>
   <meta charset="utf-8">
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
   <meta name="description" content="{% if page.search_description %}{{ page.search_description }}{% endif %}"/>
@@ -55,6 +55,7 @@
   {% endcompress %}
 
   {% block ogp_metadata %}
+    <meta property="og:image" content="{% static 'favicon-228.png' %}">
     {# OpenGraph data goes here #}
   {% endblock %}
 
