@@ -20,6 +20,8 @@
     <meta property="og:image:type" content="{{ cover_image_1024|get_image_mime_type }}">
     <meta property="og:image:alt" content="{{ cover_image_1024.alt }}">
     <meta name="twitter:card" content="https://buttsleague.com{{ cover_image_1024.url }}">
+  {% else %}
+    <meta property="og:image" content="https://buttsleague.com{% static 'favicon-228.png' %}">
   {% endif %}
   <meta property="article:content_tier" content="free">
   <meta property="article:publisher" content="https://www.facebook.com/groups/buttsleague/">
