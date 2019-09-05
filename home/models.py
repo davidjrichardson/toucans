@@ -313,13 +313,13 @@ class BlogIndexPage(Page):
 
 class StandingsIndexPage(Page):
     parent_page_types = ['home.NewStandingsPage']
-    subpage_types = ['home.LegacyStandingsPage', 'home.NewStandingsPage']
+    subpage_types = ['home.FourLegStandingsPage', 'home.NewStandingsPage']
 
     description = RichTextField(blank=True, null=True)
 
     @property
     def archives(self):
-        legacy = list(LegacyStandingsPage.objects.live().child_of(self).order_by('-standings_year').all())
+        legacy = list(FourLegStandingsPage.objects.live().child_of(self).order_by('-standings_year').all())
         new = list(NewStandingsPage.objects.live().child_of(self).order_by('-standings_year').all())
 
         archive = legacy + new
@@ -418,8 +418,8 @@ class LeagueBadgeRoundEntry(models.Model):
     ]
 
 
-class LegacyStandingsEntry(models.Model):
-    page = ParentalKey('LegacyStandingsPage', related_name='results', on_delete=models.CASCADE)
+class FourLegStandingsEntry(models.Model):
+    page = ParentalKey('FourLegStandingsPage', related_name='results', on_delete=models.CASCADE)
 
     team_name = models.CharField(max_length=50)
     team_is_novice = models.BooleanField(default=False)
@@ -616,7 +616,7 @@ class NewStandingsPage(Page):
     ]
 
 
-class LegacyStandingsPage(Page):
+class FourLegStandingsPage(Page):
     parent_page_types = ['home.HomePage', 'home.StandingsIndexPage']
     subpage_types = ['home.StandingsIndexPage']
 

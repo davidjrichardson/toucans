@@ -3,7 +3,7 @@ from collections import OrderedDict
 
 from django import template
 
-from home.models import Footer, BlogIndexPage, BlogPage, LegacyStandingsPage, SchedulePage, StandingsIndexPage, \
+from home.models import Footer, BlogIndexPage, BlogPage, FourLegStandingsPage, SchedulePage, StandingsIndexPage, \
     GenericPage, \
     ResourcePage, NewStandingsPage
 
