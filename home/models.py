@@ -604,7 +604,7 @@ class NewStandingsPage(Page):
         return StandingsIndexPage.objects.live().child_of(self).first()
 
     @property
-    def leg_num(self):
+    def num_legs(self):
         return 3
 
     content_panels = Page.content_panels + [
@@ -637,7 +637,7 @@ class FourLegStandingsPage(Page):
         return StandingsIndexPage.objects.live().child_of(self).first()
 
     @property
-    def leg_num(self):
+    def num_legs(self):
         return 4
 
     content_panels = Page.content_panels + [
@@ -742,11 +742,15 @@ class HomePage(Page):
 
     @property
     def experienced_standings(self):
-        return NewStandingsPage.objects.live().child_of(self).first().experienced_results
+        standings_page = NewStandingsPage.objects.live().child_of(self).first()
+
+        return (standings_page.experienced_results, standings_page.num_legs)
 
     @property
     def novice_standings(self):
-        return NewStandingsPage.objects.live().child_of(self).first().novice_results
+        standings_page = NewStandingsPage.objects.live().child_of(self).first()
+
+        return (standings_page.novice_results, standings_page.num_legs)
 
     content_panels = Page.content_panels + [
         FieldPanel('description', classname="full"),

@@ -107,7 +107,7 @@ def overall_3leg_standings(context, standings):
     }
 
 
-def generate_league_table(standings):
+def generate_4leg_table(standings):
     # Check if all of the standings provided are empty
     standings_are_empty = reduce(lambda x, y: x and y, map(lambda x: x.is_empty, standings))
     if standings_are_empty:
@@ -156,8 +156,14 @@ def generate_league_table(standings):
 
 
 @register.inclusion_tag('home/tags/aggregate_results_table.html', takes_context=True)
-def aggregated_standings(context, standings):
-    standings_sorted, standings_aggregate, standings_has_results = generate_league_table(standings)
+def aggregated_standings(context, results):
+    standings = results[0]
+    num_legs = results[1]
+
+    if num_legs == 3:
+        standings_sorted, standings_aggregate, standings_has_results = generate_3leg_table(standings)
+    else:
+        standings_sorted, standings_aggregate, standings_has_results = generate_4leg_table(standings)
 
     return {
         'request': context['request'],
@@ -170,7 +176,7 @@ def aggregated_standings(context, standings):
 
 @register.inclusion_tag('home/tags/4leg_results_table.html', takes_context=True)
 def overall_4leg_standings(context, standings):
-    standings_sorted, standings_aggregate, standings_has_results = generate_league_table(standings)
+    standings_sorted, standings_aggregate, standings_has_results = generate_4leg_table(standings)
 
     return {
         'request': context,

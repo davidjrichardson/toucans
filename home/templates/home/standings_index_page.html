@@ -35,7 +35,7 @@
           <ul class="results-list">
             {% for result in page.archives %}
               <li>
-                <a href="{% pageurl result %}">Results for {{ result.standings_year }} ({{ result.leg_num }} leg format)</a>
+                <a href="{% pageurl result %}">Results for {{ result.standings_year }} ({{ result.num_legs }} leg format)</a>
               </li>
             {% endfor %}
           </ul>
