@@ -62,7 +62,7 @@ def generate_3leg_table(standings):
         leg_2 = rank_leg(list(map(lambda x: (x.team_name, x.leg_2), standings)))
         leg_3 = rank_leg(list(map(lambda x: (x.team_name, x.leg_3), standings)))
         champs = rank_leg(list(map(lambda x: (x.team_name, x.champs), standings)))
-        pts_combined = leg_1 + leg_2 + leg_3 + leg_4 + champs
+        pts_combined = leg_1 + leg_2 + leg_3 + champs
         pts_dict = {}
 
         for team, rank in pts_combined:
