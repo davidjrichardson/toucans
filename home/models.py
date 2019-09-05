@@ -319,12 +319,12 @@ class StandingsIndexPage(Page):
 
     @property
     def archives(self):
-        legacy = LegacyStandingsPage.objects.live().child_of(self).order_by('-standings_year').all()
-        new = NewStandingsPage.objects.live().child_of(self).order_by('-standings_year').all()
+        legacy = list(LegacyStandingsPage.objects.live().child_of(self).order_by('-standings_year').all())
+        new = list(NewStandingsPage.objects.live().child_of(self).order_by('-standings_year').all())
 
-        archive = list(legacy).append(list(new))
+        archive = legacy + new
 
-        return sorted(archive, key=lambda x: x.standings_year)
+        return sorted(archive, key=lambda x: x.standings_year, reverse=True)
 
     @property
     def resources(self):
@@ -734,11 +734,11 @@ class HomePage(Page):
 
     @property
     def experienced_standings(self):
-        return LegacyStandingsPage.objects.live().child_of(self).first().experienced_results
+        return NewStandingsPage.objects.live().child_of(self).first().experienced_results
 
     @property
     def novice_standings(self):
-        return LegacyStandingsPage.objects.live().child_of(self).first().novice_results
+        return NewStandingsPage.objects.live().child_of(self).first().novice_results
 
     content_panels = Page.content_panels + [
         FieldPanel('description', classname="full"),
