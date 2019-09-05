@@ -5,7 +5,7 @@ from django import template
 
 from home.models import Footer, BlogIndexPage, BlogPage, FourLegStandingsPage, SchedulePage, StandingsIndexPage, \
     GenericPage, \
-    ResourcePage, NewStandingsPage
+    ResourcePage, ThreeLegStandingsPage
 
 register = template.Library()
 
@@ -65,7 +65,7 @@ def footer(context):
     # Get the site root to find top-level pages
     root = context['request'].site.root_page
     # Find the navbar-level categories
-    standings = NewStandingsPage.objects.live().child_of(root).order_by('-standings_year').first()
+    standings = ThreeLegStandingsPage.objects.live().child_of(root).order_by('-standings_year').first()
     standings_archive = StandingsIndexPage.objects.live().child_of(standings).first()
     schedule = SchedulePage.objects.live().child_of(root).first()
     news_root = BlogIndexPage.objects.live().child_of(root).first()
