@@ -603,6 +603,10 @@ class NewStandingsPage(Page):
     def archives(self):
         return StandingsIndexPage.objects.live().child_of(self).first()
 
+    @property
+    def leg_num(self):
+        return 3
+
     content_panels = Page.content_panels + [
         MultiFieldPanel([
             FieldPanel('standings_year'),
@@ -631,6 +635,10 @@ class LegacyStandingsPage(Page):
     @property
     def archives(self):
         return StandingsIndexPage.objects.live().child_of(self).first()
+
+    @property
+    def leg_num(self):
+        return 4
 
     content_panels = Page.content_panels + [
         MultiFieldPanel([
