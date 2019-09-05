@@ -312,14 +312,19 @@ class BlogIndexPage(Page):
 
 
 class StandingsIndexPage(Page):
-    parent_page_types = ['home.StandingsPage']
-    subpage_types = ['home.StandingsPage']
+    parent_page_types = ['home.NewStandingsPage']
+    subpage_types = ['home.LegacyStandingsPage', 'home.NewStandingsPage']
 
     description = RichTextField(blank=True, null=True)
 
     @property
     def archives(self):
-        return StandingsPage.objects.live().child_of(self).order_by('-standings_year').all()
+        legacy = LegacyStandingsPage.objects.live().child_of(self).order_by('-standings_year').all()
+        new = NewStandingsPage.objects.live().child_of(self).order_by('-standings_year').all()
+
+        archive = list(legacy).append(list(new))
+
+        return sorted(archive, key=lambda x: x.standings_year)
 
     @property
     def resources(self):
@@ -413,8 +418,8 @@ class LeagueBadgeRoundEntry(models.Model):
     ]
 
 
-class StandingsEntry(models.Model):
-    page = ParentalKey('StandingsPage', related_name='results', on_delete=models.CASCADE)
+class LegacyStandingsEntry(models.Model):
+    page = ParentalKey('LegacyStandingsPage', related_name='results', on_delete=models.CASCADE)
 
     team_name = models.CharField(max_length=50)
     team_is_novice = models.BooleanField(default=False)
@@ -502,7 +507,112 @@ class StandingsEntry(models.Model):
     ]
 
 
-class StandingsPage(Page):
+class NewStandingsEntry(models.Model):
+    page = ParentalKey('NewStandingsPage', related_name='results', on_delete=models.CASCADE)
+
+    team_name = models.CharField(max_length=50)
+    team_is_novice = models.BooleanField(default=False)
+
+    leg_1_score = models.IntegerField(blank=True, default=0)
+    leg_1_hits = models.IntegerField(blank=True, default=0)
+    leg_1_golds = models.IntegerField(blank=True, default=0)
+
+    leg_2_score = models.IntegerField(blank=True, default=0)
+    leg_2_hits = models.IntegerField(blank=True, default=0)
+    leg_2_golds = models.IntegerField(blank=True, default=0)
+
+    leg_3_score = models.IntegerField(blank=True, default=0)
+    leg_3_hits = models.IntegerField(blank=True, default=0)
+    leg_3_golds = models.IntegerField(blank=True, default=0)
+
+    champs_score = models.IntegerField(blank=True, default=0)
+    champs_hits = models.IntegerField(blank=True, default=0)
+    champs_golds = models.IntegerField(blank=True, default=0)
+
+    @property
+    def leg_1(self):
+        return self.leg_1_score, self.leg_1_hits, self.leg_1_golds
+
+    @property
+    def leg_2(self):
+        return self.leg_2_score, self.leg_2_hits, self.leg_2_golds
+
+    @property
+    def leg_3(self):
+        return self.leg_3_score, self.leg_3_hits, self.leg_3_golds
+
+    @property
+    def champs(self):
+        return self.champs_score, self.champs_hits, self.champs_golds
+
+    @property
+    def results(self):
+        return [self.leg_1, self.leg_2, self.leg_3, self.champs]
+
+    @property
+    def is_empty(self):
+        return not bool(list(filter(lambda x: x != (0, 0, 0), self.results)))
+
+    @property
+    def aggregate(self):
+        return functools.reduce(lambda acc, new: (acc[0] + new[0], acc[1] + new[1], acc[2] + new[2]), self.results)
+
+    panels = [
+        FieldPanel('team_name', classname='title'),
+        FieldPanel('team_is_novice'),
+        FieldRowPanel([
+            FieldPanel('leg_1_score'),
+            FieldPanel('leg_1_hits'),
+            FieldPanel('leg_1_golds'),
+        ]),
+        FieldRowPanel([
+            FieldPanel('leg_2_score'),
+            FieldPanel('leg_2_hits'),
+            FieldPanel('leg_2_golds'),
+        ]),
+        FieldRowPanel([
+            FieldPanel('leg_3_score'),
+            FieldPanel('leg_3_hits'),
+            FieldPanel('leg_3_golds'),
+        ]),
+        FieldRowPanel([
+            FieldPanel('champs_score'),
+            FieldPanel('champs_hits'),
+            FieldPanel('champs_golds'),
+        ]),
+    ]
+
+
+class NewStandingsPage(Page):
+    parent_page_types = ['home.HomePage', 'home.StandingsIndexPage']
+    subpage_types = ['home.StandingsIndexPage']
+
+    standings_year = models.TextField('Academic year',
+                                      help_text='The academic year for this set of standings')
+    body = StreamField(StandingsStreamBlock)
+
+    @property
+    def experienced_results(self):
+        return self.results.filter(team_is_novice=False).all()
+
+    @property
+    def novice_results(self):
+        return self.results.filter(team_is_novice=True).all()
+
+    @property
+    def archives(self):
+        return StandingsIndexPage.objects.live().child_of(self).first()
+
+    content_panels = Page.content_panels + [
+        MultiFieldPanel([
+            FieldPanel('standings_year'),
+            StreamFieldPanel('body'),
+        ], heading='Standings Info'),
+        InlinePanel('results', label='Results')
+    ]
+
+
+class LegacyStandingsPage(Page):
     parent_page_types = ['home.HomePage', 'home.StandingsIndexPage']
     subpage_types = ['home.StandingsIndexPage']
 
@@ -609,7 +719,7 @@ class BadgesPage(ResourcePage):
 
 
 class HomePage(Page):
-    subpage_types = ['home.SchedulePage', 'home.BlogIndexPage', 'home.StandingsPage', 'home.ResourcePage',
+    subpage_types = ['home.SchedulePage', 'home.BlogIndexPage', 'home.NewStandingsPage', 'home.ResourcePage',
                      'home.GenericPage']
 
     description = models.TextField(max_length=400, default='')
@@ -624,11 +734,11 @@ class HomePage(Page):
 
     @property
     def experienced_standings(self):
-        return StandingsPage.objects.live().child_of(self).first().experienced_results
+        return LegacyStandingsPage.objects.live().child_of(self).first().experienced_results
 
     @property
     def novice_standings(self):
-        return StandingsPage.objects.live().child_of(self).first().novice_results
+        return LegacyStandingsPage.objects.live().child_of(self).first().novice_results
 
     content_panels = Page.content_panels + [
         FieldPanel('description', classname="full"),

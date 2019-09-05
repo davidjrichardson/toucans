@@ -1,0 +1,50 @@
+{% extends "base.html" %}
+{% load static base_tags table_tags wagtailcore_tags %}
+
+{% block body_class %}template-standings{% endblock %}
+
+{% block title %}{{ page.standings_year }} Standings | B.U.T.T.S. League{% endblock %}
+
+{% block ogp_prefix %}prefix="og: http://ogp.me/ns#"{% endblock %}
+
+{% block ogp_metadata %}
+  <meta property="og:title" content="{{ page.title }}">
+  <meta property="og:site_name" content="{{ site_root.title }}">
+  <meta property="og:type" content="website">
+  <meta property="og:determiner" content="the">
+  <meta property="og:locale" content="en_GB">
+  <meta property="og:url" content="https://buttsleague.com{% pageurl self %}">
+  <meta property="og:image" content="https://buttsleague.com{% static 'favicon-228.png' %}">
+  {% if page.search_description %}
+    <meta property="og:description" content="{{ page.search_description }}">
+  {% endif %}
+{% endblock %}
+
+{% block content %}
+  {% if page.depth > 3 %}
+    {% breadcrumbs calling_page=page %}
+  {% endif %}
+  <section class="section league-standings">
+    <div class="container">
+      <nav class="level">
+        <div class="level-left">
+          <div class="level-item">
+            <h2 class="title is-size-2">League Standings for {{ page.standings_year }}</h2>
+          </div>
+        </div>
+        {% if page.archives %}
+          <div class="level-right">
+            <div class="level-item">
+              <a href="{% pageurl page.archives %}" class="button is-white">Results archive<i class="fas fa-chevron-right"></i></a>
+            </div>
+          </div>
+        {% endif %}
+      </nav>
+      <h4 class="title is-size-4">Experienced Table</h4>
+      {% overall_3leg_standings standings=page.experienced_results %}
+      <h4 class="title is-size-4">Novice Table</h4>
+      {% overall_3leg_standings standings=page.novice_results %}
+      {% include 'home/includes/blog_streamfield.html' with content=page.body %}
+    </div>
+  </section>
+{% endblock %}
