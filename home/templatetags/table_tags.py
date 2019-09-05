@@ -168,8 +168,8 @@ def aggregated_standings(context, standings):
     }
 
 
-@register.inclusion_tag('home/tags/league_results_table.html', takes_context=True)
-def overall_standings(context, standings):
+@register.inclusion_tag('home/tags/4leg_results_table.html', takes_context=True)
+def overall_4leg_standings(context, standings):
     standings_sorted, standings_aggregate, standings_has_results = generate_league_table(standings)
 
     return {
