@@ -10,7 +10,7 @@
   <div class="tile-content">
     <h3 class="title is-3"><a href="{% pageurl article %}">{{ article.title }}</a></h3>
     <p class="article-info"><i class="fas fa-clock"></i> {{ article.first_published_at|date:'d/m/Y' }}
-      by {{ article.owner }}</p>
+      by {{ article.owner.get_full_name }}</p>
     <div class="content">
       {{ article.excerpt|richtext }}
     </div>
