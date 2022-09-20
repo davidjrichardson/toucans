@@ -7,7 +7,7 @@ license = "MIT"
 
 [tool.poetry.dependencies]
 python = "^3.10"
-Django = "3.1.14"
+Django = "3.2.15"
 wagtail = "^2.8"
 psycopg2 = "2.9.3"
 django-bower = "^5.2.0"

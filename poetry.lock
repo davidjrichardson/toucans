@@ -53,19 +53,19 @@ unicode_backport = ["unicodedata2"]
 
 [[package]]
 name = "django"
-version = "3.1.14"
+version = "3.2.15"
 description = "A high-level Python Web framework that encourages rapid development and clean, pragmatic design."
 category = "main"
 optional = false
 python-versions = ">=3.6"
 
 [package.dependencies]
-asgiref = ">=3.2.10,<4"
+asgiref = ">=3.3.2,<4"
 pytz = "*"
 sqlparse = ">=0.2.2"
 
 [package.extras]
-argon2 = ["argon2-cffi (>=16.1.0)"]
+argon2 = ["argon2-cffi (>=19.1.0)"]
 bcrypt = ["bcrypt"]
 
 [[package]]
@@ -483,7 +483,7 @@ python-versions = "*"
 [metadata]
 lock-version = "1.1"
 python-versions = "^3.10"
-content-hash = "d05f02053924397a1d1cc152954175cc23c1712dbc8e78a7b078d2a4ab2c0bbb"
+content-hash = "dde0dca938e42a064b2e357bedb07af9f3271ecf3eb05b2cd69b120bc6602a37"
 
 [metadata.files]
 anyascii = [
