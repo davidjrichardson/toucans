@@ -7,6 +7,8 @@ from home.models import Footer, BlogIndexPage, BlogPage, FourLegStandingsPage, S
     GenericPage, \
     ResourcePage, ThreeLegStandingsPage
 
+from wagtail.core.models import Site
+
 register = template.Library()
 
 
@@ -18,7 +20,7 @@ def has_menu_children(page):
 def get_site_root(context):
     # NB this returns a core.Page, not the implementation-specific model used
     # so object-comparison to self will return false as objects would differ
-    return context['request'].site.root_page
+    return Site.find_for_request(context['request']).root_page
 
 
 @register.filter
@@ -63,7 +65,7 @@ def relative_url(value, field_name, urlencode=None):
 @register.inclusion_tag('common/tags/footer.html', takes_context=True)
 def footer(context):
     # Get the site root to find top-level pages
-    root = context['request'].site.root_page
+    root = Site.find_for_request(context['request']).root_page
     # Find the navbar-level categories
     standings = ThreeLegStandingsPage.objects.live().child_of(root).order_by('-standings_year').first()
     standings_archive = StandingsIndexPage.objects.live().child_of(standings).first()
@@ -145,7 +147,7 @@ def breadcrumbs(context, calling_page):
 @register.inclusion_tag('common/tags/navbar.html', takes_context=True)
 def navigation(context, calling_page=None):
     # Get all of the items marked to be in a menu bar
-    menu_items = context['request'].site.root_page.get_children().live().in_menu()
+    menu_items = Site.find_for_request(context['request']).root_page.get_children().live().in_menu()
 
     for item in menu_items:
         # We don't directly check if calling_page is None since the template

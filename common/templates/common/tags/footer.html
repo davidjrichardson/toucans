@@ -1,5 +1,7 @@
 {% load wagtailcore_tags %}
 
+{% wagtail_site as current_site %}
+
 <footer class="footer">
   <div class="container">
     <div class="sitemap">
@@ -16,7 +18,7 @@
           </ul>
         </div>
         <div class="column is-3">
-          <p class="sitemap-entry title"><a href="{% pageurl request.site.root_page %}">Home</a></p>
+          <p class="sitemap-entry title"><a href="{% pageurl current_site.root_page %}">Home</a></p>
           {% if standings %}
             <p class="sitemap-entry title"><a href="{% pageurl standings %}">{{ standings.title }}</a></p>
             <p class="sitemap-entry"><a href="{% pageurl standings_archive %}">{{ standings_archive.title }}</a></p>

@@ -4,7 +4,8 @@
   <div class="container">
     <div class="navbar-brand">
       {% if not is_home %}
-        <a class="navbar-item" href="{% pageurl request.site.root_page %}">B.U.T.T.S. League</a>
+        {% wagtail_site as current_site %}
+        <a class="navbar-item" href="{% pageurl current_site.root_page %}">B.U.T.T.S. League</a>
       {% endif %}
 
       <a role="button" class="navbar-burger burger" aria-label="menu" aria-expanded="false"
