@@ -117,6 +117,19 @@ rjsmin = "1.1.0"
 six = ">=1.12.0"
 
 [[package]]
+name = "django-environ"
+version = "0.9.0"
+description = "A package that allows you to utilize 12factor inspired environment variables to configure your Django application."
+category = "main"
+optional = false
+python-versions = ">=3.4,<4"
+
+[package.extras]
+testing = ["pytest (>=4.6.11)", "coverage[toml] (>=5.0a4)"]
+docs = ["sphinx-notfound-page", "sphinx (>=3.5.0)", "furo (>=2021.8.17b43,<2021.9.0)"]
+develop = ["sphinx-notfound-page", "sphinx (>=3.5.0)", "furo (>=2021.8.17b43,<2021.9.0)", "pytest (>=4.6.11)", "coverage[toml] (>=5.0a4)"]
+
+[[package]]
 name = "django-filter"
 version = "21.1"
 description = "Django-filter is a reusable Django application for allowing users to filter querysets dynamically."
@@ -487,7 +500,7 @@ python-versions = "*"
 [metadata]
 lock-version = "1.1"
 python-versions = "^3.10"
-content-hash = "ad357c1109260a576e86337e3525e0c14c76aa0a12f4314d72f05d6ffb48c429"
+content-hash = "3d8aa851852797eda2e3028f9b34e4da438c2dd0bc81617d747ed16cf3fddbc0"
 
 [metadata.files]
 anyascii = [
@@ -519,6 +532,7 @@ django-compressor = [
     {file = "django_compressor-2.4.1-py2.py3-none-any.whl", hash = "sha256:f8313f59d5e65712fc28787d084fe834997c9dfa92d064a1a3ec3d3366594d04"},
     {file = "django_compressor-2.4.1.tar.gz", hash = "sha256:3358077605c146fdcca5f9eaffb50aa5dbe15f238f8854679115ebf31c0415e0"},
 ]
+django-environ = []
 django-filter = []
 django-modelcluster = [
     {file = "django-modelcluster-5.3.tar.gz", hash = "sha256:0347cdcacb19a1078ee56cc3e6d5413ba27b8a5900710c53bb92b5d8ff3819cd"},

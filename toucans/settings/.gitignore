@@ -4,3 +4,4 @@
 !base.py
 !dev.py
 !production.py.example
+!.env.example
