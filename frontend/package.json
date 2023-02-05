@@ -1,0 +1,25 @@
+{
+  "name": "toucans-frontend",
+  "version": "0.1.0",
+  "description": "The front end application for the toucans web app",
+  "main": "index.js",
+  "scripts": {
+    "build:styles": "node-sass --output-style compressed --include-path \"node_modules/bulma\" \"static/scss/app.scss\" \"dist/css/main.css\""
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/davidjrichardson/toucans.git"
+  },
+  "author": "David Richardson <david@tankski.co.uk>",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/davidjrichardson/toucans/issues"
+  },
+  "homepage": "https://github.com/davidjrichardson/toucans#readme",
+  "dependencies": {
+    "bulma": "^0.7.4"
+  },
+  "devDependencies": {
+    "node-sass": "^8.0.0"
+  }
+}
