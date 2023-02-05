@@ -1,4 +1,4 @@
-{% load static compress wagtailuserbar base_tags wagtailcore_tags %}
+{% load static wagtailuserbar base_tags wagtailcore_tags %}
 
 <html>
 <head {% block ogp_prefix %}prefix="og: http://ogp.me/ns#"{% endblock %}>
@@ -51,16 +51,12 @@
   <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.5.0/css/all.css"
         integrity="sha384-B4dIYHKNBt8Bc12p+WXckhzcICo0wtJAoU8YZTY5qE0Id1GSseTk6S+L3BlXeVIU" crossorigin="anonymous">
 
-  {% compress css %}
-    <link href="{% static 'scss/app.scss' %}" rel="stylesheet" type="text/x-scss"/>
-  {% endcompress %}
+  <link href="{% static 'css/main.css' %}" rel="stylesheet" type="text/css"/>
 
   {% block ogp_metadata %}
     <meta property="og:image" content="https://buttsleague.com{% static 'favicon-228.png' %}">
     {# OpenGraph data goes here #}
   {% endblock %}
-
-  {% block extra_css %}{% endblock %}
 </head>
 <body class="{% block body_class %}{% endblock %}">
 {% wagtailuserbar %}

@@ -51,9 +51,6 @@ INSTALLED_APPS = [
     'taggit',
     'taggit_templatetags2',
 
-    'djangobower',
-    'compressor',
-
     'django.contrib.admin',
     'django.contrib.auth',
     'django.contrib.contenttypes',
@@ -150,12 +147,10 @@ USE_TZ = True
 STATICFILES_FINDERS = [
     'django.contrib.staticfiles.finders.FileSystemFinder',
     'django.contrib.staticfiles.finders.AppDirectoriesFinder',
-    'djangobower.finders.BowerFinder',
-    'compressor.finders.CompressorFinder',
 ]
 
 STATICFILES_DIRS = [
-    os.path.join(PROJECT_DIR, 'static'),
+    os.path.join(BASE_DIR, 'frontend', 'dist')
 ]
 
 # ManifestStaticFilesStorage is recommended in production, to prevent outdated
@@ -167,21 +162,7 @@ STATIC_URL = '/static/'
 MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
 MEDIA_URL = '/media/'
 
-# Django Compressor
-PROJECT_PATH = os.path.abspath(os.path.dirname(__file__))
-BOWER_COMPONENTS_ROOT = os.path.join(PROJECT_PATH, "../components")
-COMPRESS_PRECOMPILERS = (
-    ('text/x-scss',
-     'sass --style compressed -I "%s/bower_components/bulma" "{infile}" "{outfile}"' % BOWER_COMPONENTS_ROOT),
-)
-
-# Django-bower
-BOWER_INSTALLED_APPS = [
-    'bulma~0.7.2',
-]
-
 # Wagtail settings
-
 WAGTAIL_SITE_NAME = "toucans"
 WAGTAILSEARCH_BACKENDS = {
     'default': {
