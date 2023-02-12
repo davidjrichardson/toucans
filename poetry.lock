@@ -69,29 +69,6 @@ argon2 = ["argon2-cffi (>=19.1.0)"]
 bcrypt = ["bcrypt"]
 
 [[package]]
-name = "django-appconf"
-version = "1.0.5"
-description = "A helper class for handling configuration defaults of packaged apps gracefully."
-category = "main"
-optional = false
-python-versions = ">=3.6"
-
-[package.dependencies]
-django = "*"
-
-[[package]]
-name = "django-bower"
-version = "5.2.0"
-description = "Integrate django with bower"
-category = "main"
-optional = false
-python-versions = "*"
-
-[package.dependencies]
-django = "*"
-six = "*"
-
-[[package]]
 name = "django-classy-tags"
 version = "3.0.1"
 description = "Class based template tags for Django"
@@ -101,20 +78,6 @@ python-versions = ">=3.7"
 
 [package.dependencies]
 django = ">=2.2"
-
-[[package]]
-name = "django-compressor"
-version = "2.4.1"
-description = "Compresses linked and inline JavaScript or CSS into single cached files."
-category = "main"
-optional = false
-python-versions = "*"
-
-[package.dependencies]
-django-appconf = ">=1.0.3"
-rcssmin = "1.0.6"
-rjsmin = "1.1.0"
-six = ">=1.12.0"
 
 [[package]]
 name = "django-environ"
@@ -314,14 +277,6 @@ optional = false
 python-versions = "*"
 
 [[package]]
-name = "rcssmin"
-version = "1.0.6"
-description = "CSS Minifier"
-category = "main"
-optional = false
-python-versions = "*"
-
-[[package]]
 name = "requests"
 version = "2.28.1"
 description = "Python HTTP for Humans."
@@ -338,14 +293,6 @@ urllib3 = ">=1.21.1,<1.27"
 [package.extras]
 socks = ["PySocks (>=1.5.6,!=1.5.7)"]
 use_chardet_on_py3 = ["chardet (>=3.0.2,<6)"]
-
-[[package]]
-name = "rjsmin"
-version = "1.1.0"
-description = "Javascript Minifier"
-category = "main"
-optional = false
-python-versions = "*"
 
 [[package]]
 name = "six"
@@ -373,7 +320,7 @@ python-versions = ">=3.5"
 
 [[package]]
 name = "tablib"
-version = "3.2.1"
+version = "3.3.0"
 description = "Format agnostic tabular data library (XLS, JSON, YAML, CSV)"
 category = "main"
 optional = false
@@ -458,6 +405,17 @@ optional = false
 python-versions = "*"
 
 [[package]]
+name = "whitenoise"
+version = "6.3.0"
+description = "Radically simplified static file serving for WSGI applications"
+category = "main"
+optional = false
+python-versions = ">=3.7"
+
+[package.extras]
+brotli = ["brotli"]
+
+[[package]]
 name = "willow"
 version = "1.4.1"
 description = "A Python image library that sits on top of Pillow, Wand and OpenCV"
@@ -500,7 +458,7 @@ python-versions = "*"
 [metadata]
 lock-version = "1.1"
 python-versions = "^3.10"
-content-hash = "3d8aa851852797eda2e3028f9b34e4da438c2dd0bc81617d747ed16cf3fddbc0"
+content-hash = "520a8c14eb8f61962d0fd9939dd4b4c67a3eadf4d8d20d8b561569f8ab651539"
 
 [metadata.files]
 anyascii = [
@@ -516,21 +474,9 @@ beautifulsoup4 = [
 certifi = []
 charset-normalizer = []
 django = []
-django-appconf = [
-    {file = "django-appconf-1.0.5.tar.gz", hash = "sha256:be3db0be6c81fa84742000b89a81c016d70ae66a7ccb620cdef592b1f1a6aaa4"},
-    {file = "django_appconf-1.0.5-py3-none-any.whl", hash = "sha256:ae9f864ee1958c815a965ed63b3fba4874eec13de10236ba063a788f9a17389d"},
-]
-django-bower = [
-    {file = "django-bower-5.2.0.tar.gz", hash = "sha256:3ab5699b782d63d1aa8e5d61f9bdcdb8d29137e7ba6f19d094d566241afee0f2"},
-    {file = "django_bower-5.2.0-py2-none-any.whl", hash = "sha256:f1cf649842c0cb28f8aa28617e99fc7fb7773bac4e8886ee4e36962a38c99a6e"},
-]
 django-classy-tags = [
     {file = "django-classy-tags-3.0.1.tar.gz", hash = "sha256:d222b45502ac99e550a566667839efaef954b9c7366a6493f143862aabeac878"},
     {file = "django_classy_tags-3.0.1-py3-none-any.whl", hash = "sha256:0e4a03462b29bd94c8da8160d514cb93e4b4c858752437c082a3efeca94b9f51"},
-]
-django-compressor = [
-    {file = "django_compressor-2.4.1-py2.py3-none-any.whl", hash = "sha256:f8313f59d5e65712fc28787d084fe834997c9dfa92d064a1a3ec3d3366594d04"},
-    {file = "django_compressor-2.4.1.tar.gz", hash = "sha256:3358077605c146fdcca5f9eaffb50aa5dbe15f238f8854679115ebf31c0415e0"},
 ]
 django-environ = []
 django-filter = []
@@ -578,25 +524,7 @@ python-dateutil = [
     {file = "python_dateutil-2.8.2-py2.py3-none-any.whl", hash = "sha256:961d03dc3453ebbc59dbdea9e4e11c5651520a876d0f4db161e8674aae935da9"},
 ]
 pytz = []
-rcssmin = [
-    {file = "rcssmin-1.0.6.tar.gz", hash = "sha256:ca87b695d3d7864157773a61263e5abb96006e9ff0e021eff90cbe0e1ba18270"},
-]
 requests = []
-rjsmin = [
-    {file = "rjsmin-1.1.0-cp27-cp27m-manylinux1_i686.whl", hash = "sha256:799890bd07a048892d8d3deb9042dbc20b7f5d0eb7da91e9483c561033b23ce2"},
-    {file = "rjsmin-1.1.0-cp27-cp27m-manylinux1_x86_64.whl", hash = "sha256:211c2fe8298951663bbc02acdffbf714f6793df54bfc50e1c6c9e71b3f2559a3"},
-    {file = "rjsmin-1.1.0-cp27-cp27mu-manylinux1_i686.whl", hash = "sha256:585e75a84d9199b68056fd4a083d9a61e2a92dfd10ff6d4ce5bdb04bc3bdbfaf"},
-    {file = "rjsmin-1.1.0-cp27-cp27mu-manylinux1_x86_64.whl", hash = "sha256:e487a7783ac4339e79ec610b98228eb9ac72178973e3dee16eba0e3feef25924"},
-    {file = "rjsmin-1.1.0-cp34-cp34m-manylinux1_i686.whl", hash = "sha256:0ab825839125eaca57cc59581d72e596e58a7a56fbc0839996b7528f0343a0a8"},
-    {file = "rjsmin-1.1.0-cp34-cp34m-manylinux1_x86_64.whl", hash = "sha256:6044ca86e917cd5bb2f95e6679a4192cef812122f28ee08c677513de019629b3"},
-    {file = "rjsmin-1.1.0-cp35-cp35m-manylinux1_i686.whl", hash = "sha256:ecd29f1b3e66a4c0753105baec262b331bcbceefc22fbe6f7e8bcd2067bcb4d7"},
-    {file = "rjsmin-1.1.0-cp35-cp35m-manylinux1_x86_64.whl", hash = "sha256:975b69754d6a76be47c0bead12367a1ca9220d08e5393f80bab0230d4625d1f4"},
-    {file = "rjsmin-1.1.0-cp36-cp36m-manylinux1_i686.whl", hash = "sha256:466fe70cc5647c7c51b3260c7e2e323a98b2b173564247f9c89e977720a0645f"},
-    {file = "rjsmin-1.1.0-cp36-cp36m-manylinux1_x86_64.whl", hash = "sha256:e3908b21ebb584ce74a6ac233bdb5f29485752c9d3be5e50c5484ed74169232c"},
-    {file = "rjsmin-1.1.0-cp37-cp37m-manylinux1_i686.whl", hash = "sha256:714329db774a90947e0e2086cdddb80d5e8c4ac1c70c9f92436378dedb8ae345"},
-    {file = "rjsmin-1.1.0-cp37-cp37m-manylinux1_x86_64.whl", hash = "sha256:dd0f4819df4243ffe4c964995794c79ca43943b5b756de84be92b445a652fb86"},
-    {file = "rjsmin-1.1.0.tar.gz", hash = "sha256:b15dc75c71f65d9493a8c7fa233fdcec823e3f1b88ad84a843ffef49b338ac32"},
-]
 six = [
     {file = "six-1.16.0-py2.py3-none-any.whl", hash = "sha256:8abb2f1d86890a2dfb989f9a77cfcfd3e47c2a354b01111771326f8aa26e0254"},
     {file = "six-1.16.0.tar.gz", hash = "sha256:1e61c37477a1626458e36f7b1d82aa5c9b094fa4802892072e49de9c60c4c926"},
@@ -609,10 +537,7 @@ sqlparse = [
     {file = "sqlparse-0.4.2-py3-none-any.whl", hash = "sha256:48719e356bb8b42991bdbb1e8b83223757b93789c00910a616a071910ca4a64d"},
     {file = "sqlparse-0.4.2.tar.gz", hash = "sha256:0c00730c74263a94e5a9919ade150dfc3b19c574389985446148402998287dae"},
 ]
-tablib = [
-    {file = "tablib-3.2.1-py3-none-any.whl", hash = "sha256:870d7e688f738531a14937a055e8bba404fbc388e77d4d500b2c904075d1019c"},
-    {file = "tablib-3.2.1.tar.gz", hash = "sha256:a57f2770b8c225febec1cb1e65012a69cf30dd28be810e0ff98d024768c7d0f1"},
-]
+tablib = []
 telepath = []
 urllib3 = []
 wagtail = [
@@ -623,6 +548,7 @@ webencodings = [
     {file = "webencodings-0.5.1-py2.py3-none-any.whl", hash = "sha256:a0af1213f3c2226497a97e2b3aa01a7e4bee4f403f95be16fc9acd2947514a78"},
     {file = "webencodings-0.5.1.tar.gz", hash = "sha256:b36a1c245f2d304965eb4e0a82848379241dc04b865afcc4aab16748587e1923"},
 ]
+whitenoise = []
 willow = [
     {file = "Willow-1.4.1-py2.py3-none-any.whl", hash = "sha256:fc4042696d090e75aef922fa1ed26d483c764f005b36cf523cf7c34e69d5dd7a"},
     {file = "Willow-1.4.1.tar.gz", hash = "sha256:0df8ff528531e00b48d40bf72ed81beac1dc82f2d42e5bbed4aff0218bef8c0d"},
