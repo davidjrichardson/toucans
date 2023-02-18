@@ -318,4 +318,4 @@ Temporary Items
 
 # End of https://www.gitignore.io/api/macos,database
 .sass-cache/*
-static/CACHE/*
+static_root
