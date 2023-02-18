@@ -1,48 +1,53 @@
 // League title font face
+
+// This has to be relative to "app.scss". This file (settings.scss) is expected to be in the
+// same directory so that assumption should be ok for now.
+$font-root: '../fonts';
+
 @font-face {
   font-family: "Norwester";
-  src: url("/static/fonts/norwester.eot") format("eot"),
-  url("/static/fonts/norwester.woff") format("woff"),
-  url("/static/fonts/norwester.ttf") format("ttf"),
-  url("/static/fonts/norwester.svg") format("svg");
+  src: url("#{$font-root}/norwester.eot") format("eot"),
+  url("#{$font-root}/norwester.woff") format("woff"),
+  url("#{$font-root}/norwester.ttf") format("ttf"),
+  url("#{$font-root}/norwester.svg") format("svg");
 }
 
 @font-face {
   font-family: "Montserrat";
-  src: url("/static/fonts/Montserrat-Regular.eot") format("eot"),
-  url("/static/fonts/Montserrat-Regular.woff") format("woff"),
-  url("/static/fonts/Montserrat-Regular.otf") format("otf"),
-  url("/static/fonts/Montserrat-Regular.ttf") format("ttf");
+  src: url("#{$font-root}/Montserrat-Regular.eot") format("eot"),
+  url("#{$font-root}/Montserrat-Regular.woff") format("woff"),
+  url("#{$font-root}/Montserrat-Regular.otf") format("otf"),
+  url("#{$font-root}/Montserrat-Regular.ttf") format("ttf");
   font-weight: 400;
   font-style: normal;
 }
 
 @font-face {
   font-family: "Montserrat";
-  src: url("/static/fonts/Montserrat-Italic.eot") format("eot"),
-  url("/static/fonts/Montserrat-Italic.woff") format("woff"),
-  url("/static/fonts/Montserrat-Italic.otf") format("otf"),
-  url("/static/fonts/Montserrat-Italic.ttf") format("ttf");
+  src: url("#{$font-root}/Montserrat-Italic.eot") format("eot"),
+  url("#{$font-root}/Montserrat-Italic.woff") format("woff"),
+  url("#{$font-root}/Montserrat-Italic.otf") format("otf"),
+  url("#{$font-root}/Montserrat-Italic.ttf") format("ttf");
   font-weight: 400;
   font-style: italic;
 }
 
 @font-face {
   font-family: "Montserrat";
-  src: url("/static/fonts/Montserrat-Bold.eot") format("eot"),
-  url("/static/fonts/Montserrat-Bold.woff") format("woff"),
-  url("/static/fonts/Montserrat-Bold.otf") format("otf"),
-  url("/static/fonts/Montserrat-Bold.ttf") format("ttf");
+  src: url("#{$font-root}/Montserrat-Bold.eot") format("eot"),
+  url("#{$font-root}/Montserrat-Bold.woff") format("woff"),
+  url("#{$font-root}/Montserrat-Bold.otf") format("otf"),
+  url("#{$font-root}/Montserrat-Bold.ttf") format("ttf");
   font-weight: 700;
   font-style: normal;
 }
 
 @font-face {
   font-family: "Montserrat";
-  src: url("/static/fonts/Montserrat-BoldItalic.eot") format("eot"),
-  url("/static/fonts/Montserrat-BoldItalic.woff") format("woff"),
-  url("/static/fonts/Montserrat-BoldItalic.otf") format("otf"),
-  url("/static/fonts/Montserrat-BoldItalic.ttf") format("ttf");
+  src: url("#{$font-root}/Montserrat-BoldItalic.eot") format("eot"),
+  url("#{$font-root}/Montserrat-BoldItalic.woff") format("woff"),
+  url("#{$font-root}/Montserrat-BoldItalic.otf") format("otf"),
+  url("#{$font-root}/Montserrat-BoldItalic.ttf") format("ttf");
   font-weight: 700;
   font-style: italic;
 }
@@ -94,8 +99,6 @@ $pagination-hover-border-color: transparent;
 
 $content-blockquote-border-left: 4px solid $butts_purple;
 $content-blockquote-background-color: rgba($butts_purple, 0.06);
-
-@import "sass/utilities/functions";
 
 $custom-colors: (
         "tertiary": ($butts_text_tertiary, $butts_text_tertiary_inv),

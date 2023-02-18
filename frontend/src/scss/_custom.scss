@@ -1,4 +1,4 @@
-@import "sass/utilities/mixins";
+@import "bulma/sass/utilities/mixins";
 
 .title {
   font-family: $family-title;
@@ -152,7 +152,7 @@ a {
 .league-hero {
   margin-bottom: -4rem;
 
-  background-image: url('/static/img/hero_background.jpg');
+  background-image: url('../img/hero_background.jpg');
   background-position: center;
   background-size: cover;
   background-repeat: no-repeat;
