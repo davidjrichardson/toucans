@@ -28,15 +28,11 @@ environ.Env.read_env()
 SECRET_KEY = env('SECRET_KEY')
 
 # Application definition
-
 INSTALLED_APPS = [
-    'whitenoise.runserver_nostatic',
     'home',
-    #'search',
     'common',
-    # 'wagtail.contrib.styleguide',
-    'wagtail.contrib.table_block',
 
+    'wagtail.contrib.table_block',
     'wagtail.contrib.forms',
     'wagtail.contrib.redirects',
     'wagtail.embeds',
@@ -65,7 +61,6 @@ INSTALLED_APPS = [
 
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
-    "whitenoise.middleware.WhiteNoiseMiddleware",
     'django.contrib.sessions.middleware.SessionMiddleware',
     'django.middleware.common.CommonMiddleware',
     'django.middleware.csrf.CsrfViewMiddleware',
@@ -151,7 +146,6 @@ STATICFILES_FINDERS = [
     'django.contrib.staticfiles.finders.FileSystemFinder',
     'django.contrib.staticfiles.finders.AppDirectoriesFinder',
 ]
-STATICFILES_STORAGE = "whitenoise.storage.CompressedManifestStaticFilesStorage"
 
 STATICFILES_DIRS = [
     os.path.join(BASE_DIR, 'static'),
@@ -181,7 +175,4 @@ BASE_URL = 'http://buttsleague.com'
 
 # SECURITY WARNING: define the correct hosts in production!
 ALLOWED_HOSTS = json.loads(env('ALLOWED_HOSTS'))
-
-DEBUG = env('DEBUG', default=False)
-
 EMAIL_BACKEND = 'django.core.mail.backends.console.EmailBackend'

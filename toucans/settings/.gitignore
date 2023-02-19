@@ -3,5 +3,6 @@
 !.gitignore
 !base.py
 !dev.py
-!production.py.example
-!.env.example
+!.toucans.env.example
+!.postgres.env.example
+!storage_backends.py
