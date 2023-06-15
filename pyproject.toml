@@ -1,7 +1,7 @@
 [tool.poetry]
 name = "toucans"
 version = "1.0.0"
-description = "The official website for the B.U.T.T.S. Challenge Archery League in the UK"
+description = "The official website for the TOUCAN Challenge Archery League in the UK"
 authors = ["David <david@tankski.co.uk>"]
 license = "MIT"
 

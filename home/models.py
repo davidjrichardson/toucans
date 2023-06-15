@@ -36,11 +36,11 @@ class Footer(models.Model):
 class SeasonStartDateBlock(StructBlock):
     start_date = DateBlock(
         required=True,
-        help_text="The start date of the B.U.T.T.S. League for the year"
+        help_text="The start date of the TOUCAN League for the year"
     )
     season_name = TextBlock(
         required=True,
-        help_text="The name of this season e.g.: B.U.T.T.S. 2018-19"
+        help_text="The name of this season e.g.: TOUCAN 2018-19"
     )
 
     class Meta:
@@ -63,7 +63,7 @@ class LeagueMidSeasonMarkerBlock(StructBlock):
 class SeasonEndBlock(StructBlock):
     season_name = TextBlock(
         required=True,
-        help_text="The name of this season e.g.: B.U.T.T.S. 2018-19"
+        help_text="The name of this season e.g.: TOUCAN 2018-19"
     )
 
     class Meta:
@@ -74,19 +74,19 @@ class SeasonEndBlock(StructBlock):
 class LeagueLegBlock(StructBlock):
     leg_name = TextBlock(
         required=True,
-        help_text="The name of this leg e.g.: \"B.U.T.T.S. Leg 2 (Oxford)\""
+        help_text="The name of this leg e.g.: \"TOUCAN Leg 2 (Oxford)\""
     )
     leg_host = TextBlock(
         required=True,
-        help_text="The host club of this B.U.T.T.S. Leg"
+        help_text="The host club of this TOUCAN Leg"
     )
     leg_date = DateBlock(
         required=True,
-        help_text="The date of this B.U.T.T.S. Leg"
+        help_text="The date of this TOUCAN Leg"
     )
     leg_attendees = TextBlock(
         required=True,
-        help_text="The clubs attending this B.U.T.T.S. Leg, separated by a comma"
+        help_text="The clubs attending this TOUCAN Leg, separated by a comma"
     )
 
     class Meta:
@@ -104,7 +104,7 @@ class LeagueCombinedLegBlock(ListBlock):
 class LeagueChampsBlock(StructBlock):
     champs_name = TextBlock(
         required=True,
-        help_text="The name of this championship e.g.: \"B.U.T.T.S. Field Champs\""
+        help_text="The name of this championship e.g.: \"TOUCAN Field Champs\""
     )
     champs_venue = TextBlock(
         required=True,
@@ -145,7 +145,7 @@ class SchedulePage(Page):
     content_panels = Page.content_panels + [
         FieldPanel('page_title', help_text="This is the title that is shown at the top of the page"),
         FieldPanel('page_description', help_text="The description text for this web page"),
-        StreamFieldPanel('timeline', help_text="The B.U.T.T.S. League schedule timeline for the coming year")
+        StreamFieldPanel('timeline', help_text="The TOUCAN League schedule timeline for the coming year")
     ]
 
 
