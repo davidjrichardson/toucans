@@ -332,14 +332,14 @@ et-xmlfile = "*"
 
 [[package]]
 name = "pillow"
-version = "9.2.0"
+version = "9.5.0"
 description = "Python Imaging Library (Fork)"
 category = "main"
 optional = false
 python-versions = ">=3.7"
 
 [package.extras]
-docs = ["furo", "olefile", "sphinx (>=2.4)", "sphinx-copybutton", "sphinx-issues (>=3.0.1)", "sphinx-removed-in", "sphinxext-opengraph"]
+docs = ["furo", "olefile", "sphinx (>=2.4)", "sphinx-copybutton", "sphinx-inline-tabs", "sphinx-removed-in", "sphinxext-opengraph"]
 tests = ["check-manifest", "coverage", "defusedxml", "markdown2", "olefile", "packaging", "pyroma", "pytest", "pytest-cov", "pytest-timeout"]
 
 [[package]]
@@ -522,7 +522,7 @@ testing = ["Pillow (>=9.1.0,<11.0.0)", "Wand (>=0.6,<1.0)", "mock (>=3.0,<4.0)",
 [metadata]
 lock-version = "1.1"
 python-versions = "^3.10"
-content-hash = "8ea8c22d8592556274efcaf6badf85f266010e986b59f1d81c4ae25bf96cd17e"
+content-hash = "ea785ac9a7416271ff8ae6feb3c8236a566757741db28217526668ed74bf0531"
 
 [metadata.files]
 anyascii = [
