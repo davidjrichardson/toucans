@@ -43,7 +43,7 @@ INSTALLED_APPS = [
     'wagtail.images',
     'wagtail.search',
     'wagtail.admin',
-    'wagtail.core',
+    'wagtail',
 
     'modelcluster',
     'taggit',
@@ -171,7 +171,7 @@ WAGTAILSEARCH_BACKENDS = {
 
 # Base URL to use when referring to full URLs within the Wagtail admin backend -
 # e.g. in notification emails. Don't include '/admin' or a trailing slash
-BASE_URL = 'http://buttsleague.com'
+WAGTAILADMIN_BASE_URL = 'http://buttsleague.com'
 
 # SECURITY WARNING: define the correct hosts in production!
 ALLOWED_HOSTS = json.loads(env('ALLOWED_HOSTS'))

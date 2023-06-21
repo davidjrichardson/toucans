@@ -7,7 +7,7 @@ from home.models import Footer, BlogIndexPage, BlogPage, FourLegStandingsPage, S
     GenericPage, \
     ResourcePage, ThreeLegStandingsPage
 
-from wagtail.core.models import Site
+from wagtail.models import Site
 
 register = template.Library()
 
