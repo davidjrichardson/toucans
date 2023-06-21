@@ -7,7 +7,7 @@ from django.utils import timezone
 from modelcluster.contrib.taggit import ClusterTaggableManager
 from modelcluster.fields import ParentalKey
 from taggit.models import TaggedItemBase
-from wagtail.admin.panels import FieldPanel, StreamFieldPanel, MultiFieldPanel, FieldRowPanel, InlinePanel
+from wagtail.admin.panels import FieldPanel, MultiFieldPanel, FieldRowPanel, InlinePanel
 from wagtail.contrib.table_block.blocks import TableBlock
 from wagtail.blocks import StructBlock, DateBlock, CharBlock, TextBlock, StreamBlock, ListBlock, \
     RichTextBlock
@@ -15,7 +15,6 @@ from wagtail.fields import RichTextField, StreamField
 from wagtail.models import Page, Orderable
 from wagtail.documents.blocks import DocumentChooserBlock
 from wagtail.images.blocks import ImageChooserBlock
-from wagtail.images.edit_handlers import ImageChooserPanel
 from wagtail.snippets.models import register_snippet
 
 
@@ -140,12 +139,12 @@ class SchedulePage(Page):
     page_title = models.TextField(blank=False)
     page_description = RichTextField(blank=False)
 
-    timeline = StreamField(TimelineStreamBlock)
+    timeline = StreamField(TimelineStreamBlock, use_json_field=True)
 
     content_panels = Page.content_panels + [
         FieldPanel('page_title', help_text="This is the title that is shown at the top of the page"),
         FieldPanel('page_description', help_text="The description text for this web page"),
-        StreamFieldPanel('timeline', help_text="The TOUCAN League schedule timeline for the coming year")
+        FieldPanel('timeline', help_text="The TOUCAN League schedule timeline for the coming year")
     ]
 
 
@@ -222,7 +221,7 @@ class BlogPageTag(TaggedItemBase):
 class BlogPage(Page):
     parent_page_types = ['home.BlogIndexPage']
 
-    body = StreamField(BlogStreamBlock)
+    body = StreamField(BlogStreamBlock, use_json_field=True)
     tags = ClusterTaggableManager(through=BlogPageTag, blank=True)
     date = models.DateTimeField('Post date', default=timezone.now)
     excerpt = RichTextField(help_text='This is displayed on the home and blog listing pages', default='')
@@ -242,10 +241,10 @@ class BlogPage(Page):
             FieldPanel('title', classname="full title"),
             FieldPanel('excerpt'),
             FieldPanel('date'),
-            StreamFieldPanel('body')
+            FieldPanel('body')
         ], heading='Post content'),
         MultiFieldPanel([
-            ImageChooserPanel('cover_image'),
+            FieldPanel('cover_image'),
             FieldPanel('cover_image_credit'),
             FieldPanel('cover_invert_title', help_text='If the cover image is dark, tick this box')
         ], heading='Blog post cover image')
@@ -589,7 +588,7 @@ class ThreeLegStandingsPage(Page):
 
     standings_year = models.TextField('Academic year',
                                       help_text='The academic year for this set of standings')
-    body = StreamField(StandingsStreamBlock)
+    body = StreamField(StandingsStreamBlock, use_json_field=True)
 
     @property
     def experienced_results(self):
@@ -610,7 +609,7 @@ class ThreeLegStandingsPage(Page):
     content_panels = Page.content_panels + [
         MultiFieldPanel([
             FieldPanel('standings_year'),
-            StreamFieldPanel('body'),
+            FieldPanel('body'),
         ], heading='Standings Info'),
         InlinePanel('results', label='Results')
     ]
@@ -622,7 +621,7 @@ class FourLegStandingsPage(Page):
 
     standings_year = models.TextField('Academic year',
                                       help_text='The academic year for this set of standings')
-    body = StreamField(StandingsStreamBlock)
+    body = StreamField(StandingsStreamBlock, use_json_field=True)
 
     @property
     def experienced_results(self):
@@ -643,7 +642,7 @@ class FourLegStandingsPage(Page):
     content_panels = Page.content_panels + [
         MultiFieldPanel([
             FieldPanel('standings_year'),
-            StreamFieldPanel('body'),
+            FieldPanel('body'),
         ], heading='Standings Info'),
         InlinePanel('results', label='Results')
     ]
@@ -661,7 +660,7 @@ class ResourcePage(Page):
                                   help_text='Use this to override the title text in the web page itself, useful for '
                                             'keeping the menu title consistent')
     description = RichTextField(blank=True, null=True)
-    body = StreamField(BlogStreamBlock)
+    body = StreamField(BlogStreamBlock, use_json_field=True)
 
     @property
     def child_resources(self):
@@ -676,7 +675,7 @@ class ResourcePage(Page):
             FieldPanel('title', classname="full title"),
             FieldPanel('page_title', classname="title"),
             FieldPanel('description'),
-            StreamFieldPanel('body')
+            FieldPanel('body')
         ], heading='Page content'),
         InlinePanel('related_links', label='Related links')
     ]
@@ -693,7 +692,7 @@ class GenericPage(Page):
     page_title = models.CharField(max_length=200, blank=True, null=True,
                                   help_text='Use this to override the title text in the web page itself, useful for '
                                             'keeping the menu title consistent')
-    body = StreamField(BlogStreamBlock)
+    body = StreamField(BlogStreamBlock, use_json_field=True)
 
     @property
     def related(self):
@@ -703,7 +702,7 @@ class GenericPage(Page):
         MultiFieldPanel([
             FieldPanel('title', classname="full title"),
             FieldPanel('page_title', classname="title"),
-            StreamFieldPanel('body')
+            FieldPanel('body')
         ], heading='Page content'),
         InlinePanel('related_links', label='Related links')
     ]
@@ -719,7 +718,7 @@ class BadgesPage(ResourcePage):
             FieldPanel('title', classname="full title"),
             FieldPanel('page_title', classname="title"),
             FieldPanel('description'),
-            StreamFieldPanel('body')
+            FieldPanel('body')
         ], heading='Page content'),
         InlinePanel('rounds', label='Badge information'),
         InlinePanel('related_links', label='Related links')

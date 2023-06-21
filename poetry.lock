@@ -85,14 +85,14 @@ unicode_backport = ["unicodedata2"]
 
 [[package]]
 name = "django"
-version = "4.0.10"
+version = "4.1.9"
 description = "A high-level Python web framework that encourages rapid development and clean, pragmatic design."
 category = "main"
 optional = false
 python-versions = ">=3.8"
 
 [package.dependencies]
-asgiref = ">=3.4.1,<4"
+asgiref = ">=3.5.2,<4"
 sqlparse = ">=0.2.2"
 tzdata = {version = "*", markers = "sys_platform == \"win32\""}
 
@@ -407,29 +407,6 @@ optional = false
 python-versions = ">=3.5"
 
 [[package]]
-name = "tablib"
-version = "3.5.0"
-description = "Format agnostic tabular data library (XLS, JSON, YAML, CSV, etc.)"
-category = "main"
-optional = false
-python-versions = ">=3.8"
-
-[package.dependencies]
-openpyxl = {version = ">=2.6.0", optional = true, markers = "extra == \"xlsx\""}
-xlrd = {version = "*", optional = true, markers = "extra == \"xls\""}
-xlwt = {version = "*", optional = true, markers = "extra == \"xls\""}
-
-[package.extras]
-all = ["markuppy", "odfpy", "openpyxl (>=2.6.0)", "pandas", "pyyaml", "tabulate", "xlrd", "xlwt"]
-cli = ["tabulate"]
-html = ["markuppy"]
-ods = ["odfpy"]
-pandas = ["pandas"]
-xls = ["xlrd", "xlwt"]
-xlsx = ["openpyxl (>=2.6.0)"]
-yaml = ["pyyaml"]
-
-[[package]]
 name = "telepath"
 version = "0.3"
 description = "A library for exchanging data between Python and JavaScript"
@@ -463,7 +440,7 @@ socks = ["PySocks (>=1.5.6,!=1.5.7,<2.0)"]
 
 [[package]]
 name = "wagtail"
-version = "3.0.3"
+version = "4.2.4"
 description = "A Django content management system."
 category = "main"
 optional = false
@@ -471,27 +448,26 @@ python-versions = ">=3.7"
 
 [package.dependencies]
 anyascii = ">=0.1.5"
-beautifulsoup4 = ">=4.8,<4.10"
-Django = ">=3.2,<4.1"
-django-filter = ">=2.2,<22"
+beautifulsoup4 = ">=4.8,<4.12"
+Django = ">=3.2,<4.2"
+django-filter = ">=2.2,<23"
 django-modelcluster = ">=6.0,<7.0"
 django-permissionedforms = ">=0.1,<1.0"
-django-taggit = ">=2.0,<3.0"
+django-taggit = ">=2.0,<4.0"
 django-treebeard = ">=4.5.1,<5.0"
 djangorestframework = ">=3.11.1,<4.0"
 draftjs-exporter = ">=2.1.5,<3.0"
 html5lib = ">=0.999,<2"
 l18n = ">=2018.5"
+openpyxl = ">=3.0.10,<4.0"
 Pillow = ">=4.0.0,<10.0.0"
 requests = ">=2.11.1,<3.0"
-tablib = {version = ">=0.14.0", extras = ["xls", "xlsx"]}
 telepath = ">=0.1.1,<1"
 Willow = ">=1.4,<1.5"
-xlsxwriter = ">=1.2.8,<4.0"
 
 [package.extras]
-docs = ["pyenchant (>=3.1.1,<4)", "sphinxcontrib-spelling (>=5.4.0,<6)", "Sphinx (>=1.5.2)", "sphinx-autobuild (>=0.6.0)", "sphinx-wagtail-theme (==5.1.1)", "myst-parser (==0.17.0)"]
-testing = ["python-dateutil (>=2.7)", "pytz (>=2014.7)", "elasticsearch (>=5.0,<6.0)", "Jinja2 (>=3.0,<3.2)", "boto3 (>=1.16,<1.17)", "freezegun (>=0.3.8)", "openpyxl (>=2.6.4)", "azure-mgmt-cdn (>=5.1,<6.0)", "azure-mgmt-frontdoor (>=0.3,<0.4)", "django-pattern-library (>=0.7,<0.8)", "coverage (>=3.7.0)", "black (==22.3.0)", "flake8 (>=3.6.0)", "isort (==5.6.4)", "flake8-blind-except (==0.1.1)", "flake8-comprehensions (==3.8.0)", "flake8-print (==5.0.0)", "doc8 (==0.8.1)", "flake8-assertive (==2.0.0)", "curlylint (==0.13.1)", "djhtml (==1.4.13)", "polib (>=1.1,<2.0)"]
+docs = ["pyenchant (>=3.1.1,<4)", "sphinxcontrib-spelling (>=5.4.0,<6)", "Sphinx (>=1.5.2)", "sphinx-autobuild (>=0.6.0)", "sphinx-wagtail-theme (==6.0.0)", "myst-parser (==0.18.1)", "sphinx-copybutton (>=0.5,<1.0)"]
+testing = ["python-dateutil (>=2.7)", "pytz (>=2014.7)", "elasticsearch (>=5.0,<6.0)", "Jinja2 (>=3.0,<3.2)", "boto3 (>=1.16,<1.17)", "freezegun (>=0.3.8)", "azure-mgmt-cdn (>=12.0,<13.0)", "azure-mgmt-frontdoor (>=1.0,<1.1)", "django-pattern-library (>=0.7,<0.8)", "coverage (>=3.7.0)", "black (==22.3.0)", "flake8 (>=3.6.0)", "isort (==5.6.4)", "flake8-blind-except (==0.1.1)", "flake8-comprehensions (==3.8.0)", "flake8-print (==5.0.0)", "doc8 (==0.8.1)", "flake8-assertive (==2.0.0)", "semgrep (==1.3.0)", "curlylint (==0.13.1)", "djhtml (==1.4.13)", "polib (>=1.1,<2.0)", "wagtail-factories (>=4.0,<5)"]
 
 [[package]]
 name = "webencodings"
@@ -512,39 +488,10 @@ python-versions = ">=2.7,!=3.0.*,!=3.1.*,!=3.2.*,!=3.3.*,!=3.4.*"
 [package.extras]
 testing = ["Pillow (>=6.0.0,<10.0.0)", "Wand (>=0.6,<1.0)", "mock (>=3.0,<4.0)"]
 
-[[package]]
-name = "xlrd"
-version = "2.0.1"
-description = "Library for developers to extract data from Microsoft Excel (tm) .xls spreadsheet files"
-category = "main"
-optional = false
-python-versions = ">=2.7, !=3.0.*, !=3.1.*, !=3.2.*, !=3.3.*, !=3.4.*, !=3.5.*"
-
-[package.extras]
-build = ["wheel", "twine"]
-docs = ["sphinx"]
-test = ["pytest", "pytest-cov"]
-
-[[package]]
-name = "xlsxwriter"
-version = "3.0.3"
-description = "A Python module for creating Excel XLSX files."
-category = "main"
-optional = false
-python-versions = ">=3.4"
-
-[[package]]
-name = "xlwt"
-version = "1.3.0"
-description = "Library to create spreadsheet files compatible with MS Excel 97/2000/XP/2003 XLS files, on any platform, with Python 2.6, 2.7, 3.3+"
-category = "main"
-optional = false
-python-versions = "*"
-
 [metadata]
 lock-version = "1.1"
 python-versions = "^3.10"
-content-hash = "9a914073ae91eedecac826bdf0cfc4c67f52a1a8eb2c26ab5428317f05b10bad"
+content-hash = "77ef2ca1e7721537405f673c9875e260fb07d0c48ec596e269aee681f54b1e04"
 
 [metadata.files]
 anyascii = [
@@ -626,7 +573,6 @@ sqlparse = [
     {file = "sqlparse-0.4.2-py3-none-any.whl", hash = "sha256:48719e356bb8b42991bdbb1e8b83223757b93789c00910a616a071910ca4a64d"},
     {file = "sqlparse-0.4.2.tar.gz", hash = "sha256:0c00730c74263a94e5a9919ade150dfc3b19c574389985446148402998287dae"},
 ]
-tablib = []
 telepath = []
 tzdata = []
 urllib3 = []
@@ -638,13 +584,4 @@ webencodings = [
 willow = [
     {file = "Willow-1.4.1-py2.py3-none-any.whl", hash = "sha256:fc4042696d090e75aef922fa1ed26d483c764f005b36cf523cf7c34e69d5dd7a"},
     {file = "Willow-1.4.1.tar.gz", hash = "sha256:0df8ff528531e00b48d40bf72ed81beac1dc82f2d42e5bbed4aff0218bef8c0d"},
-]
-xlrd = [
-    {file = "xlrd-2.0.1-py2.py3-none-any.whl", hash = "sha256:6a33ee89877bd9abc1158129f6e94be74e2679636b8a205b43b85206c3f0bbdd"},
-    {file = "xlrd-2.0.1.tar.gz", hash = "sha256:f72f148f54442c6b056bf931dbc34f986fd0c3b0b6b5a58d013c9aef274d0c88"},
-]
-xlsxwriter = []
-xlwt = [
-    {file = "xlwt-1.3.0-py2.py3-none-any.whl", hash = "sha256:a082260524678ba48a297d922cc385f58278b8aa68741596a87de01a9c628b2e"},
-    {file = "xlwt-1.3.0.tar.gz", hash = "sha256:c59912717a9b28f1a3c2a98fd60741014b06b043936dcecbc113eaaada156c88"},
 ]
