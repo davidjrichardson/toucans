@@ -18,6 +18,7 @@ django-environ = "^0.9.0"
 django-storages = "^1.13.2"
 boto3 = "^1.26.74"
 djangorestframework = "3.14.0"
+requests = "2.31.0"
 
 [tool.poetry.dev-dependencies]
 
