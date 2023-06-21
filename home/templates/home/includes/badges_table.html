@@ -12,7 +12,7 @@
 {% for round in rounds %}
   <div id="{{ round.round_name|slugify }}-info" class="badges-info {% if forloop.counter == 1 %}is-active{% endif %}">
     <div class="content">
-      <h5 class="title is-size-5">Scores for a {{ round.round_name }}</h5>
+      <h4 class="title is-size-5">Scores for a {{ round.round_name }}</h4>
       <p>Each row is a bow style and the columns correspond to the score for that badge.</p>
       <p>Outdoor rounds follow classification boundaries (gold badge is MB, red is BM, etc.). A dash means you cannot claim a badge for that bowstyle.</p>
     </div>

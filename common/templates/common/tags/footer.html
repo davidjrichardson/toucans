@@ -18,18 +18,18 @@
           </ul>
         </div>
         <div class="column is-3">
-          <p class="sitemap-entry title"><a href="{% pageurl current_site.root_page %}">Home</a></p>
+          <heading class="sitemap-entry title"><a href="{% pageurl current_site.root_page %}">Home</a></heading>
           {% if standings %}
             <p class="sitemap-entry title"><a href="{% pageurl standings %}">{{ standings.title }}</a></p>
             <p class="sitemap-entry"><a href="{% pageurl standings_archive %}">{{ standings_archive.title }}</a></p>
           {% endif %}
           {% if schedule %}
-            <p class="sitemap-entry title"><a href="{% pageurl schedule %}">{{ schedule.title }}</a></p>
+            <heading class="sitemap-entry title"><a href="{% pageurl schedule %}">{{ schedule.title }}</a></heading>
           {% endif %}
         </div>
         <div class="column is-3">
           {% if news %}
-            <p class="sitemap-entry title"><a href="{% pageurl news %}">{{ news.title }}</a></p>
+            <heading class="sitemap-entry title"><a href="{% pageurl news %}">{{ news.title }}</a></heading>
             {% if news_article %}
               <p class="sitemap-entry"><a href="{% pageurl news_article %}">{{ news_article.title }}</a></p>
               <p class="sitemap-entry more-news"><a href="{% pageurl news %}">Older news articles <i class="fas fa-chevron-right"></i></a>
@@ -37,7 +37,7 @@
           {% endif %}
           </p>
           {% if league %}
-            <p class="sitemap-entry title"><a href="{% pageurl league %}">League</a></p>
+            <heading class="sitemap-entry title"><a href="{% pageurl league %}">League</a></heading>
             {% for subpage in league_subpages %}
               <p class="sitemap-entry"><a href="{% pageurl subpage %}">{{ subpage.title }}</a></p>
             {% endfor %}
@@ -45,13 +45,13 @@
         </div>
         <div class="column is-3">
           {% if records %}
-            <p class="sitemap-entry title"><a href="{% pageurl records %}">{{ records.title }}</a></p>
+            <heading class="sitemap-entry title"><a href="{% pageurl records %}">{{ records.title }}</a></heading>
             {% for subpage in records_subpages %}
               <p class="sitemap-entry"><a href="{% pageurl subpage %}">{{ subpage.title }}</a></p>
             {% endfor %}
           {% endif %}
           {% if resources %}
-            <p class="sitemap-entry title"><a href="{% pageurl resources %}">{{ resources.title }}</a></p>
+            <heading class="sitemap-entry title"><a href="{% pageurl resources %}">{{ resources.title }}</a></heading>
             {% for subpage in resources_subpages %}
               <p class="sitemap-entry"><a href="{% pageurl subpage %}">{{ subpage.title }}</a></p>
             {% endfor %}
