@@ -5,17 +5,17 @@
     <div class="streamfield-block">
       {% if child.block_type == 'h2' %}
         <h2 class="title is-size-2" id="{{ child | slugify }}">
-          {{ child }} <a href="#{{ child | slugify }}" class="title-link">
-          <i class="fa fa-paragraph"aria-hidden="true"></i></a>
+          {{ child }} <a href="#{{ child | slugify }}" class="title-link" aria-hidden="true">
+          <i class="fa fa-paragraph" aria-hidden="true"></i></a>
         </h2>
       {% elif child.block_type == 'h3' %}
         <h3 class="title is-size-3" id="{{ child | slugify }}">
-          {{ child }} <a href="#{{ child | slugify }}" class="title-link">
+          {{ child }} <a href="#{{ child | slugify }}" class="title-link" aria-hidden="true">
           <i class="fa fa-paragraph" aria-hidden="true"></i></a>
         </h3>
       {% elif child.block_type == 'h4' %}
         <h4 class="title is-size-4" id="{{ child | slugify }}">
-          {{ child }} <a href="#{{ child | slugify }}" class="title-link">
+          {{ child }} <a href="#{{ child | slugify }}" class="title-link" aria-hidden="true">
           <i class="fa fa-paragraph" aria-hidden="true"></i></a>
         </h4>
       {% elif child.block_type == 'pullquote' %}

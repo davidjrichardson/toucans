@@ -35,8 +35,8 @@
       {% else %}
         <h2 class="title is-size-2">{{ page.title }}</h2>
       {% endif %}
-      <h6 class="subtitle is-size-6">Last updated at {{ page.last_published_at|time:'P' }} on
-        the {{ page.last_published_at|date:'jS F Y' }}</h6>
+      <p class="subtitle is-size-6">Last updated at {{ page.last_published_at|time:'P' }} on
+        the {{ page.last_published_at|date:'jS F Y' }}</p>
       {% if page.description %}
         <div class="content">
           {{ page.description|richtext }}

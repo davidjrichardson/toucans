@@ -65,7 +65,8 @@ a {
       clear: both;
     }
 
-    & h4 {
+    & heading {
+      display: block;
       color: $butts-text_tertiary_inv;
 
       margin-bottom: 1rem;
@@ -675,7 +676,7 @@ article.content {
     text-align: left;
 
     position: absolute;
-    bottom: 0;
+    bottom: 6.5px;
     width: 100%;
 
     padding: .5rem .75rem;
