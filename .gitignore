@@ -320,3 +320,5 @@ Temporary Items
 .sass-cache/*
 static_root
 docker-compose.override.yml
+
+.env.dev
