@@ -175,4 +175,5 @@ WAGTAILADMIN_BASE_URL = 'http://buttsleague.com'
 
 # SECURITY WARNING: define the correct hosts in production!
 ALLOWED_HOSTS = json.loads(env('ALLOWED_HOSTS'))
+CSRF_TRUSTED_ORIGINS = json.loads(env('CSRF_TRUSTED_ORIGINS'))
 EMAIL_BACKEND = 'django.core.mail.backends.console.EmailBackend'

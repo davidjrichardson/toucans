@@ -48,6 +48,7 @@ RUN poetry install \
     DB_HOST=localhost \
     DB_PORT=5432 \
     ALLOWED_HOSTS="[]" \
+    CSRF_TRUSTED_ORIGINS="[]" \
     poetry run python manage.py collectstatic --no-input --clear
 
 # Run the WSGI server. It reads GUNICORN_CMD_ARGS, PORT and WEB_CONCURRENCY
