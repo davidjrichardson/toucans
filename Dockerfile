@@ -38,7 +38,7 @@ RUN $FNM_DIR/fnm exec npm ci \
 # # Build & set up backend
 WORKDIR /app
 
-RUN curl -sSL https://install.python-poetry.org | POETRY_VERSION=1.5.1 python3 -
+RUN curl -sSL https://install.python-poetry.org | POETRY_VERSION=1.8.3 python3 -
 RUN poetry install \
   && poetry run pip install "gunicorn==19.10.0" \
   && SECRET_KEY=none \
