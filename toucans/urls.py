@@ -8,8 +8,6 @@ from wagtail.contrib.sitemaps.views import sitemap
 from wagtail import urls as wagtail_urls
 from wagtail.documents import urls as wagtaildocs_urls
 
-from search import views as search_views
-
 
 def response_403_handler(request, exception=None):
     return render(request, '403.html', status=403)
@@ -33,8 +31,6 @@ urlpatterns = [
 
     re_path(r'^cms/', include(wagtailadmin_urls)),
     re_path(r'^documents/', include(wagtaildocs_urls)),
-
-    re_path(r'^search/$', search_views.search, name='search'),
 
     # For anything not caught by a more specific rule above, hand over to
     # Wagtail's page serving mechanism. This should be the last pattern in
