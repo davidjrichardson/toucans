@@ -18,7 +18,9 @@ import os
 PROJECT_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 BASE_DIR = os.path.dirname(PROJECT_DIR)
 
-env = environ.Env()
+env = environ.Env(
+    DEBUG=(bool, False)
+)
 environ.Env.read_env()
 
 # Quick-start development settings - unsuitable for production
@@ -177,3 +179,5 @@ WAGTAILADMIN_BASE_URL = 'http://buttsleague.com'
 ALLOWED_HOSTS = json.loads(env('ALLOWED_HOSTS'))
 CSRF_TRUSTED_ORIGINS = json.loads(env('CSRF_TRUSTED_ORIGINS'))
 EMAIL_BACKEND = 'django.core.mail.backends.console.EmailBackend'
+
+DEBUG = env('DEBUG')
