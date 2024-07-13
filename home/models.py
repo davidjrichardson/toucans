@@ -139,7 +139,7 @@ class SchedulePage(Page):
     page_title = models.TextField(blank=False)
     page_description = RichTextField(blank=False)
 
-    timeline = StreamField(TimelineStreamBlock, use_json_field=True)
+    timeline = StreamField(TimelineStreamBlock)
 
     content_panels = Page.content_panels + [
         FieldPanel('page_title', help_text="This is the title that is shown at the top of the page"),
@@ -221,7 +221,7 @@ class BlogPageTag(TaggedItemBase):
 class BlogPage(Page):
     parent_page_types = ['home.BlogIndexPage']
 
-    body = StreamField(BlogStreamBlock, use_json_field=True)
+    body = StreamField(BlogStreamBlock)
     tags = ClusterTaggableManager(through=BlogPageTag, blank=True)
     date = models.DateTimeField('Post date', default=timezone.now)
     excerpt = RichTextField(help_text='This is displayed on the home and blog listing pages', default='')
@@ -588,7 +588,7 @@ class ThreeLegStandingsPage(Page):
 
     standings_year = models.TextField('Academic year',
                                       help_text='The academic year for this set of standings')
-    body = StreamField(StandingsStreamBlock, use_json_field=True)
+    body = StreamField(StandingsStreamBlock)
 
     @property
     def experienced_results(self):
@@ -621,7 +621,7 @@ class FourLegStandingsPage(Page):
 
     standings_year = models.TextField('Academic year',
                                       help_text='The academic year for this set of standings')
-    body = StreamField(StandingsStreamBlock, use_json_field=True)
+    body = StreamField(StandingsStreamBlock)
 
     @property
     def experienced_results(self):
@@ -660,7 +660,7 @@ class ResourcePage(Page):
                                   help_text='Use this to override the title text in the web page itself, useful for '
                                             'keeping the menu title consistent')
     description = RichTextField(blank=True, null=True)
-    body = StreamField(BlogStreamBlock, use_json_field=True)
+    body = StreamField(BlogStreamBlock)
 
     @property
     def child_resources(self):
@@ -692,7 +692,7 @@ class GenericPage(Page):
     page_title = models.CharField(max_length=200, blank=True, null=True,
                                   help_text='Use this to override the title text in the web page itself, useful for '
                                             'keeping the menu title consistent')
-    body = StreamField(BlogStreamBlock, use_json_field=True)
+    body = StreamField(BlogStreamBlock)
 
     @property
     def related(self):
