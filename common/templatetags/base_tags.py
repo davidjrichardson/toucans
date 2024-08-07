@@ -3,9 +3,9 @@ from collections import OrderedDict
 
 from django import template
 
-from home.models import Footer, BlogIndexPage, BlogPage, FourLegStandingsPage, SchedulePage, StandingsIndexPage, \
+from home.models import Footer, BlogIndexPage, BlogPage, LegacyFourLegStandingsPage, SchedulePage, StandingsIndexPage, \
     GenericPage, \
-    ResourcePage, ThreeLegStandingsPage
+    ResourcePage, LegacyThreeLegStandingsPage
 
 from wagtail.models import Site
 
@@ -67,7 +67,7 @@ def footer(context):
     # Get the site root to find top-level pages
     root = Site.find_for_request(context['request']).root_page
     # Find the navbar-level categories
-    standings = ThreeLegStandingsPage.objects.live().child_of(root).order_by('-standings_year').first()
+    standings = LegacyThreeLegStandingsPage.objects.live().child_of(root).order_by('-standings_year').first()
     standings_archive = StandingsIndexPage.objects.live().child_of(root).first()
     schedule = SchedulePage.objects.live().child_of(root).first()
     news_root = BlogIndexPage.objects.live().child_of(root).first()

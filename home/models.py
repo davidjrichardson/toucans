@@ -312,14 +312,14 @@ class BlogIndexPage(Page):
 
 class StandingsIndexPage(Page):
     parent_page_types = ['home.HomePage']
-    subpage_types = ['home.FourLegStandingsPage', 'home.ThreeLegStandingsPage']
+    subpage_types = ['home.LegacyFourLegStandingsPage', 'home.LegacyThreeLegStandingsPage']
 
     description = RichTextField(blank=True, null=True)
 
     @property
     def archives(self):
-        legacy = list(FourLegStandingsPage.objects.live().child_of(self).order_by('-standings_year').all())
-        new = list(ThreeLegStandingsPage.objects.live().child_of(self).order_by('-standings_year').all())
+        legacy = list(LegacyFourLegStandingsPage.objects.live().child_of(self).order_by('-standings_year').all())
+        new = list(LegacyThreeLegStandingsPage.objects.live().child_of(self).order_by('-standings_year').all())
 
         archive = legacy + new
 
@@ -417,8 +417,8 @@ class LeagueBadgeRoundEntry(models.Model):
     ]
 
 
-class FourLegStandingsEntry(models.Model):
-    page = ParentalKey('FourLegStandingsPage', related_name='results', on_delete=models.CASCADE)
+class LegacyFourLegStandingsEntry(models.Model):
+    page = ParentalKey('LegacyFourLegStandingsPage', related_name='results', on_delete=models.CASCADE)
 
     team_name = models.CharField(max_length=50)
     team_is_novice = models.BooleanField(default=False)
@@ -506,8 +506,8 @@ class FourLegStandingsEntry(models.Model):
     ]
 
 
-class ThreeLegStandingsEntry(models.Model):
-    page = ParentalKey('ThreeLegStandingsPage', related_name='results', on_delete=models.CASCADE)
+class LegacyThreeLegStandingsEntry(models.Model):
+    page = ParentalKey('LegacyThreeLegStandingsPage', related_name='results', on_delete=models.CASCADE)
 
     team_name = models.CharField(max_length=50)
     team_is_novice = models.BooleanField(default=False)
@@ -582,9 +582,8 @@ class ThreeLegStandingsEntry(models.Model):
     ]
 
 
-class ThreeLegStandingsPage(Page):
-    parent_page_types = ['home.HomePage', 'home.StandingsIndexPage']
-    subpage_types = ['home.StandingsIndexPage']
+class LegacyThreeLegStandingsPage(Page):
+    parent_page_types = ['home.StandingsIndexPage']
 
     standings_year = models.TextField('Academic year',
                                       help_text='The academic year for this set of standings')
@@ -616,9 +615,8 @@ class ThreeLegStandingsPage(Page):
     ]
 
 
-class FourLegStandingsPage(Page):
-    parent_page_types = ['home.HomePage', 'home.StandingsIndexPage']
-    subpage_types = ['home.StandingsIndexPage']
+class LegacyFourLegStandingsPage(Page):
+    parent_page_types = ['home.StandingsIndexPage']
 
     standings_year = models.TextField('Academic year',
                                       help_text='The academic year for this set of standings')
@@ -728,7 +726,7 @@ class BadgesPage(ResourcePage):
 
 
 class HomePage(Page):
-    subpage_types = ['home.SchedulePage', 'home.BlogIndexPage', 'home.ThreeLegStandingsPage', 'home.ResourcePage',
+    subpage_types = ['home.SchedulePage', 'home.BlogIndexPage', 'home.LegacyThreeLegStandingsPage', 'home.ResourcePage',
                      'home.GenericPage', 'home.StandingsIndexPage']
 
     description = models.TextField(max_length=400, default='')
@@ -743,13 +741,13 @@ class HomePage(Page):
 
     @property
     def experienced_standings(self):
-        standings_page = ThreeLegStandingsPage.objects.live().child_of(self).first()
+        standings_page = LegacyThreeLegStandingsPage.objects.live().child_of(self).first()
 
         return (standings_page.experienced_results, standings_page.num_legs)
 
     @property
     def novice_standings(self):
-        standings_page = ThreeLegStandingsPage.objects.live().child_of(self).first()
+        standings_page = LegacyThreeLegStandingsPage.objects.live().child_of(self).first()
 
         return (standings_page.novice_results, standings_page.num_legs)
 
