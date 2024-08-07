@@ -311,7 +311,7 @@ class BlogIndexPage(Page):
 
 
 class StandingsIndexPage(Page):
-    parent_page_types = ['home.ThreeLegStandingsPage']
+    parent_page_types = ['home.HomePage']
     subpage_types = ['home.FourLegStandingsPage', 'home.ThreeLegStandingsPage']
 
     description = RichTextField(blank=True, null=True)
@@ -600,7 +600,7 @@ class ThreeLegStandingsPage(Page):
 
     @property
     def archives(self):
-        return StandingsIndexPage.objects.live().child_of(self).first()
+        return StandingsIndexPage.objects.live().first()
 
     @property
     def num_legs(self):
@@ -634,7 +634,7 @@ class FourLegStandingsPage(Page):
 
     @property
     def archives(self):
-        return StandingsIndexPage.objects.live().child_of(self).first()
+        return StandingsIndexPage.objects.live().first()
 
     @property
     def num_legs(self):
@@ -729,7 +729,7 @@ class BadgesPage(ResourcePage):
 
 class HomePage(Page):
     subpage_types = ['home.SchedulePage', 'home.BlogIndexPage', 'home.ThreeLegStandingsPage', 'home.ResourcePage',
-                     'home.GenericPage']
+                     'home.GenericPage', 'home.StandingsIndexPage']
 
     description = models.TextField(max_length=400, default='')
 

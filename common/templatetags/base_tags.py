@@ -68,7 +68,7 @@ def footer(context):
     root = Site.find_for_request(context['request']).root_page
     # Find the navbar-level categories
     standings = ThreeLegStandingsPage.objects.live().child_of(root).order_by('-standings_year').first()
-    standings_archive = StandingsIndexPage.objects.live().child_of(standings).first()
+    standings_archive = StandingsIndexPage.objects.live().child_of(root).first()
     schedule = SchedulePage.objects.live().child_of(root).first()
     news_root = BlogIndexPage.objects.live().child_of(root).first()
     news_article = BlogPage.objects.live().child_of(news_root).order_by('-date').first()
