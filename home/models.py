@@ -7,7 +7,7 @@ from django.utils import timezone
 from modelcluster.contrib.taggit import ClusterTaggableManager
 from modelcluster.fields import ParentalKey
 from taggit.models import TaggedItemBase
-from wagtail.admin.panels import FieldPanel, MultiFieldPanel, FieldRowPanel, InlinePanel
+from wagtail.admin.panels import FieldPanel, MultiFieldPanel, FieldRowPanel, InlinePanel, HelpPanel
 from wagtail.contrib.table_block.blocks import TableBlock
 from wagtail.blocks import StructBlock, DateBlock, CharBlock, TextBlock, StreamBlock, ListBlock, \
     RichTextBlock
@@ -607,11 +607,12 @@ class ThreeLegStandingsPage(Page):
         return 3
 
     content_panels = Page.content_panels + [
+        HelpPanel('<h1 class="title"><strong>This page uses the old data entry format for league standings. Please use the new 3-leg entry format.</h1>'),
         MultiFieldPanel([
             FieldPanel('standings_year'),
             FieldPanel('body'),
-        ], heading='Standings Info'),
-        InlinePanel('results', label='Results')
+        ], heading='Standings Info', classname='collapsed'),
+        InlinePanel('results', label='Results', classname='collapsed')
     ]
 
 
@@ -640,11 +641,12 @@ class FourLegStandingsPage(Page):
         return 4
 
     content_panels = Page.content_panels + [
+        HelpPanel('<h1>This is a legacy page format for 4-leg league standings. Please use the 3-leg format for new seasons.</h1>'),
         MultiFieldPanel([
             FieldPanel('standings_year'),
             FieldPanel('body'),
-        ], heading='Standings Info'),
-        InlinePanel('results', label='Results')
+        ], heading='Standings Info', classname='collapsed'),
+        InlinePanel('results', label='Results', classname='collapsed')
     ]
 
 
