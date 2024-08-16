@@ -18,8 +18,8 @@ from wagtail.documents.blocks import DocumentChooserBlock
 from wagtail.images.blocks import ImageChooserBlock
 from wagtail.snippets.models import register_snippet
 
+from common.models import ThreeLegStanding
 from home.fields import ArcheryLegResultField
-from home.templatetags.table_tags import ThreeLegStanding
 
 
 @register_snippet
