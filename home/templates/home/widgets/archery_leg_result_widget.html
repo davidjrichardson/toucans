@@ -1,0 +1,7 @@
+{% spaceless %}
+<div style="display: flex;">
+    {% for widget in widget.subwidgets %}
+    {% include widget.template_name %}
+    {% endfor %}
+</div>
+{% endspaceless %}
