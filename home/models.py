@@ -1,5 +1,6 @@
 import functools
 from datetime import datetime
+import json
 
 from django.core.paginator import Paginator, PageNotAnInteger, EmptyPage
 from django.db import models
@@ -18,6 +19,7 @@ from wagtail.images.blocks import ImageChooserBlock
 from wagtail.snippets.models import register_snippet
 
 from home.fields import ArcheryLegResultField
+from home.templatetags.table_tags import ThreeLegStanding
 
 
 @register_snippet
@@ -659,11 +661,11 @@ class ThreeLegStandingsPage(Page):
 
     @property
     def experienced_results(self):
-        return self.results.all()
+        return [x.experienced_results for x in self.results.all()]
 
     @property
     def novice_results(self):
-        return self.results.all()
+        return [x.novice_results for x in self.results.all()]
 
     @property
     def archives(self):
@@ -687,6 +689,11 @@ class ThreeLegStandingsPage(Page):
 
 def leg_results_field_default():
     return (0, 0, 0)
+
+
+def leg_results_field_to_tuple(value: str) -> tuple[int, int, int]:
+    parsed_dict = json.loads(value)
+    return parsed_dict['score'], parsed_dict['hits'], parsed_dict['golds']
 
 
 class ThreeLegStandingsEntry(models.Model):
@@ -731,6 +738,26 @@ class ThreeLegStandingsEntry(models.Model):
             ], heading='Champs'
         ),
     ]
+
+    @property
+    def novice_results(self) -> ThreeLegStanding:
+        return ThreeLegStanding(
+            team_name=self.team_name,
+            leg_1=leg_results_field_to_tuple(self.nov_leg_1),
+            leg_2=leg_results_field_to_tuple(self.nov_leg_2),
+            leg_3=leg_results_field_to_tuple(self.nov_leg_3),
+            champs=leg_results_field_to_tuple(self.nov_champs)
+        )
+    
+    @property
+    def experienced_results(self) -> ThreeLegStanding:
+        return ThreeLegStanding(
+            team_name=self.team_name,
+            leg_1=leg_results_field_to_tuple(self.exp_leg_1),
+            leg_2=leg_results_field_to_tuple(self.exp_leg_2),
+            leg_3=leg_results_field_to_tuple(self.exp_leg_3),
+            champs=leg_results_field_to_tuple(self.exp_champs)
+        )
 
 
 class ResourceRelatedLink(Orderable, RelatedLink):
@@ -826,13 +853,13 @@ class HomePage(Page):
 
     @property
     def experienced_standings(self):
-        standings_page = LegacyThreeLegStandingsPage.objects.live().child_of(self).first()
+        standings_page = ThreeLegStandingsPage.objects.live().child_of(self).first()
 
         return (standings_page.experienced_results, standings_page.num_legs)
 
     @property
     def novice_standings(self):
-        standings_page = LegacyThreeLegStandingsPage.objects.live().child_of(self).first()
+        standings_page = ThreeLegStandingsPage.objects.live().child_of(self).first()
 
         return (standings_page.novice_results, standings_page.num_legs)
 
