@@ -17,6 +17,8 @@ from wagtail.documents.blocks import DocumentChooserBlock
 from wagtail.images.blocks import ImageChooserBlock
 from wagtail.snippets.models import register_snippet
 
+from home.fields import ArcheryLegResultField
+
 
 @register_snippet
 class Footer(models.Model):
@@ -648,6 +650,89 @@ class LegacyFourLegStandingsPage(Page):
     ]
 
 
+class ThreeLegStandingsPage(Page):
+    parent_page_types = ['home.HomePage']
+
+    standings_year = models.TextField('Academic year',
+                                      help_text='The academic year for this set of standings')
+    body = StreamField(StandingsStreamBlock)
+
+    @property
+    def experienced_results(self):
+        return self.results.all()
+
+    @property
+    def novice_results(self):
+        return self.results.all()
+
+    @property
+    def archives(self):
+        return StandingsIndexPage.objects.live().first()
+
+    @property
+    def num_legs(self):
+        return 3
+
+    content_panels = Page.content_panels + [
+        MultiFieldPanel(
+            [
+                FieldPanel('standings_year'),
+                FieldPanel('body'),
+            ], 
+            heading='Standings info'
+        ),
+        InlinePanel('results', label='Results')
+    ]
+
+
+def leg_results_field_default():
+    return (0, 0, 0)
+
+
+class ThreeLegStandingsEntry(models.Model):
+    page = ParentalKey('ThreeLegStandingsPage', related_name='results', on_delete=models.CASCADE)
+
+    team_name = models.CharField(max_length=50)
+
+    exp_leg_1 = ArcheryLegResultField(default=leg_results_field_default)
+    exp_leg_2 = ArcheryLegResultField(default=leg_results_field_default)
+    exp_leg_3 = ArcheryLegResultField(default=leg_results_field_default)
+    exp_champs = ArcheryLegResultField(default=leg_results_field_default)
+
+    nov_leg_1 = ArcheryLegResultField(default=leg_results_field_default)
+    nov_leg_2 = ArcheryLegResultField(default=leg_results_field_default)
+    nov_leg_3 = ArcheryLegResultField(default=leg_results_field_default)
+    nov_champs = ArcheryLegResultField(default=leg_results_field_default)
+
+    panels = [
+        FieldPanel('team_name', classname='title'),
+        FieldRowPanel(
+            [
+                FieldPanel('exp_leg_1', classname='col6', heading='Experienced results'),
+                FieldPanel('nov_leg_1', classname='col6', heading='Novice results'),
+            ], heading='Leg 1'
+        ),
+        FieldRowPanel(
+            [
+                FieldPanel('exp_leg_2', classname='col6', heading='Experienced results'),
+                FieldPanel('nov_leg_2', classname='col6', heading='Novice results'),
+            ], heading='Leg 2'
+        ),
+        FieldRowPanel(
+            [
+                FieldPanel('exp_leg_3', classname='col6', heading='Experienced results'),
+                FieldPanel('nov_leg_3', classname='col6', heading='Novice results'),
+            ], heading='Leg 3'
+        ),
+        FieldRowPanel(
+            [
+                FieldPanel('exp_champs', classname='col6', heading='Experienced results'),
+                FieldPanel('nov_champs', classname='col6', heading='Novice results'),
+            ], heading='Champs'
+        ),
+    ]
+
+
 class ResourceRelatedLink(Orderable, RelatedLink):
     page = ParentalKey('home.ResourcePage', on_delete=models.CASCADE, related_name='related_links')
 
@@ -726,7 +811,7 @@ class BadgesPage(ResourcePage):
 
 
 class HomePage(Page):
-    subpage_types = ['home.SchedulePage', 'home.BlogIndexPage', 'home.LegacyThreeLegStandingsPage', 'home.ResourcePage',
+    subpage_types = ['home.SchedulePage', 'home.BlogIndexPage', 'home.ThreeLegStandingsPage', 'home.ResourcePage',
                      'home.GenericPage', 'home.StandingsIndexPage']
 
     description = models.TextField(max_length=400, default='')
