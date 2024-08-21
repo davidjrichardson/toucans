@@ -29,7 +29,7 @@
       <nav class="level">
         <div class="level-left">
           <div class="level-item">
-            <h2 class="title is-size-2">League Standings for {{ page.standings_year }}</h2>
+            <h1 class="title is-size-2">League Standings for {{ page.standings_year }}</h2>
           </div>
         </div>
         {% if page.archives %}
@@ -40,10 +40,26 @@
           </div>
         {% endif %}
       </nav>
-      <h4 class="title is-size-4">Experienced Table</h4>
-      {% overall_3leg_standings standings=page.experienced_results %}
-      <h4 class="title is-size-4">Novice Table</h4>
-      {% overall_3leg_standings standings=page.novice_results %}
+      <h1 class="title is-size-3">Division 1</h1>
+      {% if page.has_div1_results %}
+        <h2 class="title is-size-4">Experienced Table</h2>
+        {% overall_3leg_standings standings=page.division_1_results.0 %}
+        <h2 class="title is-size-4">Novice Table</h2>
+        {% overall_3leg_standings standings=page.division_1_results.1 %}
+      {% else %}
+        <p>There are no division 1 results for the {{ page.standings_year }} year.</p>
+      {% endif %}
+
+      <h1 class="title is-size-3">Division 2</h1>
+      {% if page.has_div2_results %}
+        <h2 class="title is-size-4">Experienced Table</h2>
+        {% overall_3leg_standings standings=page.division_2_results.0 %}
+        <h2 class="title is-size-4">Novice Table</h2>
+        {% overall_3leg_standings standings=page.division_2_results.1 %}
+      {% else %}
+        <p>There are no division 2 results for the {{ page.standings_year }} year.</p>
+      {% endif %}
+
       {% include 'home/includes/blog_streamfield.html' with content=page.body %}
     </div>
   </section>
