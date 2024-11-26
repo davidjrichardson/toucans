@@ -10,7 +10,7 @@
 {% block ogp_prefix %}prefix="og: http://ogp.me/ns#"{% endblock %}
 
 {% block ogp_metadata %}
-  <meta property="og:image" content="https://toucanleague.co.uk{% static 'favicon-228.png' %}">
+  <meta property="og:image" content="{% static 'favicon-228.png' %}">
   <meta property="og:title" content="{{ page.title }}">
   <meta property="og:type" content="website">
   <meta property="og:determiner" content="the">
