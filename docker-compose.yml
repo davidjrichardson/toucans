@@ -13,7 +13,7 @@ services:
       - internal
 
   web-service:
-    image: ghcr.io/davidjrichardson/toucans:2023-03-05
+    image: ghcr.io/davidjrichardson/toucans:2023-11-26
     depends_on:
       - db
     ports:
