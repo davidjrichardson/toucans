@@ -3,6 +3,7 @@ from django.urls import include, re_path
 from django.contrib import admin
 from django.core.exceptions import PermissionDenied, SuspiciousOperation
 from django.shortcuts import render
+from django.views.generic.base import TemplateView
 from wagtail.admin import urls as wagtailadmin_urls
 from wagtail.contrib.sitemaps.views import sitemap
 from wagtail import urls as wagtail_urls
@@ -27,6 +28,10 @@ def response_500_handler(request, exception=None):
 
 urlpatterns = [
     re_path(r'^sitemap\.xml', sitemap),
+    re_path(
+        r'^robots\.txt',
+        TemplateView.as_view(template_name='robots.txt', content_type='text/plain'),
+    ),
     re_path(r'^admin/', admin.site.urls),
 
     re_path(r'^cms/', include(wagtailadmin_urls)),

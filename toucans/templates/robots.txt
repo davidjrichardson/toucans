@@ -1,0 +1,6 @@
+User-Agent: *
+Disallow: /cms/
+Disallow: /admin/
+
+User-agent: GPTBot
+Disallow: /
