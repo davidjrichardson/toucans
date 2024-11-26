@@ -1,4 +1,4 @@
 User-agent: *
 Allow: /
 
-Sitemap: https://buttsleague.com/sitemap.xml
+Sitemap: https://toucanleague.co.uk/sitemap.xml
