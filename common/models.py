@@ -178,6 +178,20 @@ class AbstractLegacyLeagueResultsPage(AbstractLeagueResultsPage):
         abstract = True
 
 
+class AbstractMultiDivisionLeagueResultsPage(AbstractLeagueResultsPage):
+    content_panels = (
+        Page.content_panels
+        + AbstractLeagueResultsPage.base_content_panels
+        + [
+            InlinePanel("div1_results", label="Division 1 results"),
+            InlinePanel("div2_results", label="Division 2 results"),
+        ]
+    )
+
+    class Meta:
+        abstract = True
+
+
 # @register_snippet
 # class AcademicYear(models.Model):
 #     year = models.CharField(max_length=9, unique=True)

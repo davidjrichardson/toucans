@@ -33,7 +33,7 @@ from wagtail.snippets.models import register_snippet
 from common.models import (
     AbstractThreeLegStandingsEntry,
     ThreeLegStanding,
-    AbstractLeagueResultsPage,
+    AbstractMultiDivisionLeagueResultsPage,
     AbstractLegacyLeagueResultsPage,
 )
 
@@ -727,7 +727,7 @@ class LegacyFourLegStandingsPage(AbstractLegacyLeagueResultsPage):
         return 4
 
 
-class ThreeLegStandingsPage(AbstractLeagueResultsPage):
+class ThreeLegStandingsPage(AbstractMultiDivisionLeagueResultsPage):
     @functools.cached_property
     def division_1_results(
         self,
@@ -761,15 +761,6 @@ class ThreeLegStandingsPage(AbstractLeagueResultsPage):
     @property
     def num_legs(self):
         return 3
-
-    content_panels = (
-        Page.content_panels
-        + AbstractLeagueResultsPage.base_content_panels
-        + [
-            InlinePanel("div1_results", label="Division 1 results"),
-            InlinePanel("div2_results", label="Division 2 results"),
-        ]
-    )
 
 
 class DivisionOneStandingsEntry(Orderable, AbstractThreeLegStandingsEntry):
