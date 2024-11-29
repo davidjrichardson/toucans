@@ -4,15 +4,19 @@ from django.db import migrations, models
 
 
 class Migration(migrations.Migration):
-
     dependencies = [
-        ('home', '0034_remove_genericpage_description'),
+        ("home", "0034_remove_genericpage_description"),
     ]
 
     operations = [
         migrations.AddField(
-            model_name='genericpage',
-            name='page_title',
-            field=models.CharField(blank=True, help_text='Use this to override the title text in the web page itself, useful for keeping the menu title consistent', max_length=200, null=True),
+            model_name="genericpage",
+            name="page_title",
+            field=models.CharField(
+                blank=True,
+                help_text="Use this to override the title text in the web page itself, useful for keeping the menu title consistent",
+                max_length=200,
+                null=True,
+            ),
         ),
     ]

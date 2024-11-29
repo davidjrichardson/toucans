@@ -4,19 +4,21 @@ from django.db import migrations
 
 
 class Migration(migrations.Migration):
-
     dependencies = [
-        ('wagtailcore', '0093_uploadedfile'),
-        ('home', '0056_rename_fourlegstandingsentry_legacyfourlegstandingsentry_and_more'),
+        ("wagtailcore", "0093_uploadedfile"),
+        (
+            "home",
+            "0056_rename_fourlegstandingsentry_legacyfourlegstandingsentry_and_more",
+        ),
     ]
 
     operations = [
         migrations.RenameModel(
-            old_name='ThreeLegStandingsEntry',
-            new_name='LegacyThreeLegStandingsEntry',
+            old_name="ThreeLegStandingsEntry",
+            new_name="LegacyThreeLegStandingsEntry",
         ),
         migrations.RenameModel(
-            old_name='ThreeLegStandingsPage',
-            new_name='LegacyThreeLegStandingsPage',
+            old_name="ThreeLegStandingsPage",
+            new_name="LegacyThreeLegStandingsPage",
         ),
     ]

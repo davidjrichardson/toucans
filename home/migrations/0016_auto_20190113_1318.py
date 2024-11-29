@@ -9,15 +9,75 @@ import wagtail.images.blocks
 
 
 class Migration(migrations.Migration):
-
     dependencies = [
-        ('home', '0015_auto_20190112_1400'),
+        ("home", "0015_auto_20190112_1400"),
     ]
 
     operations = [
         migrations.AlterField(
-            model_name='blogpage',
-            name='body',
-            field=wagtail.fields.StreamField([('h2', wagtail.blocks.CharBlock(classname='title', icon='title')), ('h3', wagtail.blocks.CharBlock(classname='title', icon='title')), ('h4', wagtail.blocks.CharBlock(classname='title', icon='title')), ('paragraph', wagtail.blocks.RichTextBlock(icon='pilcrow')), ('credit_image', wagtail.blocks.StructBlock([('image', wagtail.images.blocks.ImageChooserBlock()), ('caption', wagtail.blocks.TextBlock(help_text='Photo caption', required=False)), ('credit', wagtail.blocks.TextBlock(help_text='Image credit'))])), ('plain_image', wagtail.blocks.StructBlock([('image', wagtail.images.blocks.ImageChooserBlock()), ('caption', wagtail.blocks.TextBlock(help_text='Photo caption', required=False))])), ('pullquote', wagtail.blocks.StructBlock([('quote', wagtail.blocks.TextBlock('quote title')), ('attribution', wagtail.blocks.CharBlock())])), ('document', wagtail.documents.blocks.DocumentChooserBlock(icon='doc-full-inverse')), ('table', wagtail.contrib.table_block.blocks.TableBlock(table_options={'startCols': 4, 'startRows': 1}, template='blocks/table_block.html'))]),
+            model_name="blogpage",
+            name="body",
+            field=wagtail.fields.StreamField(
+                [
+                    ("h2", wagtail.blocks.CharBlock(classname="title", icon="title")),
+                    ("h3", wagtail.blocks.CharBlock(classname="title", icon="title")),
+                    ("h4", wagtail.blocks.CharBlock(classname="title", icon="title")),
+                    ("paragraph", wagtail.blocks.RichTextBlock(icon="pilcrow")),
+                    (
+                        "credit_image",
+                        wagtail.blocks.StructBlock(
+                            [
+                                ("image", wagtail.images.blocks.ImageChooserBlock()),
+                                (
+                                    "caption",
+                                    wagtail.blocks.TextBlock(
+                                        help_text="Photo caption", required=False
+                                    ),
+                                ),
+                                (
+                                    "credit",
+                                    wagtail.blocks.TextBlock(help_text="Image credit"),
+                                ),
+                            ]
+                        ),
+                    ),
+                    (
+                        "plain_image",
+                        wagtail.blocks.StructBlock(
+                            [
+                                ("image", wagtail.images.blocks.ImageChooserBlock()),
+                                (
+                                    "caption",
+                                    wagtail.blocks.TextBlock(
+                                        help_text="Photo caption", required=False
+                                    ),
+                                ),
+                            ]
+                        ),
+                    ),
+                    (
+                        "pullquote",
+                        wagtail.blocks.StructBlock(
+                            [
+                                ("quote", wagtail.blocks.TextBlock("quote title")),
+                                ("attribution", wagtail.blocks.CharBlock()),
+                            ]
+                        ),
+                    ),
+                    (
+                        "document",
+                        wagtail.documents.blocks.DocumentChooserBlock(
+                            icon="doc-full-inverse"
+                        ),
+                    ),
+                    (
+                        "table",
+                        wagtail.contrib.table_block.blocks.TableBlock(
+                            table_options={"startCols": 4, "startRows": 1},
+                            template="blocks/table_block.html",
+                        ),
+                    ),
+                ]
+            ),
         ),
     ]

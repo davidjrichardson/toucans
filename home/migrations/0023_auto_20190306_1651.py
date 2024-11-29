@@ -8,30 +8,48 @@ import wagtail.fields
 
 
 class Migration(migrations.Migration):
-
     dependencies = [
-        ('home', '0022_auto_20190306_1355'),
+        ("home", "0022_auto_20190306_1355"),
     ]
 
     operations = [
         migrations.CreateModel(
-            name='StandingsEntry',
+            name="StandingsEntry",
             fields=[
-                ('id', models.AutoField(auto_created=True, primary_key=True, serialize=False, verbose_name='ID')),
-                ('university', models.CharField(max_length=50)),
-                ('leg1_score', models.IntegerField(blank=True)),
-                ('leg1_hits', models.IntegerField(blank=True)),
-                ('leg1_golds', models.IntegerField(blank=True)),
+                (
+                    "id",
+                    models.AutoField(
+                        auto_created=True,
+                        primary_key=True,
+                        serialize=False,
+                        verbose_name="ID",
+                    ),
+                ),
+                ("university", models.CharField(max_length=50)),
+                ("leg1_score", models.IntegerField(blank=True)),
+                ("leg1_hits", models.IntegerField(blank=True)),
+                ("leg1_golds", models.IntegerField(blank=True)),
             ],
         ),
         migrations.AlterField(
-            model_name='standingspage',
-            name='body',
-            field=wagtail.fields.StreamField([('h2', wagtail.blocks.CharBlock(classname='title', icon='title')), ('h3', wagtail.blocks.CharBlock(classname='title', icon='title')), ('h4', wagtail.blocks.CharBlock(classname='title', icon='title')), ('paragraph', wagtail.blocks.RichTextBlock(icon='pilcrow'))]),
+            model_name="standingspage",
+            name="body",
+            field=wagtail.fields.StreamField(
+                [
+                    ("h2", wagtail.blocks.CharBlock(classname="title", icon="title")),
+                    ("h3", wagtail.blocks.CharBlock(classname="title", icon="title")),
+                    ("h4", wagtail.blocks.CharBlock(classname="title", icon="title")),
+                    ("paragraph", wagtail.blocks.RichTextBlock(icon="pilcrow")),
+                ]
+            ),
         ),
         migrations.AddField(
-            model_name='standingsentry',
-            name='page',
-            field=modelcluster.fields.ParentalKey(on_delete=django.db.models.deletion.CASCADE, related_name='results', to='home.StandingsPage'),
+            model_name="standingsentry",
+            name="page",
+            field=modelcluster.fields.ParentalKey(
+                on_delete=django.db.models.deletion.CASCADE,
+                related_name="results",
+                to="home.StandingsPage",
+            ),
         ),
     ]

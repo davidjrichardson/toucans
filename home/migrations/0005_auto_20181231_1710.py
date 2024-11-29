@@ -4,18 +4,17 @@ from django.db import migrations
 
 
 class Migration(migrations.Migration):
-
     dependencies = [
-        ('home', '0004_schedulepage'),
+        ("home", "0004_schedulepage"),
     ]
 
     operations = [
         migrations.RemoveField(
-            model_name='schedulepage',
-            name='menu_order',
+            model_name="schedulepage",
+            name="menu_order",
         ),
         migrations.RemoveField(
-            model_name='schedulepage',
-            name='menu_title',
+            model_name="schedulepage",
+            name="menu_title",
         ),
     ]

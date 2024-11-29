@@ -4,15 +4,14 @@ from django.db import migrations, models
 
 
 class Migration(migrations.Migration):
-
     dependencies = [
-        ('home', '0013_auto_20190112_1153'),
+        ("home", "0013_auto_20190112_1153"),
     ]
 
     operations = [
         migrations.AddField(
-            model_name='blogpage',
-            name='cover_invert_title',
+            model_name="blogpage",
+            name="cover_invert_title",
             field=models.BooleanField(blank=True, default=True),
             preserve_default=False,
         ),

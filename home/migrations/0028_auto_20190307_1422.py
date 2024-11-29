@@ -4,20 +4,19 @@ from django.db import migrations, models
 
 
 class Migration(migrations.Migration):
-
     dependencies = [
-        ('home', '0027_auto_20190307_1412'),
+        ("home", "0027_auto_20190307_1412"),
     ]
 
     operations = [
         migrations.RenameField(
-            model_name='standingsentry',
-            old_name='university',
-            new_name='team_name',
+            model_name="standingsentry",
+            old_name="university",
+            new_name="team_name",
         ),
         migrations.AddField(
-            model_name='standingsentry',
-            name='team_is_novice',
+            model_name="standingsentry",
+            name="team_is_novice",
             field=models.BooleanField(default=False),
         ),
     ]

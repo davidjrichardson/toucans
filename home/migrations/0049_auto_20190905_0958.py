@@ -5,19 +5,18 @@ from django.db import migrations
 
 
 class Migration(migrations.Migration):
-
     dependencies = [
-        ('contenttypes', '0002_remove_content_type_name'),
-        ('wagtailredirects', '0006_redirect_increase_max_length'),
+        ("contenttypes", "0002_remove_content_type_name"),
+        ("wagtailredirects", "0006_redirect_increase_max_length"),
         migrations.swappable_dependency(settings.AUTH_USER_MODEL),
-        ('wagtailcore', '0041_group_collection_permissions_verbose_name_plural'),
-        ('wagtailforms', '0003_capitalizeverbose'),
-        ('home', '0048_newstandingsentry_newstandingspage'),
+        ("wagtailcore", "0041_group_collection_permissions_verbose_name_plural"),
+        ("wagtailforms", "0003_capitalizeverbose"),
+        ("home", "0048_newstandingsentry_newstandingspage"),
     ]
 
     operations = [
         migrations.RenameModel(
-            old_name='StandingsPage',
-            new_name='LegacyStandingsPage',
+            old_name="StandingsPage",
+            new_name="LegacyStandingsPage",
         ),
     ]

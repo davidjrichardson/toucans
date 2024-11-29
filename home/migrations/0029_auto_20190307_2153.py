@@ -4,85 +4,84 @@ from django.db import migrations, models
 
 
 class Migration(migrations.Migration):
-
     dependencies = [
-        ('home', '0028_auto_20190307_1422'),
+        ("home", "0028_auto_20190307_1422"),
     ]
 
     operations = [
         migrations.AlterField(
-            model_name='standingsentry',
-            name='champs_golds',
+            model_name="standingsentry",
+            name="champs_golds",
             field=models.IntegerField(blank=True, default=0),
         ),
         migrations.AlterField(
-            model_name='standingsentry',
-            name='champs_hits',
+            model_name="standingsentry",
+            name="champs_hits",
             field=models.IntegerField(blank=True, default=0),
         ),
         migrations.AlterField(
-            model_name='standingsentry',
-            name='champs_score',
+            model_name="standingsentry",
+            name="champs_score",
             field=models.IntegerField(blank=True, default=0),
         ),
         migrations.AlterField(
-            model_name='standingsentry',
-            name='leg_1_golds',
+            model_name="standingsentry",
+            name="leg_1_golds",
             field=models.IntegerField(blank=True, default=0),
         ),
         migrations.AlterField(
-            model_name='standingsentry',
-            name='leg_1_hits',
+            model_name="standingsentry",
+            name="leg_1_hits",
             field=models.IntegerField(blank=True, default=0),
         ),
         migrations.AlterField(
-            model_name='standingsentry',
-            name='leg_1_score',
+            model_name="standingsentry",
+            name="leg_1_score",
             field=models.IntegerField(blank=True, default=0),
         ),
         migrations.AlterField(
-            model_name='standingsentry',
-            name='leg_2_golds',
+            model_name="standingsentry",
+            name="leg_2_golds",
             field=models.IntegerField(blank=True, default=0),
         ),
         migrations.AlterField(
-            model_name='standingsentry',
-            name='leg_2_hits',
+            model_name="standingsentry",
+            name="leg_2_hits",
             field=models.IntegerField(blank=True, default=0),
         ),
         migrations.AlterField(
-            model_name='standingsentry',
-            name='leg_2_score',
+            model_name="standingsentry",
+            name="leg_2_score",
             field=models.IntegerField(blank=True, default=0),
         ),
         migrations.AlterField(
-            model_name='standingsentry',
-            name='leg_3_golds',
+            model_name="standingsentry",
+            name="leg_3_golds",
             field=models.IntegerField(blank=True, default=0),
         ),
         migrations.AlterField(
-            model_name='standingsentry',
-            name='leg_3_hits',
+            model_name="standingsentry",
+            name="leg_3_hits",
             field=models.IntegerField(blank=True, default=0),
         ),
         migrations.AlterField(
-            model_name='standingsentry',
-            name='leg_3_score',
+            model_name="standingsentry",
+            name="leg_3_score",
             field=models.IntegerField(blank=True, default=0),
         ),
         migrations.AlterField(
-            model_name='standingsentry',
-            name='leg_4_golds',
+            model_name="standingsentry",
+            name="leg_4_golds",
             field=models.IntegerField(blank=True, default=0),
         ),
         migrations.AlterField(
-            model_name='standingsentry',
-            name='leg_4_hits',
+            model_name="standingsentry",
+            name="leg_4_hits",
             field=models.IntegerField(blank=True, default=0),
         ),
         migrations.AlterField(
-            model_name='standingsentry',
-            name='leg_4_score',
+            model_name="standingsentry",
+            name="leg_4_score",
             field=models.IntegerField(blank=True, default=0),
         ),
     ]

@@ -16,18 +16,20 @@ class ThreeLegStanding:
     @property
     def is_empty(self) -> bool:
         return (
-            self.leg_1 == (0, 0, 0) 
-            and self.leg_2 == (0, 0, 0) 
-            and self.leg_3 == (0, 0, 0) 
+            self.leg_1 == (0, 0, 0)
+            and self.leg_2 == (0, 0, 0)
+            and self.leg_3 == (0, 0, 0)
             and self.champs == (0, 0, 0)
         )
-    
+
     @property
     def results(self) -> list[tuple[int, int, int]]:
         return [self.leg_1, self.leg_2, self.leg_3, self.champs]
-    
+
     def __str__(self) -> str:
-        return f"{self.team_name}: {self.leg_1}, {self.leg_2}, {self.leg_3}, {self.champs}"
+        return (
+            f"{self.team_name}: {self.leg_1}, {self.leg_2}, {self.leg_3}, {self.champs}"
+        )
 
 
 def leg_results_field_default():
@@ -36,8 +38,8 @@ def leg_results_field_default():
 
 def leg_results_field_to_tuple(value: str) -> tuple[int, int, int]:
     parsed_dict = json.loads(value)
-    return parsed_dict['score'], parsed_dict['hits'], parsed_dict['golds']
-    
+    return parsed_dict["score"], parsed_dict["hits"], parsed_dict["golds"]
+
 
 class AbstractThreeLegStandingsEntry(models.Model):
     team_name = models.CharField(max_length=50)
@@ -53,30 +55,42 @@ class AbstractThreeLegStandingsEntry(models.Model):
     nov_champs = ArcheryLegResultField(default=leg_results_field_default)
 
     panels = [
-        FieldPanel('team_name', classname='title'),
+        FieldPanel("team_name", classname="title"),
         FieldRowPanel(
             [
-                FieldPanel('exp_leg_1', classname='col6', heading='Experienced results'),
-                FieldPanel('nov_leg_1', classname='col6', heading='Novice results'),
-            ], heading='Leg 1'
+                FieldPanel(
+                    "exp_leg_1", classname="col6", heading="Experienced results"
+                ),
+                FieldPanel("nov_leg_1", classname="col6", heading="Novice results"),
+            ],
+            heading="Leg 1",
         ),
         FieldRowPanel(
             [
-                FieldPanel('exp_leg_2', classname='col6', heading='Experienced results'),
-                FieldPanel('nov_leg_2', classname='col6', heading='Novice results'),
-            ], heading='Leg 2'
+                FieldPanel(
+                    "exp_leg_2", classname="col6", heading="Experienced results"
+                ),
+                FieldPanel("nov_leg_2", classname="col6", heading="Novice results"),
+            ],
+            heading="Leg 2",
         ),
         FieldRowPanel(
             [
-                FieldPanel('exp_leg_3', classname='col6', heading='Experienced results'),
-                FieldPanel('nov_leg_3', classname='col6', heading='Novice results'),
-            ], heading='Leg 3'
+                FieldPanel(
+                    "exp_leg_3", classname="col6", heading="Experienced results"
+                ),
+                FieldPanel("nov_leg_3", classname="col6", heading="Novice results"),
+            ],
+            heading="Leg 3",
         ),
         FieldRowPanel(
             [
-                FieldPanel('exp_champs', classname='col6', heading='Experienced results'),
-                FieldPanel('nov_champs', classname='col6', heading='Novice results'),
-            ], heading='Champs'
+                FieldPanel(
+                    "exp_champs", classname="col6", heading="Experienced results"
+                ),
+                FieldPanel("nov_champs", classname="col6", heading="Novice results"),
+            ],
+            heading="Champs",
         ),
     ]
 
@@ -87,9 +101,9 @@ class AbstractThreeLegStandingsEntry(models.Model):
             leg_1=leg_results_field_to_tuple(self.nov_leg_1),
             leg_2=leg_results_field_to_tuple(self.nov_leg_2),
             leg_3=leg_results_field_to_tuple(self.nov_leg_3),
-            champs=leg_results_field_to_tuple(self.nov_champs)
+            champs=leg_results_field_to_tuple(self.nov_champs),
         )
-    
+
     @property
     def experienced_results(self) -> ThreeLegStanding:
         return ThreeLegStanding(
@@ -97,16 +111,17 @@ class AbstractThreeLegStandingsEntry(models.Model):
             leg_1=leg_results_field_to_tuple(self.exp_leg_1),
             leg_2=leg_results_field_to_tuple(self.exp_leg_2),
             leg_3=leg_results_field_to_tuple(self.exp_leg_3),
-            champs=leg_results_field_to_tuple(self.exp_champs)
+            champs=leg_results_field_to_tuple(self.exp_champs),
         )
-    
+
     class Meta:
         abstract = True
+
 
 # @register_snippet
 # class AcademicYear(models.Model):
 #     year = models.CharField(max_length=9, unique=True)
-    
+
 #     panels = [
 #         FieldPanel('year'),
 #     ]
@@ -143,4 +158,3 @@ class AbstractThreeLegStandingsEntry(models.Model):
 #         verbose_name = 'Division'
 #         verbose_name_plural = 'Divisions'
 #         ordering = ['academic_year', 'division_name', 'num_legs']
-

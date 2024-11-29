@@ -7,15 +7,50 @@ import wagtail.fields
 
 
 class Migration(migrations.Migration):
-
     dependencies = [
-        ('home', '0021_auto_20190306_1354'),
+        ("home", "0021_auto_20190306_1354"),
     ]
 
     operations = [
         migrations.AlterField(
-            model_name='standingspage',
-            name='body',
-            field=wagtail.fields.StreamField([('h2', wagtail.blocks.CharBlock(classname='title', icon='title')), ('h3', wagtail.blocks.CharBlock(classname='title', icon='title')), ('h4', wagtail.blocks.CharBlock(classname='title', icon='title')), ('paragraph', wagtail.blocks.RichTextBlock(icon='pilcrow')), ('table', wagtail.contrib.table_block.blocks.TableBlock(table_options={'colHeaders': ['Uni', 'Leg 1', 'Leg 2', 'Leg 3', 'Leg 4', 'Champs'], 'height': 324, 'rowHeaders': ['1st', '2nd', '3rd', '4th', '5th', '6th', '7th', '8th'], 'startCols': 6, 'startRows': 8}, template='blocks/league_results_block.html'))]),
+            model_name="standingspage",
+            name="body",
+            field=wagtail.fields.StreamField(
+                [
+                    ("h2", wagtail.blocks.CharBlock(classname="title", icon="title")),
+                    ("h3", wagtail.blocks.CharBlock(classname="title", icon="title")),
+                    ("h4", wagtail.blocks.CharBlock(classname="title", icon="title")),
+                    ("paragraph", wagtail.blocks.RichTextBlock(icon="pilcrow")),
+                    (
+                        "table",
+                        wagtail.contrib.table_block.blocks.TableBlock(
+                            table_options={
+                                "colHeaders": [
+                                    "Uni",
+                                    "Leg 1",
+                                    "Leg 2",
+                                    "Leg 3",
+                                    "Leg 4",
+                                    "Champs",
+                                ],
+                                "height": 324,
+                                "rowHeaders": [
+                                    "1st",
+                                    "2nd",
+                                    "3rd",
+                                    "4th",
+                                    "5th",
+                                    "6th",
+                                    "7th",
+                                    "8th",
+                                ],
+                                "startCols": 6,
+                                "startRows": 8,
+                            },
+                            template="blocks/league_results_block.html",
+                        ),
+                    ),
+                ]
+            ),
         ),
     ]

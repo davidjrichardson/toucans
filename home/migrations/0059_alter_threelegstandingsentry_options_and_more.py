@@ -4,19 +4,18 @@ from django.db import migrations, models
 
 
 class Migration(migrations.Migration):
-
     dependencies = [
-        ('home', '0058_threelegstandingspage_threelegstandingsentry'),
+        ("home", "0058_threelegstandingspage_threelegstandingsentry"),
     ]
 
     operations = [
         migrations.AlterModelOptions(
-            name='threelegstandingsentry',
-            options={'ordering': ['sort_order']},
+            name="threelegstandingsentry",
+            options={"ordering": ["sort_order"]},
         ),
         migrations.AddField(
-            model_name='threelegstandingsentry',
-            name='sort_order',
+            model_name="threelegstandingsentry",
+            name="sort_order",
             field=models.IntegerField(blank=True, editable=False, null=True),
         ),
     ]

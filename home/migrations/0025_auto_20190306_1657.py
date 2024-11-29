@@ -4,85 +4,84 @@ from django.db import migrations, models
 
 
 class Migration(migrations.Migration):
-
     dependencies = [
-        ('home', '0024_auto_20190306_1654'),
+        ("home", "0024_auto_20190306_1654"),
     ]
 
     operations = [
         migrations.AddField(
-            model_name='standingsentry',
-            name='leg_2_golds',
+            model_name="standingsentry",
+            name="leg_2_golds",
             field=models.IntegerField(blank=True, default=None),
         ),
         migrations.AddField(
-            model_name='standingsentry',
-            name='leg_2_hits',
+            model_name="standingsentry",
+            name="leg_2_hits",
             field=models.IntegerField(blank=True, default=None),
         ),
         migrations.AddField(
-            model_name='standingsentry',
-            name='leg_2_score',
+            model_name="standingsentry",
+            name="leg_2_score",
             field=models.IntegerField(blank=True, default=None),
         ),
         migrations.AddField(
-            model_name='standingsentry',
-            name='leg_3_golds',
+            model_name="standingsentry",
+            name="leg_3_golds",
             field=models.IntegerField(blank=True, default=None),
         ),
         migrations.AddField(
-            model_name='standingsentry',
-            name='leg_3_hits',
+            model_name="standingsentry",
+            name="leg_3_hits",
             field=models.IntegerField(blank=True, default=None),
         ),
         migrations.AddField(
-            model_name='standingsentry',
-            name='leg_3_score',
+            model_name="standingsentry",
+            name="leg_3_score",
             field=models.IntegerField(blank=True, default=None),
         ),
         migrations.AddField(
-            model_name='standingsentry',
-            name='leg_4_golds',
+            model_name="standingsentry",
+            name="leg_4_golds",
             field=models.IntegerField(blank=True, default=None),
         ),
         migrations.AddField(
-            model_name='standingsentry',
-            name='leg_4_hits',
+            model_name="standingsentry",
+            name="leg_4_hits",
             field=models.IntegerField(blank=True, default=None),
         ),
         migrations.AddField(
-            model_name='standingsentry',
-            name='leg_4_score',
+            model_name="standingsentry",
+            name="leg_4_score",
             field=models.IntegerField(blank=True, default=None),
         ),
         migrations.AddField(
-            model_name='standingsentry',
-            name='leg_5_golds',
+            model_name="standingsentry",
+            name="leg_5_golds",
             field=models.IntegerField(blank=True, default=None),
         ),
         migrations.AddField(
-            model_name='standingsentry',
-            name='leg_5_hits',
+            model_name="standingsentry",
+            name="leg_5_hits",
             field=models.IntegerField(blank=True, default=None),
         ),
         migrations.AddField(
-            model_name='standingsentry',
-            name='leg_5_score',
+            model_name="standingsentry",
+            name="leg_5_score",
             field=models.IntegerField(blank=True, default=None),
         ),
         migrations.AlterField(
-            model_name='standingsentry',
-            name='leg_1_golds',
+            model_name="standingsentry",
+            name="leg_1_golds",
             field=models.IntegerField(blank=True, default=None),
         ),
         migrations.AlterField(
-            model_name='standingsentry',
-            name='leg_1_hits',
+            model_name="standingsentry",
+            name="leg_1_hits",
             field=models.IntegerField(blank=True, default=None),
         ),
         migrations.AlterField(
-            model_name='standingsentry',
-            name='leg_1_score',
+            model_name="standingsentry",
+            name="leg_1_score",
             field=models.IntegerField(blank=True, default=None),
         ),
     ]

@@ -4,14 +4,13 @@ from django.db import migrations
 
 
 class Migration(migrations.Migration):
-
     dependencies = [
-        ('home', '0033_genericpage_genericrelatedlink'),
+        ("home", "0033_genericpage_genericrelatedlink"),
     ]
 
     operations = [
         migrations.RemoveField(
-            model_name='genericpage',
-            name='description',
+            model_name="genericpage",
+            name="description",
         ),
     ]
