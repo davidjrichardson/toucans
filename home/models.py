@@ -226,6 +226,12 @@ def chunks(list, n):
         yield list[i : i + n]
 
 
+class HasStandingsArchiveMixin:
+    @property
+    def archives(self):
+        return StandingsIndexPage.objects.live().first()
+
+
 class BlogPageTag(TaggedItemBase):
     content_object = ParentalKey(
         "home.BlogPage", related_name="tagged_items", on_delete=models.CASCADE
@@ -349,6 +355,7 @@ class StandingsIndexPage(Page):
     subpage_types = [
         "home.LegacyFourLegStandingsPage",
         "home.LegacyThreeLegStandingsPage",
+        "home.ThreeLegStandingsPage",
     ]
 
     description = RichTextField(blank=True, null=True)
@@ -691,7 +698,9 @@ class LegacyThreeLegStandingsEntry(models.Model):
     ]
 
 
-class LegacyThreeLegStandingsPage(AbstractLegacyLeagueResultsPage):
+class LegacyThreeLegStandingsPage(
+    AbstractLegacyLeagueResultsPage, HasStandingsArchiveMixin
+):
     @property
     def experienced_results(self):
         return self.results.filter(team_is_novice=False).all()
@@ -699,17 +708,15 @@ class LegacyThreeLegStandingsPage(AbstractLegacyLeagueResultsPage):
     @property
     def novice_results(self):
         return self.results.filter(team_is_novice=True).all()
-
-    @property
-    def archives(self):
-        return StandingsIndexPage.objects.live().first()
 
     @property
     def num_legs(self):
         return 3
 
 
-class LegacyFourLegStandingsPage(AbstractLegacyLeagueResultsPage):
+class LegacyFourLegStandingsPage(
+    AbstractLegacyLeagueResultsPage, HasStandingsArchiveMixin
+):
     @property
     def experienced_results(self):
         return self.results.filter(team_is_novice=False).all()
@@ -719,15 +726,13 @@ class LegacyFourLegStandingsPage(AbstractLegacyLeagueResultsPage):
         return self.results.filter(team_is_novice=True).all()
 
     @property
-    def archives(self):
-        return StandingsIndexPage.objects.live().first()
-
-    @property
     def num_legs(self):
         return 4
 
 
-class ThreeLegStandingsPage(AbstractMultiDivisionLeagueResultsPage):
+class ThreeLegStandingsPage(
+    AbstractMultiDivisionLeagueResultsPage, HasStandingsArchiveMixin
+):
     @functools.cached_property
     def division_1_results(
         self,
@@ -753,10 +758,6 @@ class ThreeLegStandingsPage(AbstractMultiDivisionLeagueResultsPage):
     @functools.cached_property
     def has_div2_results(self) -> bool:
         return self.div2_results.exists()
-
-    @property
-    def archives(self):
-        return StandingsIndexPage.objects.live().first()
 
     @property
     def num_legs(self):
