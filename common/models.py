@@ -1,8 +1,28 @@
 from dataclasses import dataclass
 import json
 from django.db import models
-from wagtail.admin.panels import FieldPanel, FieldRowPanel
+from wagtail.models import Page
+from wagtail.admin.panels import (
+    FieldPanel,
+    MultiFieldPanel,
+    FieldRowPanel,
+    InlinePanel,
+    HelpPanel,
+)
+from wagtail.blocks import (
+    CharBlock,
+    StreamBlock,
+    RichTextBlock,
+)
+from wagtail.fields import StreamField
 from common.fields import ArcheryLegResultField
+
+
+class StandingsStreamBlock(StreamBlock):
+    h2 = CharBlock(icon="title", classname="title")
+    h3 = CharBlock(icon="title", classname="title")
+    h4 = CharBlock(icon="title", classname="title")
+    paragraph = RichTextBlock(icon="pilcrow")
 
 
 @dataclass
@@ -113,6 +133,46 @@ class AbstractThreeLegStandingsEntry(models.Model):
             leg_3=leg_results_field_to_tuple(self.exp_leg_3),
             champs=leg_results_field_to_tuple(self.exp_champs),
         )
+
+    class Meta:
+        abstract = True
+
+
+class AbstractLeagueResultsPage(Page):
+    parent_page_types = ["home.StandingsIndexPage"]
+
+    standings_year = models.TextField(
+        "Academic year", help_text="The academic year for this set of standings"
+    )
+    body = StreamField(StandingsStreamBlock)
+
+    base_content_panels = [
+        MultiFieldPanel(
+            [
+                FieldPanel("standings_year"),
+                FieldPanel("body"),
+            ],
+            heading="Standings information",
+        ),
+    ]
+
+    class Meta:
+        abstract = True
+
+
+class AbstractLegacyLeagueResultsPage(AbstractLeagueResultsPage):
+    content_panels = (
+        Page.content_panels
+        + [
+            HelpPanel(
+                '<h1 class="title"><strong>This page uses the old data entry format for league standings. Please use the new 3-leg entry format.</h1>'
+            ),
+        ]
+        + AbstractLeagueResultsPage.base_content_panels
+        + [
+            InlinePanel("results", label="Results", classname="collapsed"),
+        ]
+    )
 
     class Meta:
         abstract = True
