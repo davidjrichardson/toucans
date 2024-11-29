@@ -5,34 +5,51 @@ import django.db.models.deletion
 
 
 class Migration(migrations.Migration):
-
     dependencies = [
-        ('wagtailcore', '0041_group_collection_permissions_verbose_name_plural'),
-        ('home', '0002_create_homepage'),
+        ("wagtailcore", "0041_group_collection_permissions_verbose_name_plural"),
+        ("home", "0002_create_homepage"),
     ]
 
     operations = [
         migrations.CreateModel(
-            name='BlogPage',
+            name="BlogPage",
             fields=[
-                ('page_ptr', models.OneToOneField(auto_created=True, on_delete=django.db.models.deletion.CASCADE, parent_link=True, primary_key=True, serialize=False, to='wagtailcore.Page')),
+                (
+                    "page_ptr",
+                    models.OneToOneField(
+                        auto_created=True,
+                        on_delete=django.db.models.deletion.CASCADE,
+                        parent_link=True,
+                        primary_key=True,
+                        serialize=False,
+                        to="wagtailcore.Page",
+                    ),
+                ),
             ],
             options={
-                'abstract': False,
+                "abstract": False,
             },
-            bases=('wagtailcore.page',),
+            bases=("wagtailcore.page",),
         ),
         migrations.CreateModel(
-            name='Footer',
+            name="Footer",
             fields=[
-                ('id', models.AutoField(auto_created=True, primary_key=True, serialize=False, verbose_name='ID')),
-                ('facebook_url', models.URLField(blank=True, null=True)),
-                ('twitter_url', models.URLField(blank=True, null=True)),
+                (
+                    "id",
+                    models.AutoField(
+                        auto_created=True,
+                        primary_key=True,
+                        serialize=False,
+                        verbose_name="ID",
+                    ),
+                ),
+                ("facebook_url", models.URLField(blank=True, null=True)),
+                ("twitter_url", models.URLField(blank=True, null=True)),
             ],
         ),
         migrations.AddField(
-            model_name='homepage',
-            name='description',
-            field=models.TextField(default='', max_length=400),
+            model_name="homepage",
+            name="description",
+            field=models.TextField(default="", max_length=400),
         ),
     ]

@@ -8,10 +8,23 @@ from django.utils import timezone
 from modelcluster.contrib.taggit import ClusterTaggableManager
 from modelcluster.fields import ParentalKey
 from taggit.models import TaggedItemBase
-from wagtail.admin.panels import FieldPanel, MultiFieldPanel, FieldRowPanel, InlinePanel, HelpPanel
+from wagtail.admin.panels import (
+    FieldPanel,
+    MultiFieldPanel,
+    FieldRowPanel,
+    InlinePanel,
+    HelpPanel,
+)
 from wagtail.contrib.table_block.blocks import TableBlock
-from wagtail.blocks import StructBlock, DateBlock, CharBlock, TextBlock, StreamBlock, ListBlock, \
-    RichTextBlock
+from wagtail.blocks import (
+    StructBlock,
+    DateBlock,
+    CharBlock,
+    TextBlock,
+    StreamBlock,
+    ListBlock,
+    RichTextBlock,
+)
 from wagtail.fields import RichTextField, StreamField
 from wagtail.models import Page, Orderable
 from wagtail.documents.blocks import DocumentChooserBlock
@@ -27,104 +40,92 @@ class Footer(models.Model):
     twitter_url = models.URLField(null=True, blank=True)
 
     panels = [
-        FieldPanel('facebook_url'),
-        FieldPanel('twitter_url'),
+        FieldPanel("facebook_url"),
+        FieldPanel("twitter_url"),
     ]
 
     def __str__(self):
-        return 'Footer URLs'
+        return "Footer URLs"
 
 
 class SeasonStartDateBlock(StructBlock):
     start_date = DateBlock(
-        required=True,
-        help_text="The start date of the TOUCAN League for the year"
+        required=True, help_text="The start date of the TOUCAN League for the year"
     )
     season_name = TextBlock(
-        required=True,
-        help_text="The name of this season e.g.: TOUCAN 2018-19"
+        required=True, help_text="The name of this season e.g.: TOUCAN 2018-19"
     )
 
     class Meta:
-        label = 'Start of academic year marker'
-        icon = 'date'
+        label = "Start of academic year marker"
+        icon = "date"
 
 
 class LeagueMidSeasonMarkerBlock(StructBlock):
     marker_text = CharBlock(
         max_length=50,
         required=True,
-        help_text="The name of the thing you would like to mark"
+        help_text="The name of the thing you would like to mark",
     )
 
     class Meta:
-        label = 'Mid-season marker'
-        icon = 'date'
+        label = "Mid-season marker"
+        icon = "date"
 
 
 class SeasonEndBlock(StructBlock):
     season_name = TextBlock(
-        required=True,
-        help_text="The name of this season e.g.: TOUCAN 2018-19"
+        required=True, help_text="The name of this season e.g.: TOUCAN 2018-19"
     )
 
     class Meta:
-        label = 'End of year marker'
-        icon = 'date'
+        label = "End of year marker"
+        icon = "date"
 
 
 class LeagueLegBlock(StructBlock):
     leg_name = TextBlock(
-        required=True,
-        help_text="The name of this leg e.g.: \"TOUCAN Leg 2 (Oxford)\""
+        required=True, help_text='The name of this leg e.g.: "TOUCAN Leg 2 (Oxford)"'
     )
-    leg_host = TextBlock(
-        required=True,
-        help_text="The host club of this TOUCAN Leg"
-    )
-    leg_date = DateBlock(
-        required=True,
-        help_text="The date of this TOUCAN Leg"
-    )
+    leg_host = TextBlock(required=True, help_text="The host club of this TOUCAN Leg")
+    leg_date = DateBlock(required=True, help_text="The date of this TOUCAN Leg")
     leg_attendees = TextBlock(
         required=True,
-        help_text="The clubs attending this TOUCAN Leg, separated by a comma"
+        help_text="The clubs attending this TOUCAN Leg, separated by a comma",
     )
 
     class Meta:
-        label = 'League event'
-        icon = 'table'
+        label = "League event"
+        icon = "table"
 
 
 class LeagueCombinedLegBlock(ListBlock):
     class Meta:
-        label = 'Tournament leg'
-        icon = 'table'
-        admin_text = 'For when two legs are on the same weekend'
+        label = "Tournament leg"
+        icon = "table"
+        admin_text = "For when two legs are on the same weekend"
 
 
 class LeagueChampsBlock(StructBlock):
     champs_name = TextBlock(
         required=True,
-        help_text="The name of this championship e.g.: \"TOUCAN Field Champs\""
+        help_text='The name of this championship e.g.: "TOUCAN Field Champs"',
     )
     champs_venue = TextBlock(
-        required=True,
-        help_text="The host club of this championship event"
+        required=True, help_text="The host club of this championship event"
     )
     champs_date = DateBlock(
-        required=True,
-        help_text="The date of this championship event"
+        required=True, help_text="The date of this championship event"
     )
     champs_attendees = TextBlock(
         required=False,
         null=True,
-        help_text="The clubs attending this champs, separated by a comma"
+        help_text="The clubs attending this champs, separated by a comma",
     )
 
     class Meta:
-        label = 'Champs'
-        icon = 'pick'
+        label = "Champs"
+        icon = "pick"
 
 
 class TimelineStreamBlock(StreamBlock):
@@ -137,7 +138,7 @@ class TimelineStreamBlock(StreamBlock):
 
 
 class SchedulePage(Page):
-    parent_page_types = ['home.HomePage']
+    parent_page_types = ["home.HomePage"]
 
     page_title = models.TextField(blank=False)
     page_description = RichTextField(blank=False)
@@ -145,57 +146,68 @@ class SchedulePage(Page):
     timeline = StreamField(TimelineStreamBlock)
 
     content_panels = Page.content_panels + [
-        FieldPanel('page_title', help_text="This is the title that is shown at the top of the page"),
-        FieldPanel('page_description', help_text="The description text for this web page"),
-        FieldPanel('timeline', help_text="The TOUCAN League schedule timeline for the coming year")
+        FieldPanel(
+            "page_title",
+            help_text="This is the title that is shown at the top of the page",
+        ),
+        FieldPanel(
+            "page_description", help_text="The description text for this web page"
+        ),
+        FieldPanel(
+            "timeline",
+            help_text="The TOUCAN League schedule timeline for the coming year",
+        ),
     ]
 
 
 class PullQuoteBlock(StructBlock):
-    quote = TextBlock('quote title')
+    quote = TextBlock("quote title")
     attribution = CharBlock()
 
     class Meta:
-        icon = 'openquote'
+        icon = "openquote"
 
 
 class CreditImageBlock(StructBlock):
     image = ImageChooserBlock()
-    caption = TextBlock(help_text='Photo caption', required=False)
-    credit = TextBlock(help_text='Image credit')
+    caption = TextBlock(help_text="Photo caption", required=False)
+    credit = TextBlock(help_text="Image credit")
 
     class Meta:
-        icon = 'image'
+        icon = "image"
 
 
 class PlainImageBlock(StructBlock):
     image = ImageChooserBlock()
-    caption = TextBlock(help_text='Photo caption', required=False)
+    caption = TextBlock(help_text="Photo caption", required=False)
 
     class Meta:
-        icon = 'image'
+        icon = "image"
 
 
 class BlogStreamBlock(StreamBlock):
-    h2 = CharBlock(icon='title', classname='title')
-    h3 = CharBlock(icon='title', classname='title')
-    h4 = CharBlock(icon='title', classname='title')
-    paragraph = RichTextBlock(icon='pilcrow')
+    h2 = CharBlock(icon="title", classname="title")
+    h3 = CharBlock(icon="title", classname="title")
+    h4 = CharBlock(icon="title", classname="title")
+    paragraph = RichTextBlock(icon="pilcrow")
     credit_image = CreditImageBlock()
     plain_image = PlainImageBlock()
     pullquote = PullQuoteBlock()
-    document = DocumentChooserBlock(icon='doc-full-inverse')
-    table = TableBlock(table_options={
-        'startRows': 1,
-        'startCols': 4,
-    }, template='blocks/table_block.html')
+    document = DocumentChooserBlock(icon="doc-full-inverse")
+    table = TableBlock(
+        table_options={
+            "startRows": 1,
+            "startCols": 4,
+        },
+        template="blocks/table_block.html",
+    )
 
 
 class StandingsStreamBlock(StreamBlock):
-    h2 = CharBlock(icon='title', classname='title')
-    h3 = CharBlock(icon='title', classname='title')
-    h4 = CharBlock(icon='title', classname='title')
-    paragraph = RichTextBlock(icon='pilcrow')
+    h2 = CharBlock(icon="title", classname="title")
+    h3 = CharBlock(icon="title", classname="title")
+    h4 = CharBlock(icon="title", classname="title")
+    paragraph = RichTextBlock(icon="pilcrow")
 
 
 class RelatedLink(models.Model):
@@ -203,67 +215,87 @@ class RelatedLink(models.Model):
     link_external = models.URLField("External link", blank=True)
 
     panels = [
-        FieldPanel('title'),
-        FieldPanel('link_external'),
+        FieldPanel("title"),
+        FieldPanel("link_external"),
     ]
 
     class Meta:
         abstract = True
 
 
-def chunks(l, n):
+def chunks(list, n):
     """Yield successive n-sized chunks from l."""
-    for i in range(0, len(l), n):
-        yield l[i:i + n]
+    for i in range(0, len(list), n):
+        yield list[i : i + n]
 
 
 class BlogPageTag(TaggedItemBase):
-    content_object = ParentalKey('home.BlogPage', related_name='tagged_items', on_delete=models.CASCADE)
+    content_object = ParentalKey(
+        "home.BlogPage", related_name="tagged_items", on_delete=models.CASCADE
+    )
 
 
 class BlogPage(Page):
-    parent_page_types = ['home.BlogIndexPage']
+    parent_page_types = ["home.BlogIndexPage"]
 
     body = StreamField(BlogStreamBlock)
     tags = ClusterTaggableManager(through=BlogPageTag, blank=True)
-    date = models.DateTimeField('Post date', default=timezone.now)
-    excerpt = RichTextField(help_text='This is displayed on the home and blog listing pages', default='')
+    date = models.DateTimeField("Post date", default=timezone.now)
+    excerpt = RichTextField(
+        help_text="This is displayed on the home and blog listing pages", default=""
+    )
     cover_image = models.ForeignKey(
-        'wagtailimages.Image',
+        "wagtailimages.Image",
         null=True,
         blank=True,
         on_delete=models.SET_NULL,
-        related_name='+',
-        help_text='This is the image displayed on the home page as the first thing a user will see'
+        related_name="+",
+        help_text="This is the image displayed on the home page as the first thing a user will see",
     )
-    cover_image_credit = models.CharField(blank=True, max_length=100, default='')
+    cover_image_credit = models.CharField(blank=True, max_length=100, default="")
     cover_invert_title = models.BooleanField(blank=True, default=False)
 
     content_panels = [
-        MultiFieldPanel([
-            FieldPanel('title', classname="full title"),
-            FieldPanel('excerpt'),
-            FieldPanel('date'),
-            FieldPanel('body')
-        ], heading='Post content'),
-        MultiFieldPanel([
-            FieldPanel('cover_image'),
-            FieldPanel('cover_image_credit'),
-            FieldPanel('cover_invert_title', help_text='If the cover image is dark, tick this box')
-        ], heading='Blog post cover image')
+        MultiFieldPanel(
+            [
+                FieldPanel("title", classname="full title"),
+                FieldPanel("excerpt"),
+                FieldPanel("date"),
+                FieldPanel("body"),
+            ],
+            heading="Post content",
+        ),
+        MultiFieldPanel(
+            [
+                FieldPanel("cover_image"),
+                FieldPanel("cover_image_credit"),
+                FieldPanel(
+                    "cover_invert_title",
+                    help_text="If the cover image is dark, tick this box",
+                ),
+            ],
+            heading="Blog post cover image",
+        ),
     ]
 
     promote_panels = Page.promote_panels + [
-        FieldPanel('tags'),
+        FieldPanel("tags"),
     ]
 
     @property
     def further_reading(self):
-        siblings = BlogPage.objects.live().sibling_of(self, inclusive=False).order_by('-date')
+        siblings = (
+            BlogPage.objects.live().sibling_of(self, inclusive=False).order_by("-date")
+        )
 
         if siblings:
             latest = siblings.first()
-            next_article = siblings.filter(date__lte=self.date).exclude(id=latest.id).order_by('-date').first()
+            next_article = (
+                siblings.filter(date__lte=self.date)
+                .exclude(id=latest.id)
+                .order_by("-date")
+                .first()
+            )
             if next_article:
                 return [latest, next_article]
             else:
@@ -273,33 +305,35 @@ class BlogPage(Page):
 
 
 class BlogIndexPage(Page):
-    subpage_types = ['home.BlogPage']
-    parent_page_types = ['home.HomePage']
+    subpage_types = ["home.BlogPage"]
+    parent_page_types = ["home.HomePage"]
 
     @property
     def blogs(self):
         # Get list of live blog pages that are descendants of this page ordered by most recent
-        return BlogPage.objects.live().descendant_of(self).order_by('-date')
+        return BlogPage.objects.live().descendant_of(self).order_by("-date")
 
     def get_context(self, request, *args, **kwargs):
         # Get blogs
         blogs = self.blogs
 
         # Filter by tag
-        tag = request.GET.get('tag')
+        tag = request.GET.get("tag")
         if tag:
             blogs = blogs.filter(tags__name=tag)
 
         # Filter by date
-        filter_date = request.GET.get('date')
+        filter_date = request.GET.get("date")
         if filter_date:
-            filter_date = datetime.strptime(filter_date, '%Y-%m')
-            blogs = blogs.filter(date__month=filter_date.month, date__year=filter_date.year)
+            filter_date = datetime.strptime(filter_date, "%Y-%m")
+            blogs = blogs.filter(
+                date__month=filter_date.month, date__year=filter_date.year
+            )
 
         # Pagination
         paginator = Paginator(blogs, 10)  # Show 10 blogs per page
         try:
-            blogs = paginator.page(request.GET.get('page'))
+            blogs = paginator.page(request.GET.get("page"))
         except PageNotAnInteger:
             blogs = paginator.page(1)
         except EmptyPage:
@@ -307,22 +341,35 @@ class BlogIndexPage(Page):
 
         # Update template context
         context = super(BlogIndexPage, self).get_context(request)
-        context['blogs'] = blogs
-        context['paginator'] = paginator
+        context["blogs"] = blogs
+        context["paginator"] = paginator
 
         return context
 
 
 class StandingsIndexPage(Page):
-    parent_page_types = ['home.HomePage']
-    subpage_types = ['home.LegacyFourLegStandingsPage', 'home.LegacyThreeLegStandingsPage']
+    parent_page_types = ["home.HomePage"]
+    subpage_types = [
+        "home.LegacyFourLegStandingsPage",
+        "home.LegacyThreeLegStandingsPage",
+    ]
 
     description = RichTextField(blank=True, null=True)
 
     @property
     def archives(self):
-        legacy = list(LegacyFourLegStandingsPage.objects.live().child_of(self).order_by('-standings_year').all())
-        new = list(LegacyThreeLegStandingsPage.objects.live().child_of(self).order_by('-standings_year').all())
+        legacy = list(
+            LegacyFourLegStandingsPage.objects.live()
+            .child_of(self)
+            .order_by("-standings_year")
+            .all()
+        )
+        new = list(
+            LegacyThreeLegStandingsPage.objects.live()
+            .child_of(self)
+            .order_by("-standings_year")
+            .all()
+        )
 
         archive = legacy + new
 
@@ -332,13 +379,11 @@ class StandingsIndexPage(Page):
     def resources(self):
         return filter(lambda x: x.depth > 3, ResourcePage.objects.live().all())
 
-    content_panels = Page.content_panels + [
-        FieldPanel('description')
-    ]
+    content_panels = Page.content_panels + [FieldPanel("description")]
 
 
 class LeagueBadgeRoundEntry(models.Model):
-    page = ParentalKey('BadgesPage', related_name='rounds', on_delete=models.CASCADE)
+    page = ParentalKey("BadgesPage", related_name="rounds", on_delete=models.CASCADE)
     round_name = models.CharField(max_length=50)
 
     # Recurve
@@ -368,60 +413,98 @@ class LeagueBadgeRoundEntry(models.Model):
 
     @property
     def recurve_scores(self):
-        return self.rc_white_score, self.rc_black_score, self.rc_blue_score, self.rc_red_score, self.rc_gold_score
+        return (
+            self.rc_white_score,
+            self.rc_black_score,
+            self.rc_blue_score,
+            self.rc_red_score,
+            self.rc_gold_score,
+        )
 
     @property
     def barebow_scores(self):
-        return self.bb_white_score, self.bb_black_score, self.bb_blue_score, self.bb_red_score, self.bb_gold_score
+        return (
+            self.bb_white_score,
+            self.bb_black_score,
+            self.bb_blue_score,
+            self.bb_red_score,
+            self.bb_gold_score,
+        )
 
     @property
     def compound_scores(self):
-        return self.cb_white_score, self.cb_black_score, self.cb_blue_score, self.cb_red_score, self.cb_gold_score
+        return (
+            self.cb_white_score,
+            self.cb_black_score,
+            self.cb_blue_score,
+            self.cb_red_score,
+            self.cb_gold_score,
+        )
 
     @property
     def longbow_scores(self):
-        return self.lb_white_score, self.lb_black_score, self.lb_blue_score, self.lb_red_score, self.lb_gold_score
+        return (
+            self.lb_white_score,
+            self.lb_black_score,
+            self.lb_blue_score,
+            self.lb_red_score,
+            self.lb_gold_score,
+        )
 
     @property
     def table_order(self):
-        return ("Recurve", self.recurve_scores), ("Barebow", self.barebow_scores), ("Compound", self.compound_scores), \
-               ("Longbow", self.longbow_scores)
+        return (
+            ("Recurve", self.recurve_scores),
+            ("Barebow", self.barebow_scores),
+            ("Compound", self.compound_scores),
+            ("Longbow", self.longbow_scores),
+        )
 
     panels = [
-        FieldPanel('round_name', classname='title'),
-        FieldRowPanel([
-            FieldPanel('rc_white_score', classname='col4'),
-            FieldPanel('rc_black_score', classname='col4'),
-            FieldPanel('rc_blue_score', classname='col4'),
-            FieldPanel('rc_red_score', classname='col4'),
-            FieldPanel('rc_gold_score', classname='col4')
-        ]),
-        FieldRowPanel([
-            FieldPanel('bb_white_score', classname='col4'),
-            FieldPanel('bb_black_score', classname='col4'),
-            FieldPanel('bb_blue_score', classname='col4'),
-            FieldPanel('bb_red_score', classname='col4'),
-            FieldPanel('bb_gold_score', classname='col4')
-        ]),
-        FieldRowPanel([
-            FieldPanel('cb_white_score', classname='col4'),
-            FieldPanel('cb_black_score', classname='col4'),
-            FieldPanel('cb_blue_score', classname='col4'),
-            FieldPanel('cb_red_score', classname='col4'),
-            FieldPanel('cb_gold_score', classname='col4')
-        ]),
-        FieldRowPanel([
-            FieldPanel('lb_white_score', classname='col4'),
-            FieldPanel('lb_black_score', classname='col4'),
-            FieldPanel('lb_blue_score', classname='col4'),
-            FieldPanel('lb_red_score', classname='col4'),
-            FieldPanel('lb_gold_score', classname='col4')
-        ]),
+        FieldPanel("round_name", classname="title"),
+        FieldRowPanel(
+            [
+                FieldPanel("rc_white_score", classname="col4"),
+                FieldPanel("rc_black_score", classname="col4"),
+                FieldPanel("rc_blue_score", classname="col4"),
+                FieldPanel("rc_red_score", classname="col4"),
+                FieldPanel("rc_gold_score", classname="col4"),
+            ]
+        ),
+        FieldRowPanel(
+            [
+                FieldPanel("bb_white_score", classname="col4"),
+                FieldPanel("bb_black_score", classname="col4"),
+                FieldPanel("bb_blue_score", classname="col4"),
+                FieldPanel("bb_red_score", classname="col4"),
+                FieldPanel("bb_gold_score", classname="col4"),
+            ]
+        ),
+        FieldRowPanel(
+            [
+                FieldPanel("cb_white_score", classname="col4"),
+                FieldPanel("cb_black_score", classname="col4"),
+                FieldPanel("cb_blue_score", classname="col4"),
+                FieldPanel("cb_red_score", classname="col4"),
+                FieldPanel("cb_gold_score", classname="col4"),
+            ]
+        ),
+        FieldRowPanel(
+            [
+                FieldPanel("lb_white_score", classname="col4"),
+                FieldPanel("lb_black_score", classname="col4"),
+                FieldPanel("lb_blue_score", classname="col4"),
+                FieldPanel("lb_red_score", classname="col4"),
+                FieldPanel("lb_gold_score", classname="col4"),
+            ]
+        ),
     ]
 
 
 class LegacyFourLegStandingsEntry(models.Model):
-    page = ParentalKey('LegacyFourLegStandingsPage', related_name='results', on_delete=models.CASCADE)
+    page = ParentalKey(
+        "LegacyFourLegStandingsPage", related_name="results", on_delete=models.CASCADE
+    )
 
     team_name = models.CharField(max_length=50)
     team_is_novice = models.BooleanField(default=False)
@@ -476,41 +559,56 @@ class LegacyFourLegStandingsEntry(models.Model):
 
     @property
     def aggregate(self):
-        return functools.reduce(lambda acc, new: (acc[0] + new[0], acc[1] + new[1], acc[2] + new[2]), self.results)
+        return functools.reduce(
+            lambda acc, new: (acc[0] + new[0], acc[1] + new[1], acc[2] + new[2]),
+            self.results,
+        )
 
     panels = [
-        FieldPanel('team_name', classname='title'),
-        FieldPanel('team_is_novice'),
-        FieldRowPanel([
-            FieldPanel('leg_1_score'),
-            FieldPanel('leg_1_hits'),
-            FieldPanel('leg_1_golds'),
-        ]),
-        FieldRowPanel([
-            FieldPanel('leg_2_score'),
-            FieldPanel('leg_2_hits'),
-            FieldPanel('leg_2_golds'),
-        ]),
-        FieldRowPanel([
-            FieldPanel('leg_3_score'),
-            FieldPanel('leg_3_hits'),
-            FieldPanel('leg_3_golds'),
-        ]),
-        FieldRowPanel([
-            FieldPanel('leg_4_score'),
-            FieldPanel('leg_4_hits'),
-            FieldPanel('leg_4_golds'),
-        ]),
-        FieldRowPanel([
-            FieldPanel('champs_score'),
-            FieldPanel('champs_hits'),
-            FieldPanel('champs_golds'),
-        ]),
+        FieldPanel("team_name", classname="title"),
+        FieldPanel("team_is_novice"),
+        FieldRowPanel(
+            [
+                FieldPanel("leg_1_score"),
+                FieldPanel("leg_1_hits"),
+                FieldPanel("leg_1_golds"),
+            ]
+        ),
+        FieldRowPanel(
+            [
+                FieldPanel("leg_2_score"),
+                FieldPanel("leg_2_hits"),
+                FieldPanel("leg_2_golds"),
+            ]
+        ),
+        FieldRowPanel(
+            [
+                FieldPanel("leg_3_score"),
+                FieldPanel("leg_3_hits"),
+                FieldPanel("leg_3_golds"),
+            ]
+        ),
+        FieldRowPanel(
+            [
+                FieldPanel("leg_4_score"),
+                FieldPanel("leg_4_hits"),
+                FieldPanel("leg_4_golds"),
+            ]
+        ),
+        FieldRowPanel(
+            [
+                FieldPanel("champs_score"),
+                FieldPanel("champs_hits"),
+                FieldPanel("champs_golds"),
+            ]
+        ),
     ]
 
 
 class LegacyThreeLegStandingsEntry(models.Model):
-    page = ParentalKey('LegacyThreeLegStandingsPage', related_name='results', on_delete=models.CASCADE)
+    page = ParentalKey(
+        "LegacyThreeLegStandingsPage", related_name="results", on_delete=models.CASCADE
+    )
 
     team_name = models.CharField(max_length=50)
     team_is_novice = models.BooleanField(default=False)
@@ -557,39 +655,51 @@ class LegacyThreeLegStandingsEntry(models.Model):
 
     @property
     def aggregate(self):
-        return functools.reduce(lambda acc, new: (acc[0] + new[0], acc[1] + new[1], acc[2] + new[2]), self.results)
+        return functools.reduce(
+            lambda acc, new: (acc[0] + new[0], acc[1] + new[1], acc[2] + new[2]),
+            self.results,
+        )
 
     panels = [
-        FieldPanel('team_name', classname='title'),
-        FieldPanel('team_is_novice'),
-        FieldRowPanel([
-            FieldPanel('leg_1_score'),
-            FieldPanel('leg_1_hits'),
-            FieldPanel('leg_1_golds'),
-        ]),
-        FieldRowPanel([
-            FieldPanel('leg_2_score'),
-            FieldPanel('leg_2_hits'),
-            FieldPanel('leg_2_golds'),
-        ]),
-        FieldRowPanel([
-            FieldPanel('leg_3_score'),
-            FieldPanel('leg_3_hits'),
-            FieldPanel('leg_3_golds'),
-        ]),
-        FieldRowPanel([
-            FieldPanel('champs_score'),
-            FieldPanel('champs_hits'),
-            FieldPanel('champs_golds'),
-        ]),
+        FieldPanel("team_name", classname="title"),
+        FieldPanel("team_is_novice"),
+        FieldRowPanel(
+            [
+                FieldPanel("leg_1_score"),
+                FieldPanel("leg_1_hits"),
+                FieldPanel("leg_1_golds"),
+            ]
+        ),
+        FieldRowPanel(
+            [
+                FieldPanel("leg_2_score"),
+                FieldPanel("leg_2_hits"),
+                FieldPanel("leg_2_golds"),
+            ]
+        ),
+        FieldRowPanel(
+            [
+                FieldPanel("leg_3_score"),
+                FieldPanel("leg_3_hits"),
+                FieldPanel("leg_3_golds"),
+            ]
+        ),
+        FieldRowPanel(
+            [
+                FieldPanel("champs_score"),
+                FieldPanel("champs_hits"),
+                FieldPanel("champs_golds"),
+            ]
+        ),
     ]
 
 
 class LegacyThreeLegStandingsPage(Page):
-    parent_page_types = ['home.StandingsIndexPage']
+    parent_page_types = ["home.StandingsIndexPage"]
 
-    standings_year = models.TextField('Academic year',
-                                      help_text='The academic year for this set of standings')
+    standings_year = models.TextField(
+        "Academic year", help_text="The academic year for this set of standings"
+    )
     body = StreamField(StandingsStreamBlock)
 
     @property
@@ -609,20 +719,27 @@ class LegacyThreeLegStandingsPage(Page):
         return 3
 
     content_panels = Page.content_panels + [
-        HelpPanel('<h1 class="title"><strong>This page uses the old data entry format for league standings. Please use the new 3-leg entry format.</h1>'),
-        MultiFieldPanel([
-            FieldPanel('standings_year'),
-            FieldPanel('body'),
-        ], heading='Standings Info', classname='collapsed'),
-        InlinePanel('results', label='Results', classname='collapsed')
+        HelpPanel(
+            '<h1 class="title"><strong>This page uses the old data entry format for league standings. Please use the new 3-leg entry format.</h1>'
+        ),
+        MultiFieldPanel(
+            [
+                FieldPanel("standings_year"),
+                FieldPanel("body"),
+            ],
+            heading="Standings Info",
+            classname="collapsed",
+        ),
+        InlinePanel("results", label="Results", classname="collapsed"),
     ]
 
 
 class LegacyFourLegStandingsPage(Page):
-    parent_page_types = ['home.StandingsIndexPage']
+    parent_page_types = ["home.StandingsIndexPage"]
 
-    standings_year = models.TextField('Academic year',
-                                      help_text='The academic year for this set of standings')
+    standings_year = models.TextField(
+        "Academic year", help_text="The academic year for this set of standings"
+    )
     body = StreamField(StandingsStreamBlock)
 
     @property
@@ -642,44 +759,55 @@ class LegacyFourLegStandingsPage(Page):
         return 4
 
     content_panels = Page.content_panels + [
-        HelpPanel('<h1>This is a legacy page format for 4-leg league standings. Please use the 3-leg format for new seasons.</h1>'),
-        MultiFieldPanel([
-            FieldPanel('standings_year'),
-            FieldPanel('body'),
-        ], heading='Standings Info', classname='collapsed'),
-        InlinePanel('results', label='Results', classname='collapsed')
+        HelpPanel(
+            "<h1>This is a legacy page format for 4-leg league standings. Please use the 3-leg format for new seasons.</h1>"
+        ),
+        MultiFieldPanel(
+            [
+                FieldPanel("standings_year"),
+                FieldPanel("body"),
+            ],
+            heading="Standings Info",
+            classname="collapsed",
+        ),
+        InlinePanel("results", label="Results", classname="collapsed"),
     ]
 
 
 class ThreeLegStandingsPage(Page):
-    parent_page_types = ['home.HomePage']
+    parent_page_types = ["home.HomePage"]
 
-    standings_year = models.TextField('Academic year',
-                                      help_text='The academic year for this set of standings')
+    standings_year = models.TextField(
+        "Academic year", help_text="The academic year for this set of standings"
+    )
     body = StreamField(StandingsStreamBlock)
 
     @functools.cached_property
-    def division_1_results(self) -> Tuple[List[ThreeLegStanding], List[ThreeLegStanding]]:
+    def division_1_results(
+        self,
+    ) -> Tuple[List[ThreeLegStanding], List[ThreeLegStanding]]:
         return (
             [x.experienced_results for x in self.div1_results.all()],
-            [x.novice_results for x in self.div1_results.all()]
+            [x.novice_results for x in self.div1_results.all()],
         )
-    
+
     @functools.cached_property
     def has_div1_results(self) -> bool:
         return self.div1_results.exists()
 
     @functools.cached_property
-    def division_2_results(self) -> Tuple[List[ThreeLegStanding], List[ThreeLegStanding]]:
+    def division_2_results(
+        self,
+    ) -> Tuple[List[ThreeLegStanding], List[ThreeLegStanding]]:
         return (
             [x.experienced_results for x in self.div2_results.all()],
-            [x.novice_results for x in self.div2_results.all()]
+            [x.novice_results for x in self.div2_results.all()],
         )
-    
+
     @functools.cached_property
     def has_div2_results(self) -> bool:
         return self.div2_results.exists()
-    
+
     @property
     def archives(self):
         return StandingsIndexPage.objects.live().first()
@@ -691,34 +819,45 @@ class ThreeLegStandingsPage(Page):
     content_panels = Page.content_panels + [
         MultiFieldPanel(
             [
-                FieldPanel('standings_year'),
-                FieldPanel('body'),
-            ], 
-            heading='Standings information'
+                FieldPanel("standings_year"),
+                FieldPanel("body"),
+            ],
+            heading="Standings information",
         ),
-        InlinePanel('div1_results', label='Division 1 results'),
-        InlinePanel('div2_results', label='Division 2 results')
+        InlinePanel("div1_results", label="Division 1 results"),
+        InlinePanel("div2_results", label="Division 2 results"),
     ]
 
+
 class DivisionOneStandingsEntry(Orderable, AbstractThreeLegStandingsEntry):
-    page = ParentalKey('ThreeLegStandingsPage', related_name='div1_results', on_delete=models.CASCADE)
+    page = ParentalKey(
+        "ThreeLegStandingsPage", related_name="div1_results", on_delete=models.CASCADE
+    )
 
 
 class DivisionTwoStandingsEntry(Orderable, AbstractThreeLegStandingsEntry):
-    page = ParentalKey('ThreeLegStandingsPage', related_name='div2_results', on_delete=models.CASCADE)
+    page = ParentalKey(
+        "ThreeLegStandingsPage", related_name="div2_results", on_delete=models.CASCADE
+    )
 
 
 class ResourceRelatedLink(Orderable, RelatedLink):
-    page = ParentalKey('home.ResourcePage', on_delete=models.CASCADE, related_name='related_links')
+    page = ParentalKey(
+        "home.ResourcePage", on_delete=models.CASCADE, related_name="related_links"
+    )
 
 
 class ResourcePage(Page):
-    subpage_types = ['home.ResourcePage', 'home.BadgesPage']
-    parent_page_types = ['home.ResourcePage', 'home.HomePage']
+    subpage_types = ["home.ResourcePage", "home.BadgesPage"]
+    parent_page_types = ["home.ResourcePage", "home.HomePage"]
 
-    page_title = models.CharField(max_length=200, blank=True, null=True,
-                                  help_text='Use this to override the title text in the web page itself, useful for '
-                                            'keeping the menu title consistent')
+    page_title = models.CharField(
+        max_length=200,
+        blank=True,
+        null=True,
+        help_text="Use this to override the title text in the web page itself, useful for "
+        "keeping the menu title consistent",
+    )
     description = RichTextField(blank=True, null=True)
     body = StreamField(BlogStreamBlock)
 
@@ -731,27 +870,36 @@ class ResourcePage(Page):
         return self.related_links.all()
 
     content_panels = [
-        MultiFieldPanel([
-            FieldPanel('title', classname="full title"),
-            FieldPanel('page_title', classname="title"),
-            FieldPanel('description'),
-            FieldPanel('body')
-        ], heading='Page content'),
-        InlinePanel('related_links', label='Related links')
+        MultiFieldPanel(
+            [
+                FieldPanel("title", classname="full title"),
+                FieldPanel("page_title", classname="title"),
+                FieldPanel("description"),
+                FieldPanel("body"),
+            ],
+            heading="Page content",
+        ),
+        InlinePanel("related_links", label="Related links"),
     ]
 
 
 class GenericRelatedLink(Orderable, RelatedLink):
-    page = ParentalKey('home.GenericPage', on_delete=models.CASCADE, related_name='related_links')
+    page = ParentalKey(
+        "home.GenericPage", on_delete=models.CASCADE, related_name="related_links"
+    )
 
 
 class GenericPage(Page):
-    subpage_types = ['home.GenericPage', 'home.ResourcePage']
-    parent_page_types = ['home.GenericPage', 'home.ResourcePage', 'home.HomePage']
+    subpage_types = ["home.GenericPage", "home.ResourcePage"]
+    parent_page_types = ["home.GenericPage", "home.ResourcePage", "home.HomePage"]
 
-    page_title = models.CharField(max_length=200, blank=True, null=True,
-                                  help_text='Use this to override the title text in the web page itself, useful for '
-                                            'keeping the menu title consistent')
+    page_title = models.CharField(
+        max_length=200,
+        blank=True,
+        null=True,
+        help_text="Use this to override the title text in the web page itself, useful for "
+        "keeping the menu title consistent",
+    )
     body = StreamField(BlogStreamBlock)
 
     @property
@@ -759,37 +907,49 @@ class GenericPage(Page):
         return self.related_links.all()
 
     content_panels = [
-        MultiFieldPanel([
-            FieldPanel('title', classname="full title"),
-            FieldPanel('page_title', classname="title"),
-            FieldPanel('body')
-        ], heading='Page content'),
-        InlinePanel('related_links', label='Related links')
+        MultiFieldPanel(
+            [
+                FieldPanel("title", classname="full title"),
+                FieldPanel("page_title", classname="title"),
+                FieldPanel("body"),
+            ],
+            heading="Page content",
+        ),
+        InlinePanel("related_links", label="Related links"),
     ]
 
 
 class BadgesPage(ResourcePage):
     @property
     def get_rounds(self):
-        return self.rounds.order_by('round_name').all()
+        return self.rounds.order_by("round_name").all()
 
     content_panels = [
-        MultiFieldPanel([
-            FieldPanel('title', classname="full title"),
-            FieldPanel('page_title', classname="title"),
-            FieldPanel('description'),
-            FieldPanel('body')
-        ], heading='Page content'),
-        InlinePanel('rounds', label='Badge information'),
-        InlinePanel('related_links', label='Related links')
+        MultiFieldPanel(
+            [
+                FieldPanel("title", classname="full title"),
+                FieldPanel("page_title", classname="title"),
+                FieldPanel("description"),
+                FieldPanel("body"),
+            ],
+            heading="Page content",
+        ),
+        InlinePanel("rounds", label="Badge information"),
+        InlinePanel("related_links", label="Related links"),
     ]
 
 
 class HomePage(Page):
-    subpage_types = ['home.SchedulePage', 'home.BlogIndexPage', 'home.ThreeLegStandingsPage', 'home.ResourcePage',
-                     'home.GenericPage', 'home.StandingsIndexPage']
+    subpage_types = [
+        "home.SchedulePage",
+        "home.BlogIndexPage",
+        "home.ThreeLegStandingsPage",
+        "home.ResourcePage",
+        "home.GenericPage",
+        "home.StandingsIndexPage",
+    ]
 
-    description = models.TextField(max_length=400, default='')
+    description = models.TextField(max_length=400, default="")
 
     @property
     def posts(self):
@@ -812,5 +972,5 @@ class HomePage(Page):
         return (standings_page.novice_results, standings_page.num_legs)
 
     content_panels = Page.content_panels + [
-        FieldPanel('description', classname="full"),
+        FieldPanel("description", classname="full"),
     ]

@@ -11,51 +11,175 @@ import wagtail.images.blocks
 
 
 class Migration(migrations.Migration):
-
     dependencies = [
-        ('wagtailcore', '0041_group_collection_permissions_verbose_name_plural'),
-        ('home', '0042_auto_20190312_1515'),
+        ("wagtailcore", "0041_group_collection_permissions_verbose_name_plural"),
+        ("home", "0042_auto_20190312_1515"),
     ]
 
     operations = [
         migrations.CreateModel(
-            name='BadgesPage',
+            name="BadgesPage",
             fields=[
-                ('page_ptr', models.OneToOneField(auto_created=True, on_delete=django.db.models.deletion.CASCADE, parent_link=True, primary_key=True, serialize=False, to='wagtailcore.Page')),
-                ('page_title', models.CharField(blank=True, help_text='Use this to override the title text in the web page itself, useful for keeping the menu title consistent', max_length=200, null=True)),
-                ('body', wagtail.fields.StreamField([('h2', wagtail.blocks.CharBlock(classname='title', icon='title')), ('h3', wagtail.blocks.CharBlock(classname='title', icon='title')), ('h4', wagtail.blocks.CharBlock(classname='title', icon='title')), ('paragraph', wagtail.blocks.RichTextBlock(icon='pilcrow')), ('credit_image', wagtail.blocks.StructBlock([('image', wagtail.images.blocks.ImageChooserBlock()), ('caption', wagtail.blocks.TextBlock(help_text='Photo caption', required=False)), ('credit', wagtail.blocks.TextBlock(help_text='Image credit'))])), ('plain_image', wagtail.blocks.StructBlock([('image', wagtail.images.blocks.ImageChooserBlock()), ('caption', wagtail.blocks.TextBlock(help_text='Photo caption', required=False))])), ('pullquote', wagtail.blocks.StructBlock([('quote', wagtail.blocks.TextBlock('quote title')), ('attribution', wagtail.blocks.CharBlock())])), ('document', wagtail.documents.blocks.DocumentChooserBlock(icon='doc-full-inverse')), ('table', wagtail.contrib.table_block.blocks.TableBlock(table_options={'startCols': 4, 'startRows': 1}, template='blocks/table_block.html'))])),
+                (
+                    "page_ptr",
+                    models.OneToOneField(
+                        auto_created=True,
+                        on_delete=django.db.models.deletion.CASCADE,
+                        parent_link=True,
+                        primary_key=True,
+                        serialize=False,
+                        to="wagtailcore.Page",
+                    ),
+                ),
+                (
+                    "page_title",
+                    models.CharField(
+                        blank=True,
+                        help_text="Use this to override the title text in the web page itself, useful for keeping the menu title consistent",
+                        max_length=200,
+                        null=True,
+                    ),
+                ),
+                (
+                    "body",
+                    wagtail.fields.StreamField(
+                        [
+                            (
+                                "h2",
+                                wagtail.blocks.CharBlock(
+                                    classname="title", icon="title"
+                                ),
+                            ),
+                            (
+                                "h3",
+                                wagtail.blocks.CharBlock(
+                                    classname="title", icon="title"
+                                ),
+                            ),
+                            (
+                                "h4",
+                                wagtail.blocks.CharBlock(
+                                    classname="title", icon="title"
+                                ),
+                            ),
+                            ("paragraph", wagtail.blocks.RichTextBlock(icon="pilcrow")),
+                            (
+                                "credit_image",
+                                wagtail.blocks.StructBlock(
+                                    [
+                                        (
+                                            "image",
+                                            wagtail.images.blocks.ImageChooserBlock(),
+                                        ),
+                                        (
+                                            "caption",
+                                            wagtail.blocks.TextBlock(
+                                                help_text="Photo caption",
+                                                required=False,
+                                            ),
+                                        ),
+                                        (
+                                            "credit",
+                                            wagtail.blocks.TextBlock(
+                                                help_text="Image credit"
+                                            ),
+                                        ),
+                                    ]
+                                ),
+                            ),
+                            (
+                                "plain_image",
+                                wagtail.blocks.StructBlock(
+                                    [
+                                        (
+                                            "image",
+                                            wagtail.images.blocks.ImageChooserBlock(),
+                                        ),
+                                        (
+                                            "caption",
+                                            wagtail.blocks.TextBlock(
+                                                help_text="Photo caption",
+                                                required=False,
+                                            ),
+                                        ),
+                                    ]
+                                ),
+                            ),
+                            (
+                                "pullquote",
+                                wagtail.blocks.StructBlock(
+                                    [
+                                        (
+                                            "quote",
+                                            wagtail.blocks.TextBlock("quote title"),
+                                        ),
+                                        ("attribution", wagtail.blocks.CharBlock()),
+                                    ]
+                                ),
+                            ),
+                            (
+                                "document",
+                                wagtail.documents.blocks.DocumentChooserBlock(
+                                    icon="doc-full-inverse"
+                                ),
+                            ),
+                            (
+                                "table",
+                                wagtail.contrib.table_block.blocks.TableBlock(
+                                    table_options={"startCols": 4, "startRows": 1},
+                                    template="blocks/table_block.html",
+                                ),
+                            ),
+                        ]
+                    ),
+                ),
             ],
             options={
-                'abstract': False,
+                "abstract": False,
             },
-            bases=('wagtailcore.page',),
+            bases=("wagtailcore.page",),
         ),
         migrations.CreateModel(
-            name='LeagueBadgeRoundEntry',
+            name="LeagueBadgeRoundEntry",
             fields=[
-                ('id', models.AutoField(auto_created=True, primary_key=True, serialize=False, verbose_name='ID')),
-                ('round_name', models.CharField(max_length=50)),
-                ('rc_white_score', models.IntegerField()),
-                ('rc_black_score', models.IntegerField()),
-                ('rc_blue_score', models.IntegerField()),
-                ('rc_red_score', models.IntegerField()),
-                ('rc_gold_score', models.IntegerField()),
-                ('bb_white_score', models.IntegerField()),
-                ('bb_black_score', models.IntegerField()),
-                ('bb_blue_score', models.IntegerField()),
-                ('bb_red_score', models.IntegerField()),
-                ('bb_gold_score', models.IntegerField()),
-                ('cb_white_score', models.IntegerField()),
-                ('cb_black_score', models.IntegerField()),
-                ('cb_blue_score', models.IntegerField()),
-                ('cb_red_score', models.IntegerField()),
-                ('cb_gold_score', models.IntegerField()),
-                ('lb_white_score', models.IntegerField()),
-                ('lb_black_score', models.IntegerField()),
-                ('lb_blue_score', models.IntegerField()),
-                ('lb_red_score', models.IntegerField()),
-                ('lb_gold_score', models.IntegerField()),
-                ('page', modelcluster.fields.ParentalKey(on_delete=django.db.models.deletion.CASCADE, related_name='rounds', to='home.BadgesPage')),
+                (
+                    "id",
+                    models.AutoField(
+                        auto_created=True,
+                        primary_key=True,
+                        serialize=False,
+                        verbose_name="ID",
+                    ),
+                ),
+                ("round_name", models.CharField(max_length=50)),
+                ("rc_white_score", models.IntegerField()),
+                ("rc_black_score", models.IntegerField()),
+                ("rc_blue_score", models.IntegerField()),
+                ("rc_red_score", models.IntegerField()),
+                ("rc_gold_score", models.IntegerField()),
+                ("bb_white_score", models.IntegerField()),
+                ("bb_black_score", models.IntegerField()),
+                ("bb_blue_score", models.IntegerField()),
+                ("bb_red_score", models.IntegerField()),
+                ("bb_gold_score", models.IntegerField()),
+                ("cb_white_score", models.IntegerField()),
+                ("cb_black_score", models.IntegerField()),
+                ("cb_blue_score", models.IntegerField()),
+                ("cb_red_score", models.IntegerField()),
+                ("cb_gold_score", models.IntegerField()),
+                ("lb_white_score", models.IntegerField()),
+                ("lb_black_score", models.IntegerField()),
+                ("lb_blue_score", models.IntegerField()),
+                ("lb_red_score", models.IntegerField()),
+                ("lb_gold_score", models.IntegerField()),
+                (
+                    "page",
+                    modelcluster.fields.ParentalKey(
+                        on_delete=django.db.models.deletion.CASCADE,
+                        related_name="rounds",
+                        to="home.BadgesPage",
+                    ),
+                ),
             ],
         ),
     ]

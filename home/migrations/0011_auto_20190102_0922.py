@@ -11,37 +11,109 @@ import wagtail.images.blocks
 
 
 class Migration(migrations.Migration):
-
     dependencies = [
-        ('wagtailimages', '0001_squashed_0021'),
-        ('home', '0010_auto_20190102_0908'),
+        ("wagtailimages", "0001_squashed_0021"),
+        ("home", "0010_auto_20190102_0908"),
     ]
 
     operations = [
         migrations.AddField(
-            model_name='blogpage',
-            name='body',
-            field=wagtail.fields.StreamField([('h2', wagtail.blocks.CharBlock(classname='title', icon='title')), ('h3', wagtail.blocks.CharBlock(classname='title', icon='title')), ('h4', wagtail.blocks.CharBlock(classname='title', icon='title')), ('paragraph', wagtail.blocks.RichTextBlock(icon='pilcrow')), ('credit_image', wagtail.blocks.StructBlock([('image', wagtail.images.blocks.ImageChooserBlock()), ('caption', wagtail.blocks.TextBlock(help_text='Photo caption', required=False)), ('credit', wagtail.blocks.TextBlock(help_text='Image credit'))])), ('plain_image', wagtail.blocks.StructBlock([('image', wagtail.images.blocks.ImageChooserBlock()), ('caption', wagtail.blocks.TextBlock(help_text='Photo caption', required=False))])), ('pullquote', wagtail.blocks.StructBlock([('quote', wagtail.blocks.TextBlock('quote title')), ('attribution', wagtail.blocks.CharBlock())])), ('document', wagtail.documents.blocks.DocumentChooserBlock(icon='doc-full-inverse')), ('table', wagtail.contrib.table_block.blocks.TableBlock(table_options={'startCols': 2, 'startRows': 1}))], default=None),
+            model_name="blogpage",
+            name="body",
+            field=wagtail.fields.StreamField(
+                [
+                    ("h2", wagtail.blocks.CharBlock(classname="title", icon="title")),
+                    ("h3", wagtail.blocks.CharBlock(classname="title", icon="title")),
+                    ("h4", wagtail.blocks.CharBlock(classname="title", icon="title")),
+                    ("paragraph", wagtail.blocks.RichTextBlock(icon="pilcrow")),
+                    (
+                        "credit_image",
+                        wagtail.blocks.StructBlock(
+                            [
+                                ("image", wagtail.images.blocks.ImageChooserBlock()),
+                                (
+                                    "caption",
+                                    wagtail.blocks.TextBlock(
+                                        help_text="Photo caption", required=False
+                                    ),
+                                ),
+                                (
+                                    "credit",
+                                    wagtail.blocks.TextBlock(help_text="Image credit"),
+                                ),
+                            ]
+                        ),
+                    ),
+                    (
+                        "plain_image",
+                        wagtail.blocks.StructBlock(
+                            [
+                                ("image", wagtail.images.blocks.ImageChooserBlock()),
+                                (
+                                    "caption",
+                                    wagtail.blocks.TextBlock(
+                                        help_text="Photo caption", required=False
+                                    ),
+                                ),
+                            ]
+                        ),
+                    ),
+                    (
+                        "pullquote",
+                        wagtail.blocks.StructBlock(
+                            [
+                                ("quote", wagtail.blocks.TextBlock("quote title")),
+                                ("attribution", wagtail.blocks.CharBlock()),
+                            ]
+                        ),
+                    ),
+                    (
+                        "document",
+                        wagtail.documents.blocks.DocumentChooserBlock(
+                            icon="doc-full-inverse"
+                        ),
+                    ),
+                    (
+                        "table",
+                        wagtail.contrib.table_block.blocks.TableBlock(
+                            table_options={"startCols": 2, "startRows": 1}
+                        ),
+                    ),
+                ],
+                default=None,
+            ),
             preserve_default=False,
         ),
         migrations.AddField(
-            model_name='blogpage',
-            name='cover_image',
-            field=models.ForeignKey(blank=True, help_text='This is the image displayed on the home page as the first thing a user will see', null=True, on_delete=django.db.models.deletion.SET_NULL, related_name='+', to='wagtailimages.Image'),
+            model_name="blogpage",
+            name="cover_image",
+            field=models.ForeignKey(
+                blank=True,
+                help_text="This is the image displayed on the home page as the first thing a user will see",
+                null=True,
+                on_delete=django.db.models.deletion.SET_NULL,
+                related_name="+",
+                to="wagtailimages.Image",
+            ),
         ),
         migrations.AddField(
-            model_name='blogpage',
-            name='cover_image_credit',
-            field=models.CharField(blank=True, default='', max_length=100),
+            model_name="blogpage",
+            name="cover_image_credit",
+            field=models.CharField(blank=True, default="", max_length=100),
         ),
         migrations.AddField(
-            model_name='blogpage',
-            name='date',
-            field=models.DateTimeField(default=django.utils.timezone.now, verbose_name='Post date'),
+            model_name="blogpage",
+            name="date",
+            field=models.DateTimeField(
+                default=django.utils.timezone.now, verbose_name="Post date"
+            ),
         ),
         migrations.AddField(
-            model_name='blogpage',
-            name='excerpt',
-            field=wagtail.fields.RichTextField(default='', help_text='This is displayed on the home and blog listing pages'),
+            model_name="blogpage",
+            name="excerpt",
+            field=wagtail.fields.RichTextField(
+                default="",
+                help_text="This is displayed on the home and blog listing pages",
+            ),
         ),
     ]

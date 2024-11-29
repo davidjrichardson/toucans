@@ -8,34 +8,91 @@ import modelcluster.fields
 
 
 class Migration(migrations.Migration):
-
     dependencies = [
-        ('home', '0059_alter_threelegstandingsentry_options_and_more'),
+        ("home", "0059_alter_threelegstandingsentry_options_and_more"),
     ]
 
     operations = [
         migrations.CreateModel(
-            name='DivisionOneStandingsEntry',
+            name="DivisionOneStandingsEntry",
             fields=[
-                ('id', models.BigAutoField(auto_created=True, primary_key=True, serialize=False, verbose_name='ID')),
-                ('sort_order', models.IntegerField(blank=True, editable=False, null=True)),
-                ('team_name', models.CharField(max_length=50)),
-                ('exp_leg_1', common.fields.ArcheryLegResultField(default=common.models.leg_results_field_default)),
-                ('exp_leg_2', common.fields.ArcheryLegResultField(default=common.models.leg_results_field_default)),
-                ('exp_leg_3', common.fields.ArcheryLegResultField(default=common.models.leg_results_field_default)),
-                ('exp_champs', common.fields.ArcheryLegResultField(default=common.models.leg_results_field_default)),
-                ('nov_leg_1', common.fields.ArcheryLegResultField(default=common.models.leg_results_field_default)),
-                ('nov_leg_2', common.fields.ArcheryLegResultField(default=common.models.leg_results_field_default)),
-                ('nov_leg_3', common.fields.ArcheryLegResultField(default=common.models.leg_results_field_default)),
-                ('nov_champs', common.fields.ArcheryLegResultField(default=common.models.leg_results_field_default)),
-                ('page', modelcluster.fields.ParentalKey(on_delete=django.db.models.deletion.CASCADE, related_name='div1_results', to='home.threelegstandingspage')),
+                (
+                    "id",
+                    models.BigAutoField(
+                        auto_created=True,
+                        primary_key=True,
+                        serialize=False,
+                        verbose_name="ID",
+                    ),
+                ),
+                (
+                    "sort_order",
+                    models.IntegerField(blank=True, editable=False, null=True),
+                ),
+                ("team_name", models.CharField(max_length=50)),
+                (
+                    "exp_leg_1",
+                    common.fields.ArcheryLegResultField(
+                        default=common.models.leg_results_field_default
+                    ),
+                ),
+                (
+                    "exp_leg_2",
+                    common.fields.ArcheryLegResultField(
+                        default=common.models.leg_results_field_default
+                    ),
+                ),
+                (
+                    "exp_leg_3",
+                    common.fields.ArcheryLegResultField(
+                        default=common.models.leg_results_field_default
+                    ),
+                ),
+                (
+                    "exp_champs",
+                    common.fields.ArcheryLegResultField(
+                        default=common.models.leg_results_field_default
+                    ),
+                ),
+                (
+                    "nov_leg_1",
+                    common.fields.ArcheryLegResultField(
+                        default=common.models.leg_results_field_default
+                    ),
+                ),
+                (
+                    "nov_leg_2",
+                    common.fields.ArcheryLegResultField(
+                        default=common.models.leg_results_field_default
+                    ),
+                ),
+                (
+                    "nov_leg_3",
+                    common.fields.ArcheryLegResultField(
+                        default=common.models.leg_results_field_default
+                    ),
+                ),
+                (
+                    "nov_champs",
+                    common.fields.ArcheryLegResultField(
+                        default=common.models.leg_results_field_default
+                    ),
+                ),
+                (
+                    "page",
+                    modelcluster.fields.ParentalKey(
+                        on_delete=django.db.models.deletion.CASCADE,
+                        related_name="div1_results",
+                        to="home.threelegstandingspage",
+                    ),
+                ),
             ],
             options={
-                'ordering': ['sort_order'],
-                'abstract': False,
+                "ordering": ["sort_order"],
+                "abstract": False,
             },
         ),
         migrations.DeleteModel(
-            name='ThreeLegStandingsEntry',
+            name="ThreeLegStandingsEntry",
         ),
     ]

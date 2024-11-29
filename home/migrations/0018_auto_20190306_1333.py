@@ -9,22 +9,87 @@ import wagtail.images.blocks
 
 
 class Migration(migrations.Migration):
-
     dependencies = [
-        ('home', '0017_standingsindexpage_standingspage'),
+        ("home", "0017_standingsindexpage_standingspage"),
     ]
 
     operations = [
         migrations.AddField(
-            model_name='standingspage',
-            name='body',
-            field=wagtail.fields.StreamField([('h2', wagtail.blocks.CharBlock(classname='title', icon='title')), ('h3', wagtail.blocks.CharBlock(classname='title', icon='title')), ('h4', wagtail.blocks.CharBlock(classname='title', icon='title')), ('paragraph', wagtail.blocks.RichTextBlock(icon='pilcrow')), ('credit_image', wagtail.blocks.StructBlock([('image', wagtail.images.blocks.ImageChooserBlock()), ('caption', wagtail.blocks.TextBlock(help_text='Photo caption', required=False)), ('credit', wagtail.blocks.TextBlock(help_text='Image credit'))])), ('plain_image', wagtail.blocks.StructBlock([('image', wagtail.images.blocks.ImageChooserBlock()), ('caption', wagtail.blocks.TextBlock(help_text='Photo caption', required=False))])), ('pullquote', wagtail.blocks.StructBlock([('quote', wagtail.blocks.TextBlock('quote title')), ('attribution', wagtail.blocks.CharBlock())])), ('document', wagtail.documents.blocks.DocumentChooserBlock(icon='doc-full-inverse')), ('table', wagtail.contrib.table_block.blocks.TableBlock(table_options={'startCols': 4, 'startRows': 1}, template='blocks/table_block.html'))], default=''),
+            model_name="standingspage",
+            name="body",
+            field=wagtail.fields.StreamField(
+                [
+                    ("h2", wagtail.blocks.CharBlock(classname="title", icon="title")),
+                    ("h3", wagtail.blocks.CharBlock(classname="title", icon="title")),
+                    ("h4", wagtail.blocks.CharBlock(classname="title", icon="title")),
+                    ("paragraph", wagtail.blocks.RichTextBlock(icon="pilcrow")),
+                    (
+                        "credit_image",
+                        wagtail.blocks.StructBlock(
+                            [
+                                ("image", wagtail.images.blocks.ImageChooserBlock()),
+                                (
+                                    "caption",
+                                    wagtail.blocks.TextBlock(
+                                        help_text="Photo caption", required=False
+                                    ),
+                                ),
+                                (
+                                    "credit",
+                                    wagtail.blocks.TextBlock(help_text="Image credit"),
+                                ),
+                            ]
+                        ),
+                    ),
+                    (
+                        "plain_image",
+                        wagtail.blocks.StructBlock(
+                            [
+                                ("image", wagtail.images.blocks.ImageChooserBlock()),
+                                (
+                                    "caption",
+                                    wagtail.blocks.TextBlock(
+                                        help_text="Photo caption", required=False
+                                    ),
+                                ),
+                            ]
+                        ),
+                    ),
+                    (
+                        "pullquote",
+                        wagtail.blocks.StructBlock(
+                            [
+                                ("quote", wagtail.blocks.TextBlock("quote title")),
+                                ("attribution", wagtail.blocks.CharBlock()),
+                            ]
+                        ),
+                    ),
+                    (
+                        "document",
+                        wagtail.documents.blocks.DocumentChooserBlock(
+                            icon="doc-full-inverse"
+                        ),
+                    ),
+                    (
+                        "table",
+                        wagtail.contrib.table_block.blocks.TableBlock(
+                            table_options={"startCols": 4, "startRows": 1},
+                            template="blocks/table_block.html",
+                        ),
+                    ),
+                ],
+                default="",
+            ),
             preserve_default=False,
         ),
         migrations.AddField(
-            model_name='standingspage',
-            name='standings_year',
-            field=models.TextField(default='', help_text='The academic year for this set of standings', verbose_name='Academic year'),
+            model_name="standingspage",
+            name="standings_year",
+            field=models.TextField(
+                default="",
+                help_text="The academic year for this set of standings",
+                verbose_name="Academic year",
+            ),
             preserve_default=False,
         ),
     ]

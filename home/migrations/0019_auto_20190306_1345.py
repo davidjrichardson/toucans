@@ -7,15 +7,28 @@ import wagtail.fields
 
 
 class Migration(migrations.Migration):
-
     dependencies = [
-        ('home', '0018_auto_20190306_1333'),
+        ("home", "0018_auto_20190306_1333"),
     ]
 
     operations = [
         migrations.AlterField(
-            model_name='standingspage',
-            name='body',
-            field=wagtail.fields.StreamField([('h2', wagtail.blocks.CharBlock(classname='title', icon='title')), ('h3', wagtail.blocks.CharBlock(classname='title', icon='title')), ('h4', wagtail.blocks.CharBlock(classname='title', icon='title')), ('paragraph', wagtail.blocks.RichTextBlock(icon='pilcrow')), ('table', wagtail.contrib.table_block.blocks.TableBlock(table_options={'startCols': 5, 'startRows': 8}, template='blocks/league_results_block.html'))]),
+            model_name="standingspage",
+            name="body",
+            field=wagtail.fields.StreamField(
+                [
+                    ("h2", wagtail.blocks.CharBlock(classname="title", icon="title")),
+                    ("h3", wagtail.blocks.CharBlock(classname="title", icon="title")),
+                    ("h4", wagtail.blocks.CharBlock(classname="title", icon="title")),
+                    ("paragraph", wagtail.blocks.RichTextBlock(icon="pilcrow")),
+                    (
+                        "table",
+                        wagtail.contrib.table_block.blocks.TableBlock(
+                            table_options={"startCols": 5, "startRows": 8},
+                            template="blocks/league_results_block.html",
+                        ),
+                    ),
+                ]
+            ),
         ),
     ]
