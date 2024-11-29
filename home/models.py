@@ -701,6 +701,8 @@ class LegacyThreeLegStandingsEntry(models.Model):
 class LegacyThreeLegStandingsPage(
     AbstractLegacyLeagueResultsPage, HasStandingsArchiveMixin
 ):
+    num_legs = 3
+
     @property
     def experienced_results(self):
         return self.results.filter(team_is_novice=False).all()
@@ -708,15 +710,13 @@ class LegacyThreeLegStandingsPage(
     @property
     def novice_results(self):
         return self.results.filter(team_is_novice=True).all()
-
-    @property
-    def num_legs(self):
-        return 3
 
 
 class LegacyFourLegStandingsPage(
     AbstractLegacyLeagueResultsPage, HasStandingsArchiveMixin
 ):
+    num_legs = 4
+
     @property
     def experienced_results(self):
         return self.results.filter(team_is_novice=False).all()
@@ -725,14 +725,12 @@ class LegacyFourLegStandingsPage(
     def novice_results(self):
         return self.results.filter(team_is_novice=True).all()
 
-    @property
-    def num_legs(self):
-        return 4
-
 
 class ThreeLegStandingsPage(
     AbstractMultiDivisionLeagueResultsPage, HasStandingsArchiveMixin
 ):
+    num_legs = 3
+
     @functools.cached_property
     def division_1_results(
         self,
@@ -758,10 +756,6 @@ class ThreeLegStandingsPage(
     @functools.cached_property
     def has_div2_results(self) -> bool:
         return self.div2_results.exists()
-
-    @property
-    def num_legs(self):
-        return 3
 
 
 class DivisionOneStandingsEntry(Orderable, AbstractThreeLegStandingsEntry):
