@@ -13,7 +13,6 @@ from wagtail.admin.panels import (
     MultiFieldPanel,
     FieldRowPanel,
     InlinePanel,
-    HelpPanel,
 )
 from wagtail.contrib.table_block.blocks import TableBlock
 from wagtail.blocks import (
@@ -31,7 +30,12 @@ from wagtail.documents.blocks import DocumentChooserBlock
 from wagtail.images.blocks import ImageChooserBlock
 from wagtail.snippets.models import register_snippet
 
-from common.models import AbstractThreeLegStandingsEntry, ThreeLegStanding
+from common.models import (
+    AbstractThreeLegStandingsEntry,
+    ThreeLegStanding,
+    AbstractLeagueResultsPage,
+    AbstractLegacyLeagueResultsPage,
+)
 
 
 @register_snippet
@@ -201,13 +205,6 @@ class BlogStreamBlock(StreamBlock):
         },
         template="blocks/table_block.html",
     )
-
-
-class StandingsStreamBlock(StreamBlock):
-    h2 = CharBlock(icon="title", classname="title")
-    h3 = CharBlock(icon="title", classname="title")
-    h4 = CharBlock(icon="title", classname="title")
-    paragraph = RichTextBlock(icon="pilcrow")
 
 
 class RelatedLink(models.Model):
@@ -694,14 +691,7 @@ class LegacyThreeLegStandingsEntry(models.Model):
     ]
 
 
-class LegacyThreeLegStandingsPage(Page):
-    parent_page_types = ["home.StandingsIndexPage"]
-
-    standings_year = models.TextField(
-        "Academic year", help_text="The academic year for this set of standings"
-    )
-    body = StreamField(StandingsStreamBlock)
-
+class LegacyThreeLegStandingsPage(AbstractLegacyLeagueResultsPage):
     @property
     def experienced_results(self):
         return self.results.filter(team_is_novice=False).all()
@@ -718,30 +708,8 @@ class LegacyThreeLegStandingsPage(Page):
     def num_legs(self):
         return 3
 
-    content_panels = Page.content_panels + [
-        HelpPanel(
-            '<h1 class="title"><strong>This page uses the old data entry format for league standings. Please use the new 3-leg entry format.</h1>'
-        ),
-        MultiFieldPanel(
-            [
-                FieldPanel("standings_year"),
-                FieldPanel("body"),
-            ],
-            heading="Standings Info",
-            classname="collapsed",
-        ),
-        InlinePanel("results", label="Results", classname="collapsed"),
-    ]
 
-
-class LegacyFourLegStandingsPage(Page):
-    parent_page_types = ["home.StandingsIndexPage"]
-
-    standings_year = models.TextField(
-        "Academic year", help_text="The academic year for this set of standings"
-    )
-    body = StreamField(StandingsStreamBlock)
-
+class LegacyFourLegStandingsPage(AbstractLegacyLeagueResultsPage):
     @property
     def experienced_results(self):
         return self.results.filter(team_is_novice=False).all()
@@ -758,30 +726,8 @@ class LegacyFourLegStandingsPage(Page):
     def num_legs(self):
         return 4
 
-    content_panels = Page.content_panels + [
-        HelpPanel(
-            "<h1>This is a legacy page format for 4-leg league standings. Please use the 3-leg format for new seasons.</h1>"
-        ),
-        MultiFieldPanel(
-            [
-                FieldPanel("standings_year"),
-                FieldPanel("body"),
-            ],
-            heading="Standings Info",
-            classname="collapsed",
-        ),
-        InlinePanel("results", label="Results", classname="collapsed"),
-    ]
 
-
-class ThreeLegStandingsPage(Page):
-    parent_page_types = ["home.HomePage"]
-
-    standings_year = models.TextField(
-        "Academic year", help_text="The academic year for this set of standings"
-    )
-    body = StreamField(StandingsStreamBlock)
-
+class ThreeLegStandingsPage(AbstractLeagueResultsPage):
     @functools.cached_property
     def division_1_results(
         self,
@@ -816,17 +762,14 @@ class ThreeLegStandingsPage(Page):
     def num_legs(self):
         return 3
 
-    content_panels = Page.content_panels + [
-        MultiFieldPanel(
-            [
-                FieldPanel("standings_year"),
-                FieldPanel("body"),
-            ],
-            heading="Standings information",
-        ),
-        InlinePanel("div1_results", label="Division 1 results"),
-        InlinePanel("div2_results", label="Division 2 results"),
-    ]
+    content_panels = (
+        Page.content_panels
+        + AbstractLeagueResultsPage.base_content_panels
+        + [
+            InlinePanel("div1_results", label="Division 1 results"),
+            InlinePanel("div2_results", label="Division 2 results"),
+        ]
+    )
 
 
 class DivisionOneStandingsEntry(Orderable, AbstractThreeLegStandingsEntry):
