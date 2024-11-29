@@ -142,7 +142,17 @@ class AbstractLeagueResultsPage(Page):
     parent_page_types = ["home.StandingsIndexPage"]
 
     standings_year = models.TextField(
-        "Academic year", help_text="The academic year for this set of standings"
+        "Academic year",
+        help_text="The academic year for this set of standings",
+        null=True,
+        blank=True,
+    )
+    start_date = models.DateField(
+        "Start date", help_text="The start date of the league"
+    )
+    end_date = models.DateField(
+        "End date",
+        help_text="The end date of the league. Can be approximate if it is not totally certain.",
     )
     body = StreamField(StandingsStreamBlock)
 
@@ -150,6 +160,12 @@ class AbstractLeagueResultsPage(Page):
         MultiFieldPanel(
             [
                 FieldPanel("standings_year"),
+                FieldRowPanel(
+                    [
+                        FieldPanel("start_date", classname="col6"),
+                        FieldPanel("end_date", classname="col6"),
+                    ]
+                ),
                 FieldPanel("body"),
             ],
             heading="Standings information",
