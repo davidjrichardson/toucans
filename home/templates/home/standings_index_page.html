@@ -23,7 +23,6 @@
 {% endblock %}
 
 {% block content %}
-  {% breadcrumbs calling_page=page %}
   <section class="section">
     <div class="container">
       <h2 class="title is-size-2">{{ page.title }}</h2>
@@ -35,7 +34,7 @@
           <ul class="results-list">
             {% for result in page.archives %}
               <li>
-                <a href="{% pageurl result %}">Results for {{ result.standings_year }} ({{ result.num_legs }} leg format)</a>
+                <a href="{% pageurl result %}">{{ result.title }} ({{ result.num_legs }} leg format)</a>
               </li>
             {% endfor %}
           </ul>
