@@ -32,13 +32,6 @@
             <h1 class="title is-size-2">League Standings for {{ page.standings_year }}</h2>
           </div>
         </div>
-        {% if page.archives %}
-          <div class="level-right">
-            <div class="level-item">
-              <a href="{% pageurl page.archives %}" class="button is-white">Results archive<i class="fas fa-chevron-right"></i></a>
-            </div>
-          </div>
-        {% endif %}
       </nav>
       <h1 class="title is-size-3">Division 1</h1>
       {% if page.has_div1_results %}

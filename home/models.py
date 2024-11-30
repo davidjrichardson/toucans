@@ -226,12 +226,6 @@ def chunks(list, n):
         yield list[i : i + n]
 
 
-class HasStandingsArchiveMixin:
-    @property
-    def archives(self):
-        return StandingsIndexPage.objects.live().first()
-
-
 class BlogPageTag(TaggedItemBase):
     content_object = ParentalKey(
         "home.BlogPage", related_name="tagged_items", on_delete=models.CASCADE
@@ -707,9 +701,7 @@ class LegacyThreeLegStandingsEntry(models.Model):
     ]
 
 
-class LegacyThreeLegStandingsPage(
-    AbstractLegacyLeagueResultsPage, HasStandingsArchiveMixin
-):
+class LegacyThreeLegStandingsPage(AbstractLegacyLeagueResultsPage):
     num_legs = 3
 
     @property
@@ -721,9 +713,7 @@ class LegacyThreeLegStandingsPage(
         return self.results.filter(team_is_novice=True).all()
 
 
-class LegacyFourLegStandingsPage(
-    AbstractLegacyLeagueResultsPage, HasStandingsArchiveMixin
-):
+class LegacyFourLegStandingsPage(AbstractLegacyLeagueResultsPage):
     num_legs = 4
 
     @property
@@ -735,9 +725,7 @@ class LegacyFourLegStandingsPage(
         return self.results.filter(team_is_novice=True).all()
 
 
-class ThreeLegStandingsPage(
-    AbstractMultiDivisionLeagueResultsPage, HasStandingsArchiveMixin
-):
+class ThreeLegStandingsPage(AbstractMultiDivisionLeagueResultsPage):
     num_legs = 3
 
     @functools.cached_property
