@@ -360,26 +360,35 @@ class StandingsIndexPage(Page):
 
     description = RichTextField(blank=True, null=True)
 
-    @property
+    @functools.cached_property
+    def all_standings(self):
+        legacy_four_leg_standings = (
+            LegacyFourLegStandingsPage.objects.live().child_of(self).all()
+        )
+        legacy_three_leg_standings = (
+            LegacyThreeLegStandingsPage.objects.live().child_of(self).all()
+        )
+        three_leg_standings = ThreeLegStandingsPage.objects.live().child_of(self).all()
+
+        pages = (
+            list(legacy_four_leg_standings)
+            + list(legacy_three_leg_standings)
+            + list(three_leg_standings)
+        )
+
+        pages.sort(key=lambda x: x.start_date, reverse=True)
+
+        return pages
+
+    @functools.cached_property
+    def latest_year(self):
+        return self.all_standings[0] if len(self.all_standings) > 0 else None
+
+    @functools.cached_property
     def archives(self):
-        legacy = list(
-            LegacyFourLegStandingsPage.objects.live()
-            .child_of(self)
-            .order_by("-standings_year")
-            .all()
-        )
-        new = list(
-            LegacyThreeLegStandingsPage.objects.live()
-            .child_of(self)
-            .order_by("-standings_year")
-            .all()
-        )
+        return self.all_standings[1:] if len(self.all_standings) > 1 else []
 
-        archive = legacy + new
-
-        return sorted(archive, key=lambda x: x.standings_year, reverse=True)
-
-    @property
+    @functools.cached_property
     def resources(self):
         return filter(lambda x: x.depth > 3, ResourcePage.objects.live().all())
 
