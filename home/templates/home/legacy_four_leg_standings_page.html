@@ -32,13 +32,6 @@
             <h2 class="title is-size-2">League Standings for {{ page.standings_year }}</h2>
           </div>
         </div>
-        {% if page.archives %}
-          <div class="level-right">
-            <div class="level-item">
-              <a href="{% pageurl page.archives %}" class="button is-white">Results archive<i class="fas fa-chevron-right"></i></a>
-            </div>
-          </div>
-        {% endif %}
       </nav>
       <h4 class="title is-size-4">Experienced Table</h4>
       {% overall_4leg_standings standings=page.experienced_results %}
