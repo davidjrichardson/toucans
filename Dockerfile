@@ -11,8 +11,6 @@ ENV PYTHONUNBUFFERED=1 \
   PIP_NO_CACHE_DIR=off \
   PIP_DISABLE_PIP_VERSION_CHECK=on \
   PYTHONPATH=/app \
-  POETRY_NO_INTERACTION=1 \
-  POETRY_VIRTUALENVS_IN_PROJECT=true \
   DJANGO_SETTINGS_MODULE=toucans.settings.base \
   PORT=8000 \
   WEB_CONCURRENCY=3 \
@@ -38,19 +36,18 @@ RUN $FNM_DIR/fnm exec npm ci \
 # # Build & set up backend
 WORKDIR /app
 
-RUN curl -sSL https://install.python-poetry.org | POETRY_VERSION=1.8.3 python3 -
-RUN poetry install \
-  && poetry run pip install "gunicorn==19.10.0" \
+RUN curl --proto '=https' --tlsv1.2 -LsSf https://github.com/astral-sh/uv/releases/download/0.5.18/uv-installer.sh | sh
+RUN uv sync --group docker \
   && SECRET_KEY=none \
-    DB_NAME=toucans \
-    DB_USER=toucans \
-    DB_PASSWORD=toucans \
-    DB_HOST=localhost \
-    DB_PORT=5432 \
-    ALLOWED_HOSTS="[]" \
-    CSRF_TRUSTED_ORIGINS="[]" \
-    poetry run python manage.py collectstatic --no-input --clear
+  DB_NAME=toucans \
+  DB_USER=toucans \
+  DB_PASSWORD=toucans \
+  DB_HOST=localhost \
+  DB_PORT=5432 \
+  ALLOWED_HOSTS="[]" \
+  CSRF_TRUSTED_ORIGINS="[]" \
+  uv run manage.py collectstatic --no-input --clear
 
 # Run the WSGI server. It reads GUNICORN_CMD_ARGS, PORT and WEB_CONCURRENCY
 # environment variable hence we don't specify a lot options below.
-CMD poetry run gunicorn toucans.wsgi:application
+CMD uv run gunicorn toucans.wsgi:application
