@@ -1,0 +1,59 @@
+{% load humanize base_tags %}
+
+<div class="table-wrapper">
+  <table class="table is-hoverable league-results">
+    {% with legs=standings.0.1 %}
+      <thead>
+      <tr>
+        <th class="is-text" colspan="2"></th>
+          {% for leg in legs %}
+            {% if not forloop.last %}
+              <th class="is-numeric leg-divider" colspan="2">Leg {{ forloop.counter }}</th>
+            {% else %}
+              <th class="is-numeric leg-divider" colspan="2">Champs</th>
+            {% endif %}
+          {% endfor %}
+        <th class="is-numeric leg-divider" colspan="2">Total</th>
+      </tr>
+      <tr>
+        <th class="is-numeric pos">Position</th>
+        <th class="is-text uni">University</th>
+        {% for leg in legs %}
+          <th class="is-numeric leg-divider">Score</th>
+        <th class="is-numeric">Pts</th>
+        {% endfor %}
+        <th class="is-numeric leg-divider">Aggregate</th>
+        <th class="is-numeric">Pts</th>
+      </tr>
+    {% endwith %}
+    </thead>
+    <tbody>
+    {% for team in standings %}
+      {% with leg_scores=team.1 %}
+        <tr>
+          <td class="is-numeric">{{ forloop.counter|ordinal }}</td>
+          <td class="is-text">{{ team.0 }}</td>
+          {% for score in leg_scores %}
+            {% if results_mask|return_item:forloop.counter0 %}
+              <td class="is-numeric leg-divider">{{ score.1 }}</td>
+              <td class="is-numeric">{{ score.0 }}</td>
+            {% else %}
+              <td class="is-numeric leg-divider">-</td>
+              <td class="is-numeric">-</td>
+            {% endif %}
+          {% endfor %}
+          {% if not standings_have_results %}
+            <td class="is-numeric leg-divider">-</td>
+            <td class="is-numeric">-</td>
+          {% else %}
+            {% with standings_agg|return_item:forloop.counter0 as agg %}
+              <td class="is-numeric leg-divider">{{ agg.1 }}</td>
+              <td class="is-numeric">{{ agg.0 }}</td>
+            {% endwith %}
+          {% endif %}
+        </tr>
+      {% endwith %}
+    {% endfor %}
+    </tbody>
+  </table>
+</div>
