@@ -121,7 +121,7 @@ def generate_3leg_table(standings: list[ThreeLegStanding]):
     return standings_sorted, standings_aggregate, standings_has_results
 
 
-@register.inclusion_tag("home/tags/3leg_results_table.html", takes_context=True)
+@register.inclusion_tag("common/tags/results_table.html", takes_context=True)
 def overall_3leg_standings(context, standings):
     standings_sorted, standings_aggregate, standings_has_results = generate_3leg_table(
         standings
@@ -132,8 +132,8 @@ def overall_3leg_standings(context, standings):
         "standings": standings_sorted,
         "standings_agg": standings_aggregate,
         "results_mask": standings_has_results,
-        # Results empty is simply if there are no results through the entire table
-        "results_empty": reduce(lambda x, y: x or y, standings_has_results),
+        # If the table has any non-zero results
+        "standings_have_results": reduce(lambda x, y: x or y, standings_has_results),
     }
 
 
@@ -235,7 +235,7 @@ def aggregated_standings(context, results):
     }
 
 
-@register.inclusion_tag("home/tags/4leg_results_table.html", takes_context=True)
+@register.inclusion_tag("common/tags/results_table.html", takes_context=True)
 def overall_4leg_standings(context, standings):
     standings_sorted, standings_aggregate, standings_has_results = generate_4leg_table(
         standings
@@ -246,6 +246,6 @@ def overall_4leg_standings(context, standings):
         "standings": standings_sorted,
         "standings_agg": standings_aggregate,
         "results_mask": standings_has_results,
-        # Results empty is simply if there are no results through the entire table
-        "results_empty": reduce(lambda x, y: x or y, standings_has_results),
+        # If the table has any non-zero results
+        "standings_have_results": reduce(lambda x, y: x or y, standings_has_results),
     }
