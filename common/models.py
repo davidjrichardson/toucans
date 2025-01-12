@@ -140,6 +140,7 @@ class AbstractThreeLegStandingsEntry(models.Model):
 
 class AbstractLeagueResultsPage(Page):
     parent_page_types = ["home.StandingsIndexPage"]
+    subpage_types = []
 
     standings_year = models.TextField(
         "Academic year",
