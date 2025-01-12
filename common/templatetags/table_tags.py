@@ -56,6 +56,71 @@ def dashify(val):
         return "‒"
 
 
+def flatten(l):
+    return [item for sublist in l for item in sublist]
+
+
+def aggregate_team_scores(scores):
+    return reduce(
+        lambda z, y: (z[0] + y[0], z[1] + y[1], z[2] + y[2], z[3] + y[3]), scores
+    )
+
+
+def generate_table(standings):
+    standings_have_results = all([not x.is_empty for x in standings])
+    # Total number of results in the table (num_legs + champs)
+    total_num_results = len(standings[0].results)
+    empty_result = tuple(0 for _ in range(0, total_num_results))
+    if standings_have_results:
+        # Rank each leg individually
+        ranked_legs = flatten(
+            [
+                rank_leg([(x.team_name, x.results[i]) for x in standings])
+                for i in range(0, total_num_results)
+            ]
+        )
+        results_per_team = {
+            standings.team_name: [
+                ranked_result[1]  # The points, score, hits, golds tuple
+                for ranked_result in ranked_legs
+                if ranked_result[0] == standings.team_name
+            ]
+            for standings in standings
+        }
+
+        # Collapse the list of results per-team into a 4-tuple: (points, agg. score, agg. hits, agg. golds)
+        # And sort by that
+        standings_sorted = sorted(
+            results_per_team.items(),
+            # The key is the aggregate points, score, hits and golds per-team
+            key=lambda x: reduce(
+                lambda z, y: (z[0] + y[0], z[1] + y[1], z[2] + y[2], z[3] + y[3]), x[1]
+            ),
+            reverse=True,
+        )
+
+        standings_aggregate = [
+            reduce(
+                lambda z, y: (z[0] + y[0], z[1] + y[1], z[2] + y[2], z[3] + y[3]), x[1]
+            )
+            for x in standings_sorted
+        ]
+
+        # The per-leg column of if there are results: True means 0-points will be displayed, otherwise a dash (-)
+        # will be shown instead
+        standings_has_results = [
+            all(x != empty_result for x in leg) for leg in ranked_legs
+        ]
+    else:
+        standings_sorted = sorted(map(lambda x: (x.team_name, x.results), standings))
+        # The per-leg column of if there are results: True means 0-points will be displayed, otherwise a dash (-)
+        # will be shown instead
+        standings_has_results = [False for _ in range(0, total_num_results)]
+        standings_aggregate = [empty_result for _ in range(0, total_num_results)]
+
+    return standings_sorted, standings_aggregate, standings_has_results
+
+
 def generate_3leg_table(standings: list[ThreeLegStanding]):
     # Check if all of the standings provided are empty
     standings_are_empty = reduce(
@@ -123,7 +188,7 @@ def generate_3leg_table(standings: list[ThreeLegStanding]):
 
 @register.inclusion_tag("common/tags/results_table.html", takes_context=True)
 def overall_3leg_standings(context, standings):
-    standings_sorted, standings_aggregate, standings_has_results = generate_3leg_table(
+    standings_sorted, standings_aggregate, standings_has_results = generate_table(
         standings
     )
 
@@ -237,7 +302,7 @@ def aggregated_standings(context, results):
 
 @register.inclusion_tag("common/tags/results_table.html", takes_context=True)
 def overall_4leg_standings(context, standings):
-    standings_sorted, standings_aggregate, standings_has_results = generate_4leg_table(
+    standings_sorted, standings_aggregate, standings_has_results = generate_table(
         standings
     )
 
