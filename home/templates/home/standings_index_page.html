@@ -26,6 +26,11 @@
   <section class="section">
     <div class="container">
       <h2 class="title is-size-2">{{ page.title }}</h2>
+      {% if page.latest_year %}
+        <h3 class="title is-size-3">{{ page.latest_year.title }}</h3>
+        <p>Full details of these results can be found <a href="{% pageurl page.latest_year %}">here</a>.</p>
+        <hr/>
+      {% endif %}
       <div class="content">
         {{ page.description|richtext }}
       </div>
