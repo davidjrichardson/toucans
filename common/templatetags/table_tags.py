@@ -139,6 +139,9 @@ def generate_table(standings):
             - standings_has_results (list): A list of booleans indicating if there are results 
               for each leg. True means 0-points will be displayed, otherwise a dash (-) will be shown.
     """
+    if not standings:
+        return [], [], []
+
     standings_have_results = any([not x.is_empty for x in standings])
     # Total number of results in the table (num_legs + champs)
     total_num_results = len(standings[0].results)
@@ -246,7 +249,11 @@ def aggregated_standings(context, results):
             - "standings_agg": The aggregated standings.
             - "standings_have_results": A boolean indicating if there are any results in the standings.
     """
-    results = results[0]
+    # print(results)
+    # if len(results) > 0:
+    #     results = results[0]
+    # else:
+    #     results = []
 
     standings_sorted, standings_aggregate, standings_has_results = generate_table(
         results

@@ -887,15 +887,15 @@ class HomePage(Page):
 
     @property
     def experienced_standings(self):
-        standings_page = ThreeLegStandingsPage.objects.live().child_of(self).first()
+        standings_page = StandingsIndexPage.objects.live().child_of(self).first()
 
-        return (standings_page.experienced_results, standings_page.num_legs)
+        return standings_page.latest_year.experienced_results if standings_page is not None else []
 
     @property
     def novice_standings(self):
-        standings_page = ThreeLegStandingsPage.objects.live().child_of(self).first()
+        standings_page = StandingsIndexPage.objects.live().child_of(self).first()
 
-        return (standings_page.novice_results, standings_page.num_legs)
+        return standings_page.latest_year.novice_results if standings_page is not None else []
 
     content_panels = Page.content_panels + [
         FieldPanel("description", classname="full"),
