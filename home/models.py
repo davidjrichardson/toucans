@@ -889,13 +889,25 @@ class HomePage(Page):
     def experienced_standings(self):
         standings_page = StandingsIndexPage.objects.live().child_of(self).first()
 
-        return standings_page.latest_year.experienced_results if standings_page is not None else []
+        if standings_page is None:
+            return []
+
+        if isinstance(standings_page.latest_year, ThreeLegStandingsPage):
+            return standings_page.latest_year.division_1_results[0]
+        else:
+            return standings_page.latest_year.experienced_results
 
     @property
     def novice_standings(self):
         standings_page = StandingsIndexPage.objects.live().child_of(self).first()
 
-        return standings_page.latest_year.novice_results if standings_page is not None else []
+        if standings_page is None:
+            return []
+
+        if isinstance(standings_page.latest_year, ThreeLegStandingsPage):
+            return standings_page.latest_year.division_1_results[1]
+        else:
+            return standings_page.latest_year.novice_results
 
     content_panels = Page.content_panels + [
         FieldPanel("description", classname="full"),
