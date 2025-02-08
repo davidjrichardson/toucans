@@ -158,24 +158,50 @@ a {
   background-size: cover;
   background-repeat: no-repeat;
 
-  @include desktop {
-    margin-bottom: -10rem;
-  }
-
-  @include widescreen {
-    margin-bottom: -12rem;
-  }
-
   & .league-info {
     display: flex;
     z-index: 2;
+    position: relative;
 
     @include touch {
       padding: 0 1.5rem 7.5rem;
     }
 
+    & .league-logo {
+      position: absolute;
+      top: 0;
+      right: 0;
+
+      @include desktop {
+        width: 420px;
+      }
+
+      @include widescreen {
+        width: 545px;
+      }
+
+      & svg {
+        width: 100%;
+      }
+    }
+
     & .league-blurb {
       margin-top: 112px;
+
+      @include touch {
+        height: auto;
+        max-width: 100%;
+      }
+
+      @include desktop {
+        height: 300px;
+        max-width: 550px;
+      }
+
+      @include widescreen {
+        height: 340px;
+        max-width: 600px;
+      }
 
       & h1.title {
         margin-bottom: 0;
@@ -223,6 +249,59 @@ a {
 
   & .title {
     color: white;
+  }
+
+  & .table-header {
+    margin-bottom: 2rem;
+
+    font-family: $family-title;
+    text-transform: uppercase;
+
+    @include desktop {
+      display: flex;
+    }
+
+    & .title {
+      line-height: 1;
+
+      margin-bottom: 0.5rem;
+
+      @include desktop {
+        margin: 0 1rem 0 0;
+      }
+    }
+
+    & .button {
+      margin: 0;
+      padding: 0 0.25rem;
+      border: 0;
+
+      font-size: 2rem;
+      font-family: $family-title;
+      text-transform: uppercase;
+      font-weight: 600;
+      line-height: 1;
+      height: 3rem;
+
+      color: rgba(255, 255, 255, 0.54);
+      background-color: transparent;
+      transition: color 0.1s ease-in-out;
+
+      &.is-active,
+      &:hover,
+      &:focus {
+        color: white;
+        background-color: transparent;
+      }
+    }
+
+    & .division-divider {
+      font-size: 3rem;
+      margin: 0;
+      line-height: 1;
+
+      color: rgba(255, 255, 255, 0.87);
+    }
   }
 
   & .table {
