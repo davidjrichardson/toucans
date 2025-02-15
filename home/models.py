@@ -881,33 +881,45 @@ class HomePage(Page):
     def posts(self):
         return self.news_index.blogs[:5]
 
-    @property
+    @functools.cached_property
     def news_index(self):
         return BlogIndexPage.objects.live().child_of(self).first()
 
-    @property
-    def experienced_standings(self):
-        standings_page = StandingsIndexPage.objects.live().child_of(self).first()
-
-        if standings_page is None:
-            return []
-
-        if isinstance(standings_page.latest_year, ThreeLegStandingsPage):
-            return standings_page.latest_year.division_1_results[0]
-        else:
-            return standings_page.latest_year.experienced_results
+    @functools.cached_property
+    def standings_index(self):
+        return StandingsIndexPage.objects.live().child_of(self).first()
 
     @property
-    def novice_standings(self):
-        standings_page = StandingsIndexPage.objects.live().child_of(self).first()
+    def standings_is_legacy(self):
+        return isinstance(self.standings_index.latest_year, AbstractLegacyLeagueResultsPage)
 
-        if standings_page is None:
+    @functools.cached_property
+    def div1_standings(self):
+        if self.standings_index is None:
+            return tuple()
+
+        return self.standings_index.latest_year.division_1_results
+
+    @functools.cached_property
+    def div2_standings(self):
+        if self.standings_index is None:
+            return tuple()
+
+        return self.standings_index.latest_year.division_2_results
+
+    @functools.cached_property
+    def legacy_experienced_standings(self):
+        if self.standings_index is None:
             return []
 
-        if isinstance(standings_page.latest_year, ThreeLegStandingsPage):
-            return standings_page.latest_year.division_1_results[1]
-        else:
-            return standings_page.latest_year.novice_results
+        return self.standings_index.latest_year.experienced_results
+
+    @functools.cached_property
+    def legacy_novice_standings(self):
+        if self.standings_index is None:
+            return []
+
+        return self.standings_index.latest_year.novice_results
 
     content_panels = Page.content_panels + [
         FieldPanel("description", classname="full"),

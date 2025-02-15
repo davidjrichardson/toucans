@@ -1,0 +1,16 @@
+{% load table_tags %}
+
+<div class="tile is-ancestor">
+  <div class="tile is-6 is-parent">
+    <div class="tile is-child">
+      <h3 class="title is-size-3">Experienced</h3>
+      {% aggregated_standings results=experienced_standings %}
+    </div>
+  </div>
+  <div class="tile is-6 is-parent">
+    <div class="tile is-child">
+      <h3 class="title is-size-3">Novice</h3>
+      {% aggregated_standings results=novice_standings %}
+    </div>
+  </div>
+</div>
