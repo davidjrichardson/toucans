@@ -31,5 +31,5 @@ dev = [
     "ruff>=0.9.1",
 ]
 docker = [
-    "gunicorn==19",
+    "gunicorn>=23",
 ]

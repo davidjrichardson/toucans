@@ -36,7 +36,7 @@ RUN $FNM_DIR/fnm exec npm ci \
 # # Build & set up backend
 WORKDIR /app
 
-RUN curl --proto '=https' --tlsv1.2 -LsSf https://github.com/astral-sh/uv/releases/download/0.5.18/uv-installer.sh | sh
+RUN curl --proto '=https' --tlsv1.2 -LsSf https://github.com/astral-sh/uv/releases/download/0.6.0/uv-installer.sh | sh
 RUN uv sync --group docker \
   && SECRET_KEY=none \
   DB_NAME=toucans \
@@ -46,8 +46,8 @@ RUN uv sync --group docker \
   DB_PORT=5432 \
   ALLOWED_HOSTS="[]" \
   CSRF_TRUSTED_ORIGINS="[]" \
-  uv run manage.py collectstatic --no-input --clear
+  uv run --locked manage.py collectstatic --no-input --clear
 
 # Run the WSGI server. It reads GUNICORN_CMD_ARGS, PORT and WEB_CONCURRENCY
 # environment variable hence we don't specify a lot options below.
-CMD uv run gunicorn toucans.wsgi:application
+CMD uv run --locked --with gunicorn gunicorn toucans.wsgi:application
