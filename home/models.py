@@ -13,6 +13,7 @@ from wagtail.admin.panels import (
     MultiFieldPanel,
     FieldRowPanel,
     InlinePanel,
+    PageChooserPanel,
 )
 from wagtail.contrib.table_block.blocks import TableBlock
 from wagtail.blocks import (
@@ -353,6 +354,7 @@ class StandingsIndexPage(Page):
     ]
 
     description = RichTextField(blank=True, null=True)
+    latest_year_page = models.ForeignKey(Page, on_delete=models.SET_NULL, null=True, related_name="+")
 
     @functools.cached_property
     def all_standings(self):
@@ -376,7 +378,13 @@ class StandingsIndexPage(Page):
 
     @functools.cached_property
     def latest_year(self):
-        return self.all_standings[0] if len(self.all_standings) > 0 else None
+        if ThreeLegStandingsPage.objects.filter(id=self.latest_year_page.id).exists():
+            return ThreeLegStandingsPage.objects.get(id=self.latest_year_page.id)
+        elif LegacyThreeLegStandingsPage.objects.filter(id=self.latest_year_page.id).exists():
+            return LegacyThreeLegStandingsPage.objects.get(id=self.latest_year_page.id)
+        else:
+            # Assume it's a four leg standings page since no other page types exist
+            return LegacyFourLegStandingsPage.objects.get(id=self.latest_year_page.id)
 
     @functools.cached_property
     def archives(self):
@@ -386,7 +394,14 @@ class StandingsIndexPage(Page):
     def resources(self):
         return filter(lambda x: x.depth > 3, ResourcePage.objects.live().all())
 
-    content_panels = Page.content_panels + [FieldPanel("description")]
+    content_panels = Page.content_panels + [
+        FieldPanel("description"),
+        PageChooserPanel("latest_year_page", [
+            "home.LegacyFourLegStandingsPage",
+            "home.LegacyThreeLegStandingsPage",
+            "home.ThreeLegStandingsPage",
+        ]),
+    ]
 
 
 class LeagueBadgeRoundEntry(models.Model):
@@ -919,7 +934,7 @@ class HomePage(Page):
         if self.standings_index is None:
             return []
 
-        return self.standings_index.latest_year.novice_results
+        return self.standings_index.latest_year_page.novice_results
 
     content_panels = Page.content_panels + [
         FieldPanel("description", classname="full"),
