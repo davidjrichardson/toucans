@@ -1,26 +1,32 @@
-{% load table_tags %}
-
 <div class="section league-tables">
   <div class="container">
     <div class="table-header">
       <h2 class="title is-size-2">Current Standings</h2>
-      <button class="button is-active">Div 1</button>
-      <span class="division-divider">/</span>
-      <button class="button ">Div 2</button>
+      {% if not page.standings_is_legacy %}
+        <button id="div1-button" class="button is-active">Div 1</button>
+        <span class="division-divider">/</span>
+        <button id="div2-button" class="button">Div 2</button>
+      {% endif %}
     </div>
-    <div class="tile is-ancestor">
-      <div class="tile is-6 is-parent">
-        <div class="tile is-child">
-          <h3 class="title is-size-3">Experienced</h3>
-          {% aggregated_standings results=page.experienced_standings %}
-        </div>
-      </div>
-      <div class="tile is-6 is-parent">
-        <div class="tile is-child">
-          <h3 class="title is-size-3">Novice</h3>
-          {% aggregated_standings results=page.novice_standings %}
-        </div>
-      </div>
-    </div>
+    {% if page.standings_is_legacy %}
+      {% with experienced_standings=page.legacy_experienced_standings novice_standings=page.legacy_novice_standings %}
+        {% include "home/includes/home_table_block.html" %}
+      {% endwith %}
+    {% else %}
+      {% if page.div1_standings %}
+        <section id="div1-table">
+          {% with experienced_standings=page.div1_standings.0 novice_standings=page.div1_standings.1 %}
+            {% include "home/includes/home_table_block.html" %}
+          {% endwith %}
+        </section>
+      {% endif %}
+      {% if page.div2_standings %}
+        <section id="div2-table" class="is-hidden">
+          {% with experienced_standings=page.div2_standings.0 novice_standings=page.div2_standings.1 %}
+            {% include "home/includes/home_table_block.html" %}
+          {% endwith %}
+        </section>
+      {% endif %}
+    {% endif %}
   </div>
 </div>
