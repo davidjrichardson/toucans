@@ -2,13 +2,13 @@
   <div class="container">
     <div class="table-header">
       <h2 class="title is-size-2">Current Standings</h2>
-      {% if not page.standings_is_legacy %}
+      {% if not page.standings_index.latest_year_is_legacy %}
         <button id="div1-button" class="button is-active">Div 1</button>
         <span class="division-divider">/</span>
         <button id="div2-button" class="button">Div 2</button>
       {% endif %}
     </div>
-    {% if page.standings_is_legacy %}
+    {% if page.standings_index.latest_year_is_legacy %}
       {% with experienced_standings=page.legacy_experienced_standings novice_standings=page.legacy_novice_standings %}
         {% include "home/includes/home_table_block.html" %}
       {% endwith %}

@@ -1,5 +1,5 @@
 {% extends "base.html" %}
-{% load static base_tags wagtailcore_tags %}
+{% load static base_tags wagtailcore_tags table_tags %}
 
 {% block body_class %}template-standings-list{% endblock %}
 
@@ -28,6 +28,29 @@
       <h2 class="title is-size-2">{{ page.title }}</h2>
       {% if page.latest_year %}
         <h3 class="title is-size-3">{{ page.latest_year.title }}</h3>
+        {% if page.latest_year_is_legacy %}
+          <h4 class="title is-size-4">Experienced Table</h4>
+          {% overall_standings standings=page.latest_year.experienced_results %}
+          <h4 class="title is-size-4">Novice Table</h4>
+          {% overall_standings standings=page.latest_year.novice_results %}
+        {% else %}
+          {% if page.latest_year.has_div1_results %}
+            <h4 class="title is-size-4">Division 1 Experienced Table</h4>
+            {% overall_standings standings=page.latest_year.division_1_results.0 %}
+            <h4 class="title is-size-4">Division 1 Novice Table</h4>
+            {% overall_standings standings=page.latest_year.division_1_results.1 %}
+          {% else %}
+            <p>There are no division 1 results for the {{ page.latest_year.standings_year }} year.</p>
+          {% endif %}
+          {% if page.latest_year.has_div2_results %}
+            <h4 class="title is-size-4">Division 2 Experienced Table</h4>
+            {% overall_standings standings=page.latest_year.division_2_results.0 %}
+            <h4 class="title is-size-4">Division 2 Novice Table</h4>
+            {% overall_standings standings=page.latest_year.division_2_results.1 %}
+          {% else %}
+            <p>There are no division 2 results for the {{ page.latest_year.standings_year }} year.</p>
+          {% endif %}
+        {% endif %}
         <p>Full details of these results can be found <a href="{% pageurl page.latest_year %}">here</a>.</p>
         <hr/>
       {% endif %}

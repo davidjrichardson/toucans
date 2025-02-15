@@ -387,6 +387,10 @@ class StandingsIndexPage(Page):
             return LegacyFourLegStandingsPage.objects.get(id=self.latest_year_page.id)
 
     @functools.cached_property
+    def latest_year_is_legacy(self):
+        return isinstance(self.latest_year, AbstractLegacyLeagueResultsPage)
+
+    @functools.cached_property
     def archives(self):
         return self.all_standings[1:] if len(self.all_standings) > 1 else []
 
@@ -904,37 +908,33 @@ class HomePage(Page):
     def standings_index(self):
         return StandingsIndexPage.objects.live().child_of(self).first()
 
-    @property
-    def standings_is_legacy(self):
-        return isinstance(self.standings_index.latest_year, AbstractLegacyLeagueResultsPage)
-
     @functools.cached_property
     def div1_standings(self):
-        if self.standings_index is None:
+        if self.standings_index is None or self.standings_index.latest_year_page is None:
             return tuple()
 
         return self.standings_index.latest_year.division_1_results
 
     @functools.cached_property
     def div2_standings(self):
-        if self.standings_index is None:
+        if self.standings_index is None or self.standings_index.latest_year_page is None:
             return tuple()
 
         return self.standings_index.latest_year.division_2_results
 
     @functools.cached_property
     def legacy_experienced_standings(self):
-        if self.standings_index is None:
+        if self.standings_index is None or self.standings_index.latest_year_page is None:
             return []
 
         return self.standings_index.latest_year.experienced_results
 
     @functools.cached_property
     def legacy_novice_standings(self):
-        if self.standings_index is None:
+        if self.standings_index is None or self.standings_index.latest_year_page is None:
             return []
 
-        return self.standings_index.latest_year_page.novice_results
+        return self.standings_index.latest_year.novice_results
 
     content_panels = Page.content_panels + [
         FieldPanel("description", classname="full"),
