@@ -39,13 +39,13 @@ def align_results(reference, results):
     Aligns the results based on the order of the reference.
 
     Args:
-        reference (list of tuples): A list of tuples where each tuple contains a team and a value. 
+        reference (list of tuples): A list of tuples where each tuple contains a team and a value.
                                     The list is already sorted in the desired order.
-        results (list of tuples): A list of tuples where each tuple contains a team and a value. 
+        results (list of tuples): A list of tuples where each tuple contains a team and a value.
                                   This is typically obtained from a dictionary's items() method.
 
     Returns:
-        list of tuples: A list of tuples where each tuple contains a team and a value, 
+        list of tuples: A list of tuples where each tuple contains a team and a value,
                         reordered to match the order of the reference.
     """
     # results is the tuple list from a dict (.items())
@@ -80,11 +80,11 @@ def dashify(val):
     Converts a negative-or-zero number a dash symbol.
 
     Args:
-        val (int or str): The value to be checked and possibly converted. 
+        val (int or str): The value to be checked and possibly converted.
                           It should be convertible to an integer.
 
     Returns:
-        str: The original value as a string if it is non-negative, 
+        str: The original value as a string if it is non-negative,
              otherwise a dash symbol ("‒").
     """
     if int(val) >= 0:
@@ -132,11 +132,11 @@ def generate_table(standings):
 
     Returns:
         tuple: A tuple containing:
-            - standings_sorted (list): A list of tuples representing the sorted standings, 
+            - standings_sorted (list): A list of tuples representing the sorted standings,
               where each tuple contains the team name and their results.
-            - standings_aggregate (list): A list of tuples representing the aggregated results 
+            - standings_aggregate (list): A list of tuples representing the aggregated results
               for each team, where each tuple contains the total points, score, hits, and golds.
-            - standings_has_results (list): A list of booleans indicating if there are results 
+            - standings_has_results (list): A list of booleans indicating if there are results
               for each leg. True means 0-points will be displayed, otherwise a dash (-) will be shown.
     """
     if not standings:

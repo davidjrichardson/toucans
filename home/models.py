@@ -43,10 +43,12 @@ from common.models import (
 class Footer(models.Model):
     facebook_url = models.URLField(null=True, blank=True)
     twitter_url = models.URLField(null=True, blank=True)
+    instagram_url = models.URLField(null=True, blank=True)
 
     panels = [
         FieldPanel("facebook_url"),
         FieldPanel("twitter_url"),
+        FieldPanel("instagram_url"),
     ]
 
     def __str__(self):
@@ -354,7 +356,9 @@ class StandingsIndexPage(Page):
     ]
 
     description = RichTextField(blank=True, null=True)
-    latest_year_page = models.ForeignKey(Page, on_delete=models.SET_NULL, null=True, related_name="+")
+    latest_year_page = models.ForeignKey(
+        Page, on_delete=models.SET_NULL, null=True, related_name="+"
+    )
 
     @functools.cached_property
     def all_standings(self):
@@ -380,7 +384,9 @@ class StandingsIndexPage(Page):
     def latest_year(self):
         if ThreeLegStandingsPage.objects.filter(id=self.latest_year_page.id).exists():
             return ThreeLegStandingsPage.objects.get(id=self.latest_year_page.id)
-        elif LegacyThreeLegStandingsPage.objects.filter(id=self.latest_year_page.id).exists():
+        elif LegacyThreeLegStandingsPage.objects.filter(
+            id=self.latest_year_page.id
+        ).exists():
             return LegacyThreeLegStandingsPage.objects.get(id=self.latest_year_page.id)
         else:
             # Assume it's a four leg standings page since no other page types exist
@@ -400,11 +406,14 @@ class StandingsIndexPage(Page):
 
     content_panels = Page.content_panels + [
         FieldPanel("description"),
-        PageChooserPanel("latest_year_page", [
-            "home.LegacyFourLegStandingsPage",
-            "home.LegacyThreeLegStandingsPage",
-            "home.ThreeLegStandingsPage",
-        ]),
+        PageChooserPanel(
+            "latest_year_page",
+            [
+                "home.LegacyFourLegStandingsPage",
+                "home.LegacyThreeLegStandingsPage",
+                "home.ThreeLegStandingsPage",
+            ],
+        ),
     ]
 
 
@@ -910,28 +919,40 @@ class HomePage(Page):
 
     @functools.cached_property
     def div1_standings(self):
-        if self.standings_index is None or self.standings_index.latest_year_page is None:
+        if (
+            self.standings_index is None
+            or self.standings_index.latest_year_page is None
+        ):
             return tuple()
 
         return self.standings_index.latest_year.division_1_results
 
     @functools.cached_property
     def div2_standings(self):
-        if self.standings_index is None or self.standings_index.latest_year_page is None:
+        if (
+            self.standings_index is None
+            or self.standings_index.latest_year_page is None
+        ):
             return tuple()
 
         return self.standings_index.latest_year.division_2_results
 
     @functools.cached_property
     def legacy_experienced_standings(self):
-        if self.standings_index is None or self.standings_index.latest_year_page is None:
+        if (
+            self.standings_index is None
+            or self.standings_index.latest_year_page is None
+        ):
             return []
 
         return self.standings_index.latest_year.experienced_results
 
     @functools.cached_property
     def legacy_novice_standings(self):
-        if self.standings_index is None or self.standings_index.latest_year_page is None:
+        if (
+            self.standings_index is None
+            or self.standings_index.latest_year_page is None
+        ):
             return []
 
         return self.standings_index.latest_year.novice_results

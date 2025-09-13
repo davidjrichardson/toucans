@@ -5,16 +5,20 @@ import django.db.models.deletion
 
 
 class Migration(migrations.Migration):
-
     dependencies = [
-        ('wagtailcore', '0093_uploadedfile'),
-        ('home', '0064_rename_end_year_legacyfourlegstandingspage_end_date_and_more'),
+        ("wagtailcore", "0093_uploadedfile"),
+        ("home", "0064_rename_end_year_legacyfourlegstandingspage_end_date_and_more"),
     ]
 
     operations = [
         migrations.AddField(
-            model_name='standingsindexpage',
-            name='latest_year_page',
-            field=models.ForeignKey(null=True, on_delete=django.db.models.deletion.SET_NULL, related_name='+', to='wagtailcore.page'),
+            model_name="standingsindexpage",
+            name="latest_year_page",
+            field=models.ForeignKey(
+                null=True,
+                on_delete=django.db.models.deletion.SET_NULL,
+                related_name="+",
+                to="wagtailcore.page",
+            ),
         ),
     ]

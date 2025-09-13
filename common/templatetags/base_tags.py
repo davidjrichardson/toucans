@@ -126,6 +126,9 @@ def footer(context):
         "twitter_url": Footer.objects.first().twitter_url
         if Footer.objects.first()
         else None,
+        "instagram_url": Footer.objects.first().instagram_url
+        if Footer.objects.first()
+        else None,
         # required by the pageurl tag that we want to use within this template
         "request": context["request"],
     }
