@@ -18,6 +18,7 @@ services:
       - db
     ports:
       - 8000:8000
+    platform: linux/amd64
     build:
       context: .
       dockerfile: Dockerfile
