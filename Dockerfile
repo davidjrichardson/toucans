@@ -36,7 +36,7 @@ RUN $FNM_DIR/fnm exec npm ci \
 # # Build & set up backend
 WORKDIR /app
 
-RUN curl --proto '=https' --tlsv1.2 -LsSf https://github.com/astral-sh/uv/releases/download/0.6.0/uv-installer.sh | sh
+RUN curl --proto '=https' --tlsv1.2 -LsSf https://github.com/astral-sh/uv/releases/download/0.8.17/uv-installer.sh | sh
 RUN uv sync --group docker \
   && SECRET_KEY=none \
   DB_NAME=toucans \

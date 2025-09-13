@@ -7,7 +7,7 @@ name = "toucans"
 version = "1.0.0"
 description = "The official website for the TOUCAN Challenge Archery League in the UK"
 authors = [{ name = "David", email = "david@tankski.co.uk" }]
-requires-python = "~=3.10"
+requires-python = "~=3.10.0"
 license = "MIT"
 dependencies = [
     "Django>=4.2.16,<5",
