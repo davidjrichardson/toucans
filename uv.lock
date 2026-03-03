@@ -558,7 +558,7 @@ requires-dist = [
     { name = "setuptools", specifier = ">=75.8.0" },
     { name = "soupsieve", specifier = ">=1.9.3,<2" },
     { name = "sqlparse", specifier = ">=0.5.0,<0.6" },
-    { name = "wagtail", specifier = "==6.1.3" },
+    { name = "wagtail", specifier = "==6.3.8" },
 ]
 
 [package.metadata.requires-dev]
@@ -594,7 +594,7 @@ wheels = [
 
 [[package]]
 name = "wagtail"
-version = "6.1.3"
+version = "6.3.8"
 source = { registry = "https://pypi.org/simple" }
 dependencies = [
     { name = "anyascii" },
@@ -615,9 +615,9 @@ dependencies = [
     { name = "telepath" },
     { name = "willow", extra = ["heif"] },
 ]
-sdist = { url = "https://files.pythonhosted.org/packages/61/a4/bf58192e579d76cab95bbaa326a3a40a7cb40066a8950c49a5fe4d85282e/wagtail-6.1.3.tar.gz", hash = "sha256:8f4908ab1b6b963a8aa7adf8f0ec738cd1dc79b9816c6d5f59018f600a404378", size = 6325945, upload-time = "2024-07-11T10:49:12.358Z" }
+sdist = { url = "https://files.pythonhosted.org/packages/a4/db/70e02e8e86a6ea186365c0978de3677c455b4b67c6f346ae9353e3423df6/wagtail-6.3.8.tar.gz", hash = "sha256:9c7695457f18e7a6e7815ffbc0d64be0ecb956ed896eaf107df8b5768648a7f2", size = 6644553, upload-time = "2026-03-03T15:52:12.485Z" }
 wheels = [
-    { url = "https://files.pythonhosted.org/packages/8e/a7/ec89af0592a9dfdf9a3137ad82bb4133543c5d6d749b7e6d7645a1f82d79/wagtail-6.1.3-py3-none-any.whl", hash = "sha256:b6c4d5705adf51a5e49ea416032dd0a6534588fc31c5c9a95f698e6ddec0a203", size = 8779870, upload-time = "2024-07-11T10:49:06.927Z" },
+    { url = "https://files.pythonhosted.org/packages/dd/82/fe591421beb91c29173806777db5bedb59ed1b8ca4d6d8caf4dd9522d204/wagtail-6.3.8-py3-none-any.whl", hash = "sha256:cbe241055234a3dac0f4ae73992cd0519340ab66c2bc4077257929d392ec19b2", size = 9131605, upload-time = "2026-03-03T15:52:06.557Z" },
 ]
 
 [[package]]
